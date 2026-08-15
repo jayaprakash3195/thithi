@@ -131,10 +131,25 @@ body.dark{
     .brandbar img{ height:36px; max-width:120px; }
   }
 
-  .toolbar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:8px 0 12px}
-  .btn{padding:8px 14px;border:1px solid var(--ring);border-radius:10px;background:#edf3ff;color:#08203a;font-weight:600;cursor:pointer}
+
+  /* ===== ALWAYS VISIBLE CURRENT PLANETS MASTER SWITCH ===== */
+  body.dark
+  body.dark
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center;margin:8px 0 12px;width:100%;box-sizing:border-box}
+  .btn{padding:7px 12px;border:1px solid var(--ring);border-radius:10px;background:#edf3ff;color:#08203a;font-weight:600;cursor:pointer;box-sizing:border-box;white-space:nowrap;line-height:1.2;min-height:32px;height:auto;flex:0 0 auto}
   body.dark .btn{background:#102133;color:#cfe5ff;border-color:#274462}
   .btn.secondary{background:#eef7ee;border-color:#2ea44f}
+  /* Current Planets uses the same button format as Thithi / ALP. */
+  #btnCurrentPlanets.active{
+    background:#16a34a !important;
+    color:#fff !important;
+    border-color:#16a34a !important;
+  }
+  body.dark #btnCurrentPlanets.active{
+    background:#15803d !important;
+    color:#fff !important;
+    border-color:#22c55e !important;
+  }
   body.dark .btn.secondary{background:#0f2016;color:#d6ffe1;border-color:#1e7a3a}
   select{padding:8px 10px;border:1px solid #d1d5db;border-radius:10px;background:#fff}
   body.dark select{background:#0f141b;color:var(--ink);border-color:#2b3642}
@@ -844,7 +859,7 @@ body { margin: 0; }
 
 .toolbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);
   backdrop-filter:saturate(180%) blur(8px); border-bottom:1px solid #eef0f3}
-.toolbar .btn{height:36px}
+.toolbar .btn{height:auto;min-height:32px;white-space:nowrap;line-height:1.2;flex:0 0 auto}
 
 .auth-wrap{min-height:80vh; display:grid; place-items:center}
 .auth-card{width:520px; padding:28px; border:1px solid #e7ebf0; border-radius:16px; background:#fff;
@@ -855,6 +870,38 @@ body { margin: 0; }
 .toolbar{
   position: static !important;
   top: auto !important;
+}
+
+/* ===== Chart control buttons: keep the same compact format as the reference UI ===== */
+.chart-controls-toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-start;
+  gap:6px;
+  width:100%;
+  max-width:100%;
+  box-sizing:border-box;
+  overflow:visible;
+}
+.chart-controls-toolbar .btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:auto;
+  max-width:100%;
+  min-height:30px;
+  height:auto;
+  padding:6px 11px;
+  font-size:13px;
+  line-height:1.15;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+@media(max-width:900px){
+  .chart-controls-toolbar{gap:5px}
+  .chart-controls-toolbar .btn{font-size:12px;padding:6px 9px}
 }
 
 
@@ -971,6 +1018,23 @@ body { margin: 0; }
   font-size:14px;
   line-height:1.55;
 }
+.thithi-remedy-inside{
+  margin-top:10px;
+  padding-top:9px;
+  border-top:1px dashed #d6b84a;
+  text-align:left;
+  line-height:1.65;
+}
+.thithi-remedy-inside strong{
+  color:#7a4b00;
+}
+body.dark .thithi-remedy-inside{
+  border-top-color:#806d2e;
+}
+body.dark .thithi-remedy-inside strong{
+  color:#f0d98a;
+}
+
 .thithi-sunya-none{
   margin:10px 0;
   padding:10px 12px;
@@ -1130,6 +1194,38 @@ body.dark .alp-period-dates strong{color:#f0d9fa}
   color:#fff !important;
   border-color:#0877d1 !important;
 }
+#btnKarana.active{
+  background:#8b5a2b !important;
+  color:#fff !important;
+  border-color:#6f431f !important;
+}
+.karana-info-box{
+  width:min(700px,94%); margin:10px auto 12px auto !important; box-sizing:border-box;
+  padding:12px 14px; border:1px solid #c79a62; border-radius:10px;
+  background:#fffaf3; color:#3d2b1f; text-align:center; font-size:14px; line-height:1.65;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);
+}
+.karana-info-box .karana-title{font-weight:800;font-size:16px;margin-bottom:5px}
+.karana-info-box .karana-main{font-weight:800;color:#7a461d}
+.karana-info-box .karana-place{font-weight:700;color:#245f35}
+body.dark .karana-info-box{background:#1b1510;border-color:#76583b;color:#eee2d5}
+#btnVainasigam.active{
+  background:#7b3f8c !important;
+  color:#fff !important;
+  border-color:#642d73 !important;
+}
+.vainasigam-info-box{
+  width:min(700px,94%); margin:10px auto 12px auto !important; box-sizing:border-box;
+  padding:12px 14px; border:1px solid #b784c4; border-radius:10px;
+  background:#fbf5ff; color:#3f2847; text-align:center; font-size:14px; line-height:1.65;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);
+}
+.vainasigam-info-box .vainasigam-title{font-weight:800;font-size:16px;margin-bottom:5px;color:#71357f}
+.vainasigam-info-box .vainasigam-star{font-weight:800;color:#6a2d78}
+.vainasigam-info-box .vainasigam-place{font-weight:700;color:#245f35}
+body.dark .vainasigam-info-box{background:#1b1220;border-color:#765080;color:#eee2f3}
+
+
 .yogi-info-box{
   width:min(680px,92%);
   margin:10px auto 12px auto !important;
@@ -1150,6 +1246,7 @@ body.dark .alp-period-dates strong{color:#f0d9fa}
 }
 .yogi-info-box .yogi-blue{color:#075fa8;font-weight:800}
 .yogi-info-box .yogi-yellow{color:#b66b00;font-weight:800}
+.yogi-info-box .yogi-sthalam{margin-top:2px;word-break:break-word}
 
 
 /* ===== Birth Panchangam — five limbs ===== */
@@ -1582,7 +1679,7 @@ body.dark .ddm-badge{background:#0f2016;}
     <div id="current" class="card"></div>
   <div id="planetButtons"></div>
   
-  <div id="blinkControls" class="toolbar">
+  <div id="blinkControls" class="toolbar chart-controls-toolbar">
     <button id="btnLayoutFlat" class="btn">3×4 Chart</button>
   <button id="btnAnimate" class="btn">Animate 1–108</button>
   <button id="btnDefaultDasa" class="btn">Default Dasa</button>
@@ -1591,7 +1688,7 @@ body.dark .ddm-badge{background:#0f2016;}
   <button id="btnBlinkPuthi" class="btn">புக்தி மின்மினிப்பு</button>
   <button id="btnBlinkAnth"  class="btn">அந்தரம் மின்மினிப்பு</button>
 <button id="btnRasiNameSeq" class="btn">ராசி — தசை→புக்தி→அந்தரம்</button>
-  <button id="btnMudakku" class="btn" type="button" title="சூரியன் பிறப்பு நிலையை வைத்து முடக்கு ராசி காட்டும்">முடக்கு</button> <button type="button" class="btn" id="btnThithiSunya">திதி சூன்யம்</button> <button type="button" class="btn" id="btnALP" title="120 ஆண்டுகள் / 108 நட்சத்திர பாதங்கள் அடிப்படையில் ALP">ALP</button> <button type="button" class="btn" id="btnDasaMeeting" title="Dasa Degree → Planet Meetings">தசை சந்திப்பு</button> <button type="button" class="btn" id="btnYogiAvayogi" title="பிறப்பு யோகத்தின் யோகி மற்றும் அவயோகி நட்சத்திர பாதங்கள்">யோகி — அவயோகி</button>
+  <button id="btnMudakku" class="btn" type="button" title="சூரியன் பிறப்பு நிலையை வைத்து முடக்கு ராசி காட்டும்">முடக்கு</button> <button type="button" class="btn" id="btnThithiSunya">திதி சூன்யம்</button> <button type="button" class="btn" id="btnCurrentPlanets" aria-pressed="false" title="கணிப்புக்கான தேதியின் தற்போதைய கிரகங்களை காட்ட / மறைக்க">தற்போதைய கிரகங்கள்</button> <button type="button" class="btn" id="btnALP" title="120 ஆண்டுகள் / 108 நட்சத்திர பாதங்கள் அடிப்படையில் ALP">ALP</button> <button type="button" class="btn" id="btnDasaMeeting" title="Dasa Degree → Planet Meetings">தசை சந்திப்பு</button> <button type="button" class="btn" id="btnYogiAvayogi" title="பிறப்பு யோகத்தின் யோகி மற்றும் அவயோகி நட்சத்திர பாதங்கள்">யோகி — அவயோகி</button> <button type="button" class="btn" id="btnKarana" title="பிறப்பு கரணம் மற்றும் பரிகார ஸ்தலம்">கரணம்</button> <button type="button" class="btn" id="btnVainasigam" title="பிறப்பு சந்திர நட்சத்திரத்தின் 22-வது வைநாசிக நட்சத்திரம் மற்றும் பரிகார ஸ்தலம்">வைநாசிகம்</button>
 
 </div>
 
@@ -2380,6 +2477,8 @@ let birthPanchangData = { tithi:null, yoga:null };
    ========================================================= */
 let currentPlanetsForChart = null;
 let currentPlanetDegrees = {};
+let currentPlanetsCalcDate = '';
+let currentPlanetsEnabled = false; // OFF by default; API is called only when switched ON
 
 const CURRENT_PLANET_KEYS = [
   'Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Rahu','Ketu'
@@ -2451,6 +2550,14 @@ async function fetchCurrentPlanetsForCalculationDate(){
   const value = caldate.value;
   if(!value) return null;
 
+  // Reuse the already fetched result for the same calculation date/time.
+  // This prevents repeated API calls when the customer presses the button again.
+  if(currentPlanetsForChart && currentPlanetsCalcDate === value){
+    placeCurrentPlanetsOnChart(currentPlanetsForChart);
+    drawNavamsaChart();
+    return currentPlanetsForChart;
+  }
+
   const [datePart,timePartRaw] = value.split('T');
   if(!datePart) return null;
 
@@ -2498,6 +2605,7 @@ async function fetchCurrentPlanetsForCalculationDate(){
     if(!data.output) throw new Error('Current planet data missing');
 
     currentPlanetsForChart = data.output;
+    currentPlanetsCalcDate = value;
     currentPlanetDegrees = {};
 
     CURRENT_PLANET_KEYS.forEach(key=>{
@@ -2514,11 +2622,123 @@ async function fetchCurrentPlanetsForCalculationDate(){
   }catch(e){
     console.warn('Current planet calculation failed:', e);
     currentPlanetsForChart = null;
+    currentPlanetsCalcDate = '';
     currentPlanetDegrees = {};
     clearCurrentPlanetsFromChart();
     return null;
   }
 }
+
+
+/* ===== Current Planet button: fetch only on customer request ===== */
+function renderCurrentPlanetsCard(){
+  return; // Current planets are shown only on the chart; no table/card.
+  const card=document.getElementById('currentPlanetsCard');
+  const title=document.getElementById('currentPlanetsTitle');
+  const dateEl=document.getElementById('currentPlanetsCalcDate');
+  const list=document.getElementById('currentPlanetsList');
+  if(!card||!dateEl||!list)return;
+  if(!currentPlanetsForChart){card.style.display='none';return;}
+  const value=document.getElementById('caldate')?.value||'';
+  let dateText=value;
+  if(value){const d=new Date(value);if(!Number.isNaN(d.getTime()))dateText=formatDateUI(d);}
+  title.textContent=LANG==='ta'?'தற்போதைய கிரக நிலைகள்':'Current Planet Positions';
+  dateEl.textContent=LANG==='ta'?`கணிப்புக்கான தேதி: ${dateText||'—'}`:`Calculation date: ${dateText||'—'}`;
+  const order=['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Rahu','Ketu'];
+  const rows=[];
+  order.forEach(key=>{
+    const obj=currentPlanetsForChart?.[key]; if(!obj||obj.fullDegree==null)return;
+    const deg=Number(obj.fullDegree); if(!Number.isFinite(deg))return;
+    const dms=decToDMS(deg); const ni=getNakPadaFromDegree(deg);
+    const nak=nameNakById(ni.nakId)||'—';
+    const rasi=nameRasiByIdx(Math.floor((((deg%360)+360)%360)/30))||'—';
+    const label=planetChartLabel(key,obj,false);
+    rows.push(`<div class="current-planet-row"><span class="current-planet-name">${label}</span><span class="current-planet-deg">${dms.deg}° ${dms.min}' ${dms.sec}" • ${rasi} • ${nak} ${LANG==='ta'?'பாதம்':'Pada'} ${ni.pada}</span></div>`);
+  });
+  list.innerHTML=rows.length?rows.join(''):`<div class="muted">${LANG==='ta'?'தற்போதைய கிரகத் தகவல் இல்லை.':'No current planet data.'}</div>`;
+  card.style.display='block';
+}
+
+function updateCurrentPlanetsToggleUI(){
+  const btn=document.getElementById('btnCurrentPlanets');
+  if(!btn) return;
+  if(currentPlanetsEnabled){
+    btn.textContent='தற்போதைய கிரகங்கள்';
+    btn.classList.add('active');
+    btn.setAttribute('aria-pressed','true');
+    btn.title='கணிப்புக்கான தேதியின் தற்போதைய கிரகங்கள் — ON';
+  }else{
+    btn.textContent='தற்போதைய கிரகங்கள்';
+    btn.classList.remove('active');
+    btn.setAttribute('aria-pressed','false');
+    btn.title='கணிப்புக்கான தேதியின் தற்போதைய கிரகங்கள் — OFF';
+  }
+}
+
+async function setCurrentPlanetsEnabled(enabled){
+  currentPlanetsEnabled=!!enabled;
+
+  if(!currentPlanetsEnabled){
+    // OFF = no current planets on chart and NO API call.
+    currentPlanetsForChart=null;
+    currentPlanetDegrees={};
+    currentPlanetsCalcDate='';
+    clearCurrentPlanetsFromChart();
+    updateCurrentPlanetsToggleUI();
+    try{if(typeof _autoSaveDebounced==='function')_autoSaveDebounced();}catch(e){}
+    return;
+  }
+
+  const cal=document.getElementById('caldate');
+  if(!cal?.value){
+    currentPlanetsEnabled=false;
+    updateCurrentPlanetsToggleUI();
+    alert(LANG==='ta'?'முதலில் கணிப்புக்கான தேதியை தெரிவுசெய்யவும்.':'Please select a calculation date first.');
+    return;
+  }
+
+  const btn=document.getElementById('btnCurrentPlanets');
+  if(btn) btn.disabled=true;
+  if(btn){ btn.dataset.oldDisabled=true; }
+
+  try{
+    // ON = fetch once for this calculation date/time.
+    // Repeated clicks for the same date reuse the cached result.
+    const result=await fetchCurrentPlanetsForCalculationDate();
+    if(!result){
+      currentPlanetsEnabled=false;
+      clearCurrentPlanetsFromChart();
+      alert(LANG==='ta'?'தற்போதைய கிரகத் தகவலை பெற முடியவில்லை.':'Unable to fetch current planet positions.');
+    }else{
+      placeCurrentPlanetsOnChart(currentPlanetsForChart);
+      drawNavamsaChart();
+      try{if(typeof _autoSaveDebounced==='function')_autoSaveDebounced();}catch(e){}
+    }
+  }finally{
+    if(btn) btn.disabled=false;
+    updateCurrentPlanetsToggleUI();
+  }
+}
+
+document.getElementById('btnCurrentPlanets')?.addEventListener('click',()=>{
+  setCurrentPlanetsEnabled(!currentPlanetsEnabled);
+});
+
+// Changing the calculation date invalidates the displayed current planets.
+// We turn the switch OFF instead of silently making another API call.
+['input','change'].forEach(evt=>{
+  document.getElementById('caldate')?.addEventListener(evt,()=>{
+    currentPlanetsEnabled=false;
+    currentPlanetsForChart=null;
+    currentPlanetDegrees={};
+    currentPlanetsCalcDate='';
+    clearCurrentPlanetsFromChart();
+    updateCurrentPlanetsToggleUI();
+  });
+});
+
+// Start in OFF state.
+updateCurrentPlanetsToggleUI();
 
 btnApi.addEventListener('click', async ()=>{
   if(!selectedLat||!selectedLon){ alert(LANG==='ta'?'தயவுசெய்து இடம் தெரிவுசெய்யவும்!':'Please select a place!'); return; }
@@ -3765,7 +3985,7 @@ function addALPInfoBox(state){
 
         ${rasiIsFinalLagnaBalance ? `
           <div style="margin-top:6px;padding:6px 10px;border:1px solid var(--outline);border-radius:8px;background:var(--card);font-weight:800;color:var(--accent);">
-            லக்ன பாவம் — ALP மீதமுள்ள பாதங்கள்
+            லக்ன பாவம் — ALP மீதமுள்ள 9 பாதங்கள்
           </div>
         ` : ''}
 
@@ -4303,34 +4523,202 @@ function updateBirthKarana(){
   try{ renderBirthKarana(); }catch(e){ console.warn('Birth Karana:',e); }
 }
 
+/* ===== கரணம் பரிகார ஸ்தலங்கள் =====
+   Source: user's supplied Karana Parihara Kovil table.
+*/
+const KARANA_PARIKARA_RULES = {
+  'பவம்':       {animal:'சிங்கம்', planet:'செவ்வாய்', place:'நாமக்கல் நரசிம்மன்'},
+  'பாலவம்':     {animal:'புலி', planet:'ராகு', place:'சாலத்தூர் / சபரிமலை அய்யப்பன்'},
+  'கெளலவம்':   {animal:'பன்றி', planet:'சனி', place:'ஸ்ரீமுஷ்ணம் வராகமூர்த்தி'},
+  'தைதுலம்':    {animal:'குதிரை', planet:'குரு', place:'ஜேஷ்டாதேவி, பெருந்தகர் காஞ்சிபுரம்'},
+  'கரஜை':       {animal:'யானை', planet:'சந்திரன்', place:'பிள்ளையார்பட்டி விநாயகர்'},
+  'வணிஜை':      {animal:'காளை', planet:'சூரியன்', place:'திருமழைப்பாடி சிவன், அரியலூர்'},
+  'சகுனி':      {animal:'காக்கை', planet:'சனி', place:'திருநள்ளாறு சனி'},
+  'பத்தரை':     {animal:'கோழி', planet:'கேது', place:'திருச்செந்தூர் சுப்பிரமணியன்'},
+  'சதுஷ்பாதம்': {animal:'நாய்', planet:'குரு', place:'வைரவர், குத்தாலம் (கேத்திரபாலபுரம்)'},
+  'நாகவம்':     {animal:'பாம்பு', planet:'ராகு', place:'நாகர்கோவில் நாகராஜா'},
+  'கிம்ஸ்துக்னம்':{animal:'புழு', planet:'புதன்', place:'தஞ்சை பெரிய கோவில் / வைத்தீஸ்வரன் கோவில்'}
+};
+
+function normalizeKaranaName(name){
+  const map={
+    'பவ':'பவம்','பவம்':'பவம்','பாலவ':'பாலவம்','பாலவம்':'பாலவம்',
+    'கௌலவ':'கெளலவம்','கெளலவ':'கெளலவம்','கெளலவம்':'கெளலவம்',
+    'தைதில':'தைதுலம்','தைதுலம்':'தைதுலம்','கரஜ':'கரஜை','கரஜை':'கரஜை',
+    'வணிஜ':'வணிஜை','வணிஜை':'வணிஜை','விஷ்டி':'பத்தரை','பத்தரை':'பத்தரை',
+    'சகுனி':'சகுனி','சதுஷ்பாத':'சதுஷ்பாதம்','சதுஷ்பாதம்':'சதுஷ்பாதம்',
+    'நாக':'நாகவம்','நாகவம்':'நாகவம்','கிம்ஸ்துக்ன':'கிம்ஸ்துக்னம்','கிம்ஸ்துக்னம்':'கிம்ஸ்துக்னம்'
+  };
+  return map[String(name||'').trim()] || String(name||'').trim();
+}
+
+let karanaActive=false;
+function clearKaranaInfo(){
+  document.getElementById('karanaInfoBox')?.remove();
+  document.getElementById('btnKarana')?.classList.remove('active');
+}
+
+function addKaranaInfoBox(){
+  clearKaranaInfo();
+  const t=birthPanchangData?.tithi;
+  const karana=getBirthKaranaFromTithi(t);
+  const elapsed=Number(t?.elapsed_percentage ?? 0);
+  const selected=karana ? (elapsed < 50 ? karana.first : karana.second) : null;
+  const key=normalizeKaranaName(selected);
+  const rule=KARANA_PARIKARA_RULES[key];
+
+  const box=document.createElement('div');
+  box.id='karanaInfoBox'; box.className='karana-info-box';
+  if(!karana || !selected){
+    box.innerHTML='<div class="karana-title">கரணம்</div><strong>பிறப்பு கரணம் தகவல் கிடைக்கவில்லை.</strong><br>முதலில் பிறப்பு கணக்கீட்டை செய்யவும்.';
+  }else if(!rule){
+    box.innerHTML=`<div class="karana-title">கரணம் — ${selected}</div><strong>இந்த கரணத்திற்கான பரிகார ஸ்தல தகவல் இன்னும் சேர்க்கப்படவில்லை.</strong>`;
+  }else{
+    box.innerHTML=`
+      <div class="karana-title">கரணம் — ${key}</div>
+      <div>பிறப்பு திதி: <strong>${TITHI_TA[Number(t.number)] || '—'}</strong></div>
+      <div>கரணம்: <span class="karana-main">${key}</span> • ${elapsed < 50 ? 'முதல் 50%' : 'இரண்டாம் 50%'}</div>
+      <div>மிருகம்: <strong>${rule.animal}</strong> &nbsp;•&nbsp; கிரகம்: <strong>${rule.planet}</strong></div>
+      <div class="karana-place">பரிகார ஸ்தலம்: ${rule.place}</div>`;
+  }
+  const bhavam=document.getElementById('bhavaChooser');
+  if(bhavam?.parentNode) bhavam.insertAdjacentElement('afterend',box);
+  else { const chart=document.getElementById('rasiChart'); if(chart?.parentNode) chart.parentNode.insertBefore(box,chart); }
+  document.getElementById('btnKarana')?.classList.add('active');
+}
+function toggleKarana(){
+  if(karanaActive){karanaActive=false;clearKaranaInfo();}
+  else{karanaActive=true;addKaranaInfoBox();}
+}
+document.getElementById('btnKarana')?.addEventListener('click',toggleKarana);
+
+/* ===== வைநாசிகம் — 22-வது நட்சத்திரம் =====
+   User rule: the Vainasika Nakshatra is the 22nd star counted from
+   the birth Moon's Nakshatra. Example: அஸ்வினி -> திருவோணம்.
+   The Parihara Sthalam is taken from the user's supplied 27-star table.
+*/
+const VAINASIGAM_PARIKARA_STHALAM = {
+  ashwini:        'திருநெல்வேலி மாயக்கூத்த பெருமாள்',
+  bharani:        'திருவெண்ணெய்நல்லூர் சிவன்',
+  krittika:       'சோளிங்கர் லக்ஷ்மி நரசிம்மர்',
+  rohini:         'திருநாவலூர் பக்தஜனேஸ்வரர்',
+  mrigashirsha:   'சாரங்கபாணி, கும்பகோணம்',
+  ardra:          'சோமங்கலம் சிவன்',
+  punarvasu:      'பூந்தமல்லி வைத்தியநாதஸ்வாமி',
+  pushya:         'ஸ்ரீவாஞ்சியம் ராகு-கேது',
+  ashlesha:       'ஓமாம்புலியூர் சிவன், காட்டுமன்னார்குடி',
+  magha:          'ஆரணி சிவன் கோவில்',
+  'purva-phalguni': 'ஆடுதுறை பெருமாள் கோயில்',
+  'uttara-phalguni':'பாகம்பிரியாள் கோவில், திருவாடானை அருகில்',
+  hasta:          'பரமக்குடி காமன்கோட்டை மாரியம்மன் கோவில்',
+  chitra:         'திருச்சானூர் பத்மாவதி அம்மன்',
+  swati:          'நல்லினைக்கேஸ்வரர், எழிச்சூர், தாம்பரம்',
+  vishakha:       'மகேந்திரவாடி சோமநாதேஸ்வரர் (அரக்கோணம்)',
+  anuradha:       'பழனி திருவாவினன்குடி',
+  jyeshtha:       'சேரன்மாதேவி கைலாசநாதர்',
+  mula:           'பண்டுருட்டி, கோமியனூர் வாலீஸ்வரர்',
+  'purva-ashadha':  'தென்திருப்பேரை முகிழ்வண்ண பெருமாள்',
+  'uttara-ashadha': 'திருநெல்வேலி இரட்டை பெருமாள்',
+  shravana:       'திருக்காட்டுப்பள்ளி, திருக்கோடைக்காவல்',
+  dhanishta:      'சென்னை கொளப்பாக்கம் சந்திரமௌலீஸ்வரர்',
+  shatabhisha:    'திருக்கழிப்பாலை பால்வண்ணேஸ்வரர் (கும்பகோணம்)',
+  'purva-bhadra':   'பெரம்பலூர் திருவாச்சியூர் மதுரகாளி அம்மன்',
+  'uttara-bhadra':  'கோவிந்தவாடி அகரம் தட்சிணாமூர்த்தி',
+  revati:         'காரைக்குடி பட்டமங்கலம் தட்சிணாமூர்த்தி'
+};
+
+function getBirthMoonNakshatraForVainasigam(){
+  const moon=savedPlanetsForChart?.Moon;
+  if(moon?.fullDegree!=null){
+    const info=getNakPadaFromDegree(Number(moon.fullDegree));
+    if(info?.nakId) return info;
+  }
+  const n=birthPanchangData?.nakshatra;
+  if(n?.nakId) return n;
+  return null;
+}
+
+let vainasigamActive=false;
+
+function clearVainasigamInfo(){
+  document.getElementById('vainasigamInfoBox')?.remove();
+  document.getElementById('btnVainasigam')?.classList.remove('active');
+}
+
+function addVainasigamInfoBox(){
+  clearVainasigamInfo();
+
+  const birthNak=getBirthMoonNakshatraForVainasigam();
+  const box=document.createElement('div');
+  box.id='vainasigamInfoBox';
+  box.className='vainasigam-info-box';
+
+  if(!birthNak){
+    box.innerHTML='<div class="vainasigam-title">வைநாசிகம்</div><strong>பிறப்பு சந்திர நட்சத்திர தகவல் கிடைக்கவில்லை.</strong><br>முதலில் பிறப்பு கணக்கீட்டை செய்யவும்.';
+  }else{
+    const birthIndex=NAK_INDEX_BY_ID[birthNak.nakId];
+    const targetIndex=(birthIndex + 21) % NAKS.length; // 22nd star, inclusive counting
+    const targetNak=NAKS[targetIndex];
+    const targetPlace=VAINASIGAM_PARIKARA_STHALAM[targetNak.id] || '—';
+
+    box.innerHTML=`
+      <div class="vainasigam-title">வைநாசிகம் — 22வது நட்சத்திரம் / 88வது பாதம்</div>
+      <div>ஜென்ம சந்திர நட்சத்திரம்: <strong>${nameNakById(birthNak.nakId) || '—'}</strong> • பிறப்பு பாதம் ${birthNak.pada || '—'}</div>
+      <div class="vainasigam-star">வைநாசிக நட்சத்திரம்: <strong>${targetNak.name.ta}</strong> • <strong>பாதம் 4</strong> (88வது நட்சத்திர பாதம்)</div>
+      <div class="vainasigam-place">பரிகார ஸ்தலம்: ${targetPlace}</div>
+      <div><small>அடிப்படை: ஜென்ம நட்சத்திரம் (பிறப்பு சந்திர நட்சத்திரம்). ஜென்ம நட்சத்திரத்திலிருந்து 22வது நட்சத்திரமே வைநாசிகம்; அதன் 4வது பாதம் = 88வது நட்சத்திர பாதம்.</small></div>
+    `;
+  }
+
+  const bhavam=document.getElementById('bhavaChooser');
+  if(bhavam?.parentNode) bhavam.insertAdjacentElement('afterend',box);
+  else {
+    const chart=document.getElementById('rasiChart');
+    if(chart?.parentNode) chart.parentNode.insertBefore(box,chart);
+  }
+  document.getElementById('btnVainasigam')?.classList.add('active');
+}
+
+function toggleVainasigam(){
+  if(vainasigamActive){
+    vainasigamActive=false;
+    clearVainasigamInfo();
+  }else{
+    vainasigamActive=true;
+    addVainasigamInfoBox();
+  }
+}
+
+document.getElementById('btnVainasigam')?.addEventListener('click',toggleVainasigam);
+
 const YOGI_AVAYOGI_RULES = {
-  1:  { yogi:'pushya',          avayogi:'shravana' },
-  2:  { yogi:'ashlesha',        avayogi:'dhanishta' },
-  3:  { yogi:'magha',           avayogi:'shatabhisha' },
-  4:  { yogi:'purva-phalguni',  avayogi:'purva-bhadra' },
-  5:  { yogi:'uttara-phalguni', avayogi:'uttara-bhadra' },
-  6:  { yogi:'hasta',           avayogi:'revati' },
-  7:  { yogi:'chitra',          avayogi:'dhanishta' },
-  8:  { yogi:'swati',           avayogi:'bharani' },
-  9:  { yogi:'vishakha',         avayogi:'ardra' },
-  10: { yogi:'anuradha',         avayogi:'rohini' },
-  11: { yogi:'jyeshtha',         avayogi:'mrigashirsha' },
-  12: { yogi:'mula',             avayogi:'ardra' },
-  13: { yogi:'purva-ashadha',    avayogi:'punarvasu' },
-  14: { yogi:'uttara-ashadha',   avayogi:'pushya' },
-  15: { yogi:'shravana',         avayogi:'ashlesha' },
-  16: { yogi:'dhanishta',        avayogi:'magha' },
-  17: { yogi:'shatabhisha',      avayogi:'purva-phalguni' },
-  18: { yogi:'purva-bhadra',     avayogi:'uttara-phalguni' },
-  19: { yogi:'uttara-bhadra',    avayogi:'hasta' },
-  20: { yogi:'revati',           avayogi:'chitra' },
-  21: { yogi:'ashwini',          avayogi:'swati' },
-  22: { yogi:'bharani',          avayogi:'vishakha' },
-  23: { yogi:'krittika',         avayogi:'anuradha' },
-  24: { yogi:'rohini',           avayogi:'jyeshtha' },
-  25: { yogi:'mrigashirsha',     avayogi:'mula' },
-  26: { yogi:'ardra',            avayogi:'purva-ashadha' },
-  27: { yogi:'punarvasu',        avayogi:'uttara-ashadha' }
+  1:  { yogi:'pushya',          avayogi:'shravana',        yogiSthalam:'தென்குடித்திட்டை சிவன்',                         avayogiSthalam:'சேரன்மாதேவி கைலாசநாதர் [சந்திரன் ஸ்தலம்]' },
+  2:  { yogi:'ashlesha',        avayogi:'dhanishta',       yogiSthalam:'நாங்கூர் பள்ளி கொண்ட பெருமாள்',                  avayogiSthalam:'குணசீலம் பிரசன்ன வேங்கடேச பெருமாள்' },
+  3:  { yogi:'magha',           avayogi:'shatabhisha',     yogiSthalam:'ஆதிகும்பேஸ்வரர், கும்பகோணம்',                    avayogiSthalam:'சேசங்கனூர் (பாண்டி) செங்கல்வரன்' },
+  4:  { yogi:'purva-phalguni',  avayogi:'purva-bhadra',    yogiSthalam:'பீரங்கநாதர், பீரங்கம்',                          avayogiSthalam:'நன்னிலம் மங்களபுரீஸ்வரர்' },
+  5:  { yogi:'uttara-phalguni', avayogi:'uttara-bhadra',   yogiSthalam:'சூரியனார் கோவில்',                               avayogiSthalam:'குச்சனூர் சனி பகவான்' },
+  6:  { yogi:'hasta',           avayogi:'revati',          yogiSthalam:'உப்பிலியப்பன், கும்பகோணம்',                      avayogiSthalam:'அரியலூர் கலியபெருமாள்' },
+  7:  { yogi:'chitra',          avayogi:'dhanishta',       yogiSthalam:'வைத்தீஸ்வரன் கோவில் முத்துக்குமாரசாமி',           avayogiSthalam:'காஞ்சிபுரம் சித்திரகுப்தன்' },
+  8:  { yogi:'swati',           avayogi:'bharani',         yogiSthalam:'திருநாகேஸ்வரம் நாகநாதஸ்வாமி',                    avayogiSthalam:'கஞ்சனூர் சுக்கிரன்' },
+  9:  { yogi:'vishakha',        avayogi:'ardra',           yogiSthalam:'அவிநாசி விநாயகர்',                               avayogiSthalam:'திருவையாறு சிவன் (சூரிய தோஷம் நீக்கும் ஸ்தலம்)' },
+  10: { yogi:'anuradha',        avayogi:'rohini',          yogiSthalam:'திருக்கொள்ளிக்காடு சிவன் + சனி (பொங்கு சனி ஸ்தலம்)', avayogiSthalam:'மொடச்சூர் சந்திரமௌலீஸ்வரர் (கோபி அருகில்)' },
+  11: { yogi:'jyeshtha',        avayogi:'mrigashirsha',    yogiSthalam:'திருக்காலிமேடு காஞ்சிபுரம்',                     avayogiSthalam:'வயலூர் முருகன்' },
+  12: { yogi:'mula',            avayogi:'ardra',           yogiSthalam:'திருவண்ணாமலை சந்திர விநாயகர்',                  avayogiSthalam:'திருவாமாத்தூர் அபிராமேஸ்வரர் + முத்தாம்பிகை' },
+  13: { yogi:'purva-ashadha',   avayogi:'punarvasu',       yogiSthalam:'திருத்தங்கூர் வெள்ளிமலைநாதர்',                   avayogiSthalam:'மயேந்திரப்பள்ளி திருமணியழகர்' },
+  14: { yogi:'uttara-ashadha',  avayogi:'pushya',           yogiSthalam:'சாயாவனம் சாயாவனேஸ்வரர்',                        avayogiSthalam:'திருக்கடையூர் நந்தீஸ்வரர்' },
+  15: { yogi:'shravana',        avayogi:'ashlesha',         yogiSthalam:'திருச்செந்தூர் - ஆத்தூர் சோமநாதேஸ்வரர்',          avayogiSthalam:'கபிலஸ்தலம் கஜேந்திர வரதராஜ பெருமாள்' },
+  16: { yogi:'dhanishta',       avayogi:'magha',            yogiSthalam:'எண்கண் முருகன்',                                avayogiSthalam:'உறையூர் பஞ்சவர்ணேஸ்வரர்' },
+  17: { yogi:'shatabhisha',     avayogi:'purva-phalguni',   yogiSthalam:'திருச்செங்கோடு நாகராஜா',                        avayogiSthalam:'மணக்கால் அய்யம்பேட்டை வைகுண்டநாத பெருமாள்' },
+  18: { yogi:'purva-bhadra',    avayogi:'uttara-phalguni',  yogiSthalam:'செங்கோட்டை தட்சிணாமூர்த்தி',                    avayogiSthalam:'புழல் ஞாயிறு கோவில் சிவன்' },
+  19: { yogi:'uttara-bhadra',   avayogi:'hasta',             yogiSthalam:'பொழிச்சலூர் சிவன் (அகஸ்தீஸ்வரர் கோவில்)',         avayogiSthalam:'நந்திபுரவிண்ணகரம் நாதன் கோவில் சிவன் + பெருமாள்' },
+  20: { yogi:'revati',          avayogi:'chitra',            yogiSthalam:'மதுரை மீனாட்சி',                                avayogiSthalam:'திருக்கோளூர் பெருமாள் (செவ்வாய் ஸ்தலம்)' },
+  21: { yogi:'ashwini',         avayogi:'swati',              yogiSthalam:'திருப்பாம்புரம் சேஷபுரீஸ்வரர்',                  avayogiSthalam:'நாகர்கோவில் நாகராஜா' },
+  22: { yogi:'bharani',         avayogi:'vishakha',           yogiSthalam:'திருவில்லியங்காடு வல்லவில் ராமர்',                avayogiSthalam:'தக்கோலம் தக்ஷிணாமூர்த்தி (6 மாதம் ஒரு நிறம்)' },
+  23: { yogi:'krittika',        avayogi:'anuradha',            yogiSthalam:'பூவை குண்டம் கள்ளபிரான்',                        avayogiSthalam:'தெள்ளாறு திருமூலட்டானேஸ்வரர்' },
+  24: { yogi:'rohini',          avayogi:'jyeshtha',             yogiSthalam:'திருவக்கரை சந்திரமௌலீஸ்வரர்',                  avayogiSthalam:'புளியங்குடி புளகாயினி வேதநாத பெருமாள்' },
+  25: { yogi:'mrigashirsha',    avayogi:'mula',                 yogiSthalam:'நாச்சியார் கோவில் பிரசன்ன வேங்கடேச பெருமாள்',     avayogiSthalam:'திருக்கூடலூர் ஜகதீச பெருமாள் (செவ்வாய் ஸ்தலம்)' },
+  26: { yogi:'ardra',           avayogi:'purva-ashadha',         yogiSthalam:'கும்பகோணம் பட்டீஸ்வரம் துர்க்கையம்மன்',            avayogiSthalam:'திருபுவனை தோத்திரி நாகபெருமாள்' },
+  27: { yogi:'punarvasu',       avayogi:'uttara-ashadha',        yogiSthalam:'பாபநாசம் சிவன்',                                  avayogiSthalam:'பாபநாசம் சிவன் (நெல்லை)' }
 };
 
 function clearYogiAvayogiHighlight(){
@@ -4377,7 +4765,9 @@ function addYogiAvayogiInfoBox(rule, yoga, split){
     <div>பிறப்பு யோகம்: <strong>${yogaName}</strong> • எண் <strong>${yoga.number}</strong></div>
     <div>மீதம்: <strong>${split.left.toFixed(2)}%</strong> • பிறப்பு கடந்த பகுதி: <strong>${split.elapsed.toFixed(2)}%</strong></div>
     <div class="yogi-blue">யோகி நட்சத்திரம்: ${yogiName} — பாதம் ${split.pada}</div>
+    <div class="yogi-blue yogi-sthalam">யோகி ஸ்தலம்: <strong>${rule.yogiSthalam || '—'}</strong></div>
     <div class="yogi-yellow">அவயோகி நட்சத்திரம்: ${avayogiName} — பாதம் ${split.pada}</div>
+    <div class="yogi-yellow yogi-sthalam">அவயோகி ஸ்தலம்: <strong>${rule.avayogiSthalam || '—'}</strong></div>
     <div><small>100% = 4 பாதங்கள் • ஒவ்வொரு பாதமும் 25%</small></div>
   `;
 
@@ -5535,6 +5925,8 @@ async function fetchBirthTithiAndYoga({year,month,date,hours,minutes,seconds,lat
   renderBirthPanchang();
   if(thithiSunyaActive) applyThithiSunyaHighlight();
   if(yogiAvayogiActive) applyYogiAvayogiHighlight();
+  if(karanaActive) addKaranaInfoBox();
+  if(vainasigamActive) addVainasigamInfoBox();
 
   const status=document.getElementById('birthPanchangStatus');
   if(status){
@@ -5635,9 +6027,8 @@ btnRun.addEventListener('click', async ()=>{ await run(); });
 async function run(){
   mode='current';
 
-  // Calculate planets for the user-selected calculation date first.
-  // Birth planets remain in savedPlanetsForChart and stay RED.
-  await fetchCurrentPlanetsForCalculationDate();
+  // Current-planet API is intentionally NOT called here.
+  // It is fetched only when the customer presses the Current Planets button.
   const dobStr=dob_.value;
   const mdeg=parseInt(moon_deg.value)||0, mmin=parseInt(moon_min.value)||0, msec=parseInt(moon_sec.value)||0;
   const moon=mdeg + mmin/60 + msec/3600;
@@ -5651,7 +6042,7 @@ async function run(){
   drawChartGrid();
   applyMudakkuHighlight();
   if(savedPlanetsForChart){ placePlanetsOnChart(savedPlanetsForChart); }
-  if(currentPlanetsForChart){ placeCurrentPlanetsOnChart(currentPlanetsForChart); }
+  if(currentPlanetsEnabled && currentPlanetsForChart){ placeCurrentPlanetsOnChart(currentPlanetsForChart); }
   renderAll(now);
 
   // Update current Dasa-based degree above chart
@@ -6586,7 +6977,11 @@ function jp_buildPayload(){
     // may be empty if using pure manual flow — OK
     planetDegrees: (typeof planetDegrees !== 'undefined' ? planetDegrees : {}),
     birthPlanetRetrograde: (typeof birthPlanetRetrograde !== 'undefined' ? birthPlanetRetrograde : {}),
-    birthPanchangData: (typeof birthPanchangData !== 'undefined' ? birthPanchangData : {tithi:null,yoga:null})
+    birthPanchangData: (typeof birthPanchangData !== 'undefined' ? birthPanchangData : {tithi:null,yoga:null}),
+    birthKarana: (typeof getBirthKaranaFromTithi === 'function' ? (getBirthKaranaFromTithi(birthPanchangData?.tithi) || null) : null),
+    currentPlanetsForChart: (typeof currentPlanetsForChart !== 'undefined' ? currentPlanetsForChart : null),
+    currentPlanetDegrees: (typeof currentPlanetDegrees !== 'undefined' ? currentPlanetDegrees : {}),
+    currentPlanetsCalcDate: document.getElementById('caldate')?.value || ''
   };
 }
 
@@ -6620,7 +7015,12 @@ function jp_applyPayload(payload){
   planetDegrees = payload?.planetDegrees || {};
   birthPlanetRetrograde = payload?.birthPlanetRetrograde || {};
   birthPanchangData = payload?.birthPanchangData || {tithi:null,yoga:null};
+  if(payload?.birthKarana){ birthPanchangData.karana = payload.birthKarana; }
+  currentPlanetsForChart = payload?.currentPlanetsForChart || null;
+  currentPlanetDegrees = payload?.currentPlanetDegrees || {};
+  currentPlanetsCalcDate = payload?.currentPlanetsCalcDate || '';
   renderBirthPanchang?.();
+  /* Current planets are restored to memory only; they remain OFF until the user presses the button. */
   savedPlanetsForChart = (function mapDegsToPlanets(degMap, retroMap){
     const out={};
     Object.entries(degMap||{}).forEach(([k,deg])=>{
@@ -6874,7 +7274,11 @@ const _buildPayload = (typeof jp_buildPayload === 'function')
         },
         planetDegrees: (typeof planetDegrees!=='undefined' ? planetDegrees : {}),
         birthPlanetRetrograde: (typeof birthPlanetRetrograde!=='undefined' ? birthPlanetRetrograde : {}),
-        birthPanchangData: (typeof birthPanchangData!=='undefined' ? birthPanchangData : {tithi:null,yoga:null})
+        birthPanchangData: (typeof birthPanchangData!=='undefined' ? birthPanchangData : {tithi:null,yoga:null}),
+        birthKarana: (typeof getBirthKaranaFromTithi === 'function' ? (getBirthKaranaFromTithi(birthPanchangData?.tithi) || null) : null),
+        currentPlanetsForChart: (typeof currentPlanetsForChart!=='undefined' ? currentPlanetsForChart : null),
+        currentPlanetDegrees: (typeof currentPlanetDegrees!=='undefined' ? currentPlanetDegrees : {}),
+        currentPlanetsCalcDate: document.getElementById('caldate')?.value || ''
       };
     };
 
@@ -7659,6 +8063,57 @@ const THITHI_SUNYA_CUSTOMER_RULES = {
   14: { primary:['மிதுனம்','கன்னி'], secondary:['தனுசு','மீனம்'], label:'சதுர்த்தசி' }
 };
 
+/* ===== திதி → அதிதேவதை + பரிகார கோவில் =====
+   Source: user's supplied "திதிகளின் பரிகார கோவில்கள்" table.
+   1–15  = சுக்லபக்ஷம் / வளர்பிறை
+   16–30 = கிருஷ்ணபக்ஷம் / தேய்பிறை
+*/
+const THITHI_REMEDY_INFO = {
+  1:  { deity:'துர்க்கை', temple:'பட்டீஸ்வரம் துர்க்கை' },
+  2:  { deity:'வாராகதேவன்', temple:'திருவக்கரை வக்கிரநேசுவரர் கோயில்' },
+  3:  { deity:'சந்திரன்', temple:'திருக்கடையூர் கைலாசநாதர், பெரியநாயகி' },
+  4:  { deity:'விக்னேஸ்வரன்', temple:'பிள்ளையார்பட்டி விநாயகர்' },
+  5:  { deity:'தேவேந்திரன்', temple:'பெண்ணாடம் பிரம்மபுரீஸ்வரர்' },
+  6:  { deity:'சுப்பிரமணியன்', temple:'திருச்செந்தூர் முருகன்' },
+  7:  { deity:'சூரியன்', temple:'சூரியனார் கோவில்' },
+  8:  { deity:'லட்சுமி', temple:'தேவூர் தேவேபெருமாள் (கீழ்வேளூர்)' },
+  9:  { deity:'சரஸ்வதி', temple:'கூத்தனூர் சரஸ்வதி' },
+  10: { deity:'வீரபத்திரன்', temple:'கும்பகோணம் வீரபத்திரசாமி, திருவிடைமருதூர் வீரபத்திரசாமி, திருவெண்காடு அகோரமூர்த்தி' },
+  11: { deity:'பார்வதி', temple:'மதுரை மீனாட்சி' },
+  12: { deity:'விஷ்ணு', temple:'திருவில்லியங்குடி வல்வில் ராமர்' },
+  13: { deity:'பிரம்மா', temple:'திருக்கண்டியூர் பிரமசிரக்கண்டீஸ்வரர்' },
+  14: { deity:'ருத்ரன்', temple:'திருப்புவனம் சரபேஸ்வரர்' },
+  15: { deity:'வருணன்', temple:'மகேந்திரப்பள்ளி திருமேனியழகர், வடிவாம்பிகை' },
+
+  16: { deity:'குபேரன்', temple:'திருக்காட்டுப்பள்ளி ஆரண்யேஸ்வரர்' },
+  17: { deity:'வாயு', temple:'காளஹஸ்தி காளத்தியப்பர் + பாதாள விநாயகர்' },
+  18: { deity:'அக்னி', temple:'திருவண்ணாமலை அண்ணாமலையார்' },
+  19: { deity:'அசுரர்', temple:'கஞ்சனூர் கற்பகாம்பாள்' },
+  20: { deity:'தக்ஷிணாமூர்த்தி', temple:'ஆலங்குடி ஆபத்சகாயேஸ்வரர்' },
+  21: { deity:'அங்காரகன்', temple:'வைத்தீஸ்வரன் கோவில்' },
+  22: { deity:'சித்தர்', temple:'திருக்கானூர் கும்பீஸ்வரர்' },
+  23: { deity:'ஆதிசேஷன், ரங்கநாதர்', temple:'கருடாழ்வார் (கண்), ஸ்ரீரங்கம்' },
+  24: { deity:'நமன்', temple:'ஸ்ரீவாஞ்சியம் வாஞ்சிநாதர்' },
+  25: { deity:'விபீஷணன்', temple:'தென்குடித்திட்டை வசிட்டேஸ்வரர் + குரு' },
+  26: { deity:'சனி', temple:'திருநள்ளாறு தர்ப்பாரண்யேஸ்வரர்' },
+  27: { deity:'விஷ்ணு, சுக்கிரன்', temple:'சாரங்கபாணி, கும்பகோணம்' },
+  28: { deity:'நந்தீஸ்வரன்', temple:'திருமழபாடி வைத்தியநாதர்' },
+  29: { deity:'மகேஸ்வரன்', temple:'கங்கை கொண்ட சோழபுரம்' },
+  30: { deity:'சதாசிவன்', temple:'ராமேஸ்வரம்' }
+};
+
+function getThithiRemedyHtml(tithiNumber){
+  const info=THITHI_REMEDY_INFO[Number(tithiNumber)];
+  if(!info) return '';
+  return (
+    `<div class="thithi-remedy-inside">`+
+      `<div><strong>அதிதேவதை:</strong> ${info.deity}</div>`+
+      `<div><strong>பரிகார கோவில்:</strong> ${info.temple}</div>`+
+    `</div>`
+  );
+}
+
+
 function thithiSunyaRasiElement(name){
   const tamilToId={
     'மேஷம்':'aries','ரிஷபம்':'taurus','மிதுனம்':'gemini','கடகம்':'cancer',
@@ -7690,6 +8145,12 @@ function addThithiSunyaCustomerBox(html, type='info'){
     (type==='none' ? 'thithi-sunya-none ' :
      type==='legend' ? 'thithi-sunya-legend ' :
      'thithi-sunya-info ') + 'thithi-sunya-customer-center';
+
+  // Add the matching Thithi's Adhi-Devathai and Parihara Kovil
+  // inside the same information box.
+  const currentTithiNumber=Number(birthPanchangData?.tithi?.number);
+  html += getThithiRemedyHtml(currentTithiNumber);
+
   box.innerHTML=html;
 
   // IMPORTANT: Put the Thithi information box directly BELOW
