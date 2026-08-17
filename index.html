@@ -618,6 +618,57 @@ body.dark #bhavaChooser .bitem{ background:#0b1220; }
   font-size: 18px;
   line-height: 1;
 }
+/* === Dasa / Puthi / Anthara planet display === */
+#tblBirthDBA td strong,
+#tblCurrentDBA td strong{
+  font-size:1.02em;
+  font-weight:800;
+}
+#tblBirthDBA .dba-sub,
+#tblCurrentDBA .dba-sub{
+  display:inline-block;
+  margin-top:2px;
+  font-size:.88em;
+  line-height:1.25;
+  opacity:.82;
+}
+
+/* === Current planet matches inside Dasa / Puthi / Anthara tables === */
+.dba-current-match{
+  display:inline-flex;
+  flex-direction:column;
+  gap:4px;
+  padding:4px 6px;
+  border-radius:7px;
+  background:#e8f8ea;
+  border:1px solid #72c77a;
+  box-shadow:inset 0 0 0 1px rgba(22,163,74,.10);
+}
+.dba-current-nakpada{
+  background:#c7f9cc;
+  color:#14532d;
+  border-radius:5px;
+  padding:2px 5px;
+  font-weight:800;
+}
+.dba-current-planet-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+}
+.dba-current-planet{
+  display:inline-block;
+  background:#16a34a;
+  color:#fff !important;
+  border-radius:999px;
+  padding:2px 7px;
+  font-weight:900;
+  line-height:1.2;
+}
+body.dark .dba-current-match{background:#102c1b;border-color:#22c55e}
+body.dark .dba-current-nakpada{background:#14532d;color:#bbf7d0}
+body.dark .dba-current-planet{background:#22c55e;color:#052e16 !important}
+
 /* === Responsive styles for Birth/Current DBA tables === */
 @media (max-width:900px){
   #tblBirthDBA, #tblCurrentDBA{
@@ -716,6 +767,91 @@ header .toolbar > *:not(.tb-edge) { position: relative; z-index: 1; }
   color: #16a34a !important;
   font-weight: 800;
 }
+
+/* ===== Current Planets information box ===== */
+.current-planets-info-box{
+  width:min(760px,94%);
+  margin:10px auto 12px auto !important;
+  box-sizing:border-box;
+  padding:12px 14px;
+  border:1px solid #55a85c;
+  border-radius:10px;
+  background:#f3fff4;
+  color:#173b1a;
+  line-height:1.5;
+  text-align:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+.current-planets-info-title{
+  font-size:16px;
+  font-weight:900;
+  color:#17671a;
+  margin-bottom:3px;
+}
+.current-planets-info-date{
+  font-size:13px;
+  margin-bottom:9px;
+  color:#49604b;
+}
+.current-planets-table-wrap{
+  width:100%;
+  overflow-x:auto;
+}
+.current-planets-info-table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:500px;
+  background:#fff;
+}
+.current-planets-info-table th,
+.current-planets-info-table td{
+  border:1px solid #b9d8bb;
+  padding:7px 8px;
+  text-align:center;
+  white-space:nowrap;
+}
+.current-planets-info-table th{
+  background:#dff5e1;
+  color:#205a24;
+  font-weight:900;
+}
+.current-planets-info-table tbody tr:nth-child(even){
+  background:#f8fff8;
+}
+.current-planet-green-name{
+  color:#159447;
+  font-weight:900;
+}
+body.dark .current-planets-info-box{
+  background:#102316;
+  border-color:#398a43;
+  color:#d9f5dd;
+}
+body.dark .current-planets-info-title{color:#62e878}
+body.dark .current-planets-info-date{color:#b9d9bd}
+body.dark .current-planets-info-table{background:#142219}
+body.dark .current-planets-info-table th{background:#1c3822;color:#baf5c2}
+body.dark .current-planets-info-table th,
+body.dark .current-planets-info-table td{border-color:#38623d}
+body.dark .current-planets-info-table tbody tr:nth-child(even){background:#182b1c}
+@media(max-width:600px){
+  .current-planets-info-box{width:96%;padding:10px 7px}
+  .current-planets-info-table{min-width:460px;font-size:13px}
+  .current-planets-info-table th,.current-planets-info-table td{padding:6px 5px}
+}
+
+/* Current-planet Nakshatra/Pada markers inside DBA tables */
+.dba-current-planet {
+  display:inline-block; margin:2px 4px 2px 0; padding:2px 6px;
+  border-radius:6px; background:#c7f9cc; border:1px solid #1b5e20;
+  color:#166534 !important; font-weight:900; white-space:nowrap;
+}
+.dba-current-match {
+  display:inline-block; background:#e9fff0 !important; border-radius:7px;
+  padding:2px 4px; box-shadow:inset 0 0 0 1px #86efac;
+}
+body.dark .dba-current-planet { background:#123b22; border-color:#4ade80; color:#4ade80 !important; }
+body.dark .dba-current-match { background:#102c1b !important; box-shadow:inset 0 0 0 1px #22c55e; }
 body.dark .planet-current {
   color: #4ade80 !important;
 }
@@ -1387,6 +1523,18 @@ body.dark .ddm-badge{background:#0f2016;}
   font-weight:700;
   opacity:0.85;
 }
+
+/* ===== முடக்கு பரிகார தகவல் ===== */
+.mudakku-info-box{
+  margin:10px auto 12px; padding:12px 14px; max-width:900px;
+  border:1px solid #c9c9c9; border-radius:10px; background:var(--card,#fff);
+  box-shadow:0 2px 8px rgba(0,0,0,.08); line-height:1.65; text-align:center;
+}
+.mudakku-info-title{font-weight:800;font-size:1.05rem;margin-bottom:6px}
+.mudakku-info-main{font-weight:800}
+.mudakku-place{margin-top:5px;font-weight:700}
+.mudakku-node{margin-top:4px}
+.mudakku-warning{margin-top:6px;font-size:.92rem;opacity:.85}
 </style>
 
 <style id="desktopOnlyFix">
@@ -2112,6 +2260,235 @@ function calculateMudakku(){
   return { sunNakId:sunPos.nakId, sunPada:sunPos.pada, targetNakId:targetNak, rasiId };
 }
 
+
+/* ===== முடக்கு பரிகார கோவில் — பாவம் + முடக்கு ராசி அடிப்படை =====
+   Source: user's supplied 12-bhava Mudakku Parihara images.
+   Bhava 3 source added from the user's newly supplied image.
+*/
+const MUDakku_PARIHARA_RULES = {
+  1: {
+    base: 'மதுரை — இம்மையில் நன்மை தருவார்',
+    nodes: {
+      rahu: 'சேஷாங்கநார்சிவன்',
+      ketu: 'சென்னையிலுள்ள திருநின்றவூர் தூமகேதுவிநாயகர்'
+    }
+  },
+  2: {
+    rasi: {
+      'mesha-vrishchika':'சிறுகுடி மங்களேஸ்வரர் — திருப்பாம்பரம் அருகில்',
+      'rishabha-thula':'ஸ்ரீரங்கம் ரங்கநாதர்',
+      'mithuna-kanni':'காஞ்சிபுரம் — சிவன் கோவில் (படத்தில் குறிப்பிடப்பட்ட ஸ்தலம்)',
+      'kataka':'ஓசூர் சந்திரசூடேஸ்வரர்',
+      'simha':'கொடுமுடி மகுடேஸ்வரர்',
+      'dhanus-meena':'திருக்குருநாதர் — பண்ருட்டி அருகில்',
+      'makara-kumbha':'திருவாதவூர் சிவன்கோவில் — மதுரை மேலூர் அருகில்'
+    },
+    nodes:{rahu:'நாகராஜா — நாகர்கோவில்',ketu:'ராஜபதி தூமகேது விநாயகர் — திருச்செந்தூர் ஏரல்வழிச்சாலை'}
+  },
+  3: {
+    rasi: {
+      'mesha-vrishchika':'திருச்செந்தூர் முருகன்',
+      'rishabha-thula':'திருத்தணி முருகன்',
+      'mithuna-kanni':'பழமுதிர்ச்சோலை முருகன்',
+      'kataka':'திருமலைகுமாரசாமி — குற்றாலம், தென்காசி',
+      'simha':'திருவிடைக்கழி — திருக்கடையூர் அருகில்',
+      'dhanus-meena':'சுவாமிமலை முருகன்',
+      'makara-kumbha':'திருப்பரங்குன்றம் முருகன்'
+    },
+    nodes:{
+      rahu:'குக்குடேசுப்பரமணியர் — நாகப்பட்டினம்',
+      ketu:'உப்பூர்விநாயகர் — தொண்டிராமநாதபுரம்'
+    }
+  },
+  4: {
+    rasi: {
+      'mesha-vrishchika':'செவலூர் பூமிநாதசுவாமி — புதுக்கோட்டை',
+      'rishabha-thula':'திருச்சி மணச்சநல்லூர் பூமிநாதசுவாமி',
+      'mithuna-kanni':'செளந்தரராஜ பெருமாள் — நாகப்பட்டினம்',
+      'kataka':'பவானி சங்கமேஸ்வரர்',
+      'simha':'திருவேடகம் — சோழவந்தான், மதுரை',
+      'dhanus-meena':'சிறுவாபுரி பாலமுருகன் — சென்னை',
+      'makara-kumbha':'வயலூர் முருகன்'
+    },
+    nodes:{rahu:'தென்திருப்போரை பெருமாள் — திருநெல்வேலி',ketu:'திருமுருகன்பூண்டி — திருப்பூர்'}
+  },
+  5: {
+    rasi: {
+      'mesha-vrishchika':'திருச்செந்தூர் முருகன்',
+      'rishabha-thula':'சீயாத்தமங்கை — திருமலர்க்கன்னி, நாகப்பட்டினம்',
+      'mithuna-kanni':'ஸ்ரீமுஷ்ணம் பூவராகப்பெருமாள்',
+      'kataka':'இராமேஸ்வரம் இராமநாதசுவாமி',
+      'simha':'பாண்டிச்சேரி அருகில் காசிவிஸ்வநாதர் கோவில்',
+      'dhanus-meena':'திருக்கருகாவூர் கர்ப்பரட்சாம்பிகை',
+      'makara-kumbha':'மங்களாம்பிகை கும்பேஸ்வரர் — கும்பகோணம்'
+    },
+    nodes:{rahu:'அருவக்குறிச்சி சிவன்கோவில்',ketu:'ஸ்ரீகாளஹஸ்தி உள்ள பாதாளவிநாயகர்'}
+  },
+  6: {
+    rasi: {
+      'mesha-vrishchika':'கும்பகோணம் மகாமககுளம் அருகில் வீரபத்திரர்',
+      'rishabha-thula':'கோவை உக்கடம் நரசிம்மர்',
+      'mithuna-kanni':'திருவெண்காடு அகோரமூர்த்தி',
+      'kataka':'இராமேஸ்வரம் இராமநாதசுவாமி',
+      'simha':'ஒட்டப்பிடாரம் லக்ஷ்மி நரசிம்மர்',
+      'dhanus-meena':'திருவானைக்காவல் அகிலாண்டேஸ்வரி ஜம்புகேஸ்வரர்',
+      'makara-kumbha':'அழகர்கோவில் கள்ளழகர்'
+    },
+    nodes:{rahu:'காரைவக்கிரகாளி',ketu:'பிள்ளையார்பட்டி விநாயகர்'}
+  },
+  7: {
+    rasi: {
+      'mesha-vrishchika':'திருப்பரங்குன்றம் முருகன் மற்றும் சென்னையில் உள்ள ஸ்தலம்',
+      'rishabha-thula':'மணமுடித்தநல்லூர் — முடிச்சூர், தாம்பரம்',
+      'mithuna-kanni':'திருநகரி கல்யாண ரங்கநாத பெருமாள்',
+      'kataka':'திருமணஞ்சேரி',
+      'simha':'திருவேள்விக்குடி',
+      'dhanus-meena':'திருமுருகன்பூண்டி முருகநாதர் — திருப்பூர்',
+      'makara-kumbha':'வேதாரண்யம் வேதாரண்யேஸ்வரன்'
+    },
+    nodes:{rahu:'நாகேஸ்வரம்',ketu:'கீழப்பெரும்பள்ளம் — மயிலாடுதுறை அருகில்'}
+  },
+  8: {
+    rasi: {
+      'mesha-vrishchika':'திருக்கடையூர் அபிராமி',
+      'rishabha-thula':'நல்லாத்தூர் சொர்ணபுரீஸ்வரர் திரிபுரசுந்தரி',
+      'mithuna-kanni':'படத்தில் குறிப்பிடப்பட்ட ஸ்தலம்',
+      'kataka':'திங்களூர் கைலாசநாதர்',
+      'simha':'பருதியப்பர் — மேலூர் வழி, பட்டுக்கோட்டை செல்லும் வழியில்',
+      'dhanus-meena':'ஸ்ரீவாஞ்சியம் ஏழதர்மன் கோவில்',
+      'makara-kumbha':'எமனேஸ்வரம் — பரமக்குடி'
+    },
+    nodes:{rahu:'சேஷ்டமூலை சேஷ்டபுரீஸ்வரர் — பேரளம் அருகில்',ketu:'திருநெல்வேலி சித்திரகேதுவிநாயகர் (அருள்மிகு தொண்டர்கள் நயினார் திருக்கோயில்)'}
+  },
+  9: {
+    rasi: {
+      'mesha-vrishchika':'விராலிமலை முருகன்',
+      'rishabha-thula':'திருமயம் கோட்டை உள்ள சிவன் — திருமயம், புதுக்கோட்டை',
+      'mithuna-kanni':'அச்சரப்பாக்கம் ஆட்சிபுரீஸ்வரர்',
+      'kataka':'தரங்கம்பாடி மாசிலாமணீஸ்வரர்',
+      'simha':'பெருநகர் பிரம்மபுரீஸ்வரர்',
+      'dhanus-meena':'தாயுமானவர் சுவாமி',
+      'makara-kumbha':'தாண்டிக்குடி பாலமுருகன் — கொடைக்கானல்'
+    },
+    nodes:{rahu:'தெ... ராஜகாளியம்மன் — திண்டுக்கல்',ketu:'சசனாரி விநாயகர் — கோவை'}
+  },
+  10: {
+    rasi: {
+      'mesha-vrishchika':'பழனி முருகன் — ராஜதரிசனம்',
+      'rishabha-thula':'மதுரை மீனாட்சி',
+      'mithuna-kanni':'ஸ்ரீரங்கம் கருடாழ்வார்',
+      'kataka':'திருச்சுழி சிவன் — அருப்புக்கோட்டை',
+      'simha':'திருப்புனவாசல் — புதுக்கோட்டை',
+      'dhanus-meena':'அருப்புக்கோட்டை ஸ்தலம்',
+      'makara-kumbha':'திருமால்புரம் மணிகண்டீஸ்வரர்'
+    },
+    nodes:{rahu:'தும்பூர் நாகாத்தம்மன் — விழுப்புரம், செஞ்சி வழி',ketu:'தர்மபுரி காமாட்சி அம்மன்'}
+  },
+  11: {
+    rasi: {
+      'mesha-vrishchika':'வீரக்குடி கரைமேல் அழகர் முருகன் — பார்த்திபனூர் அருகில் பரமக்குடி',
+      'rishabha-thula':'காவளம்பாடி கோபாலகிருஷ்ணன் — சீர்காழி அருகில்',
+      'mithuna-kanni':'திருவெள்ளறை பெருமாள் — திருச்சி',
+      'kataka':'திருநெடுங்களநாதர் — திருநெடுங்குளம், திருச்சி',
+      'simha':'பிரான்மலை முருகன்',
+      'dhanus-meena':'கோவை பேரூர்பட்டீஸ்வரர்',
+      'makara-kumbha':'திருவாடானை சிவஸ்தொண்டி'
+    },
+    nodes:{rahu:'பாரியூர் கொண்டத்து காளியம்மன் — கோபிசெட்டிபாளையம்',ketu:'மாநல்லூர் கொண்டத்து காளியம்மன் — திருப்பூர்'}
+  },
+  12: {
+    rasi: {
+      'mesha-vrishchika':'மயிலம் சுப்பிரமணியசுவாமி',
+      'rishabha-thula':'திருவேற்காடு வேதபுரீஸ்வரர்',
+      'mithuna-kanni':'உத்தமர்கோவில் — திருச்சி',
+      'kataka':'திருப்பட்டூர் பிரம்மா கோவில்',
+      'simha':'நரசிம்மர் — யானைமலை, ஒத்தக்கடை',
+      'dhanus-meena':'கோடியக்கரை அழககபெருமாள் / திருக்கோடிக்குழகர்',
+      'makara-kumbha':'திருப்புல்லாணி பெருமாள்'
+    },
+    nodes:{rahu:'ஆந்திரா ஸ்ரீசைலம் மல்லிகார்ஜுனேஸ்வரர்',ketu:'அடைக்காடு பகவதி'}
+  }
+};
+
+const MUDakku_RASI_GROUP = {
+  'மேஷம்':'mesha-vrishchika','விருச்சிகம்':'mesha-vrishchika',
+  'ரிஷபம்':'rishabha-thula','துலாம்':'rishabha-thula',
+  'மிதுனம்':'mithuna-kanni','கன்னி':'mithuna-kanni',
+  'கடகம்':'kataka','சிம்மம்':'simha',
+  'தனுசு':'dhanus-meena','மீனம்':'dhanus-meena',
+  'மகரம்':'makara-kumbha','கும்பம்':'makara-kumbha'
+};
+
+function getRasiIndexFromDegree(deg){
+  const x=((Number(deg)%360)+360)%360;
+  return Math.floor(x/30);
+}
+function getBirthLagnaRasiName(){
+  const asc=savedPlanetsForChart?.Ascendant;
+  if(asc?.fullDegree!=null) return RASIS[getRasiIndexFromDegree(asc.fullDegree)]?.name?.ta || null;
+  const d=parseFloat(document.getElementById('lagna_deg')?.value);
+  const m=parseFloat(document.getElementById('lagna_min')?.value)||0;
+  const sec=parseFloat(document.getElementById('lagna_sec')?.value)||0;
+  if(Number.isFinite(d)) return RASIS[getRasiIndexFromDegree(d+m/60+sec/3600)]?.name?.ta || null;
+  return null;
+}
+function getPlanetBhava(planetObj, lagnaRasiIdx){
+  if(!planetObj || (planetObj.fullDegree==null && planetObj.degree==null)) return null;
+  const deg=planetObj.fullDegree!=null ? Number(planetObj.fullDegree) : Number(planetObj.degree);
+  if(!Number.isFinite(deg)) return null;
+  const rasiIdx=getRasiIndexFromDegree(deg);
+  return ((rasiIdx-lagnaRasiIdx+12)%12)+1;
+}
+function getMudakkuPariharaResult(){
+  const mud=calculateMudakku();
+  if(!mud) return null;
+  const lagnaRasiName=getBirthLagnaRasiName();
+  if(!lagnaRasiName) return {...mud,lagnaRasiName:null,mudakkuBhava:null};
+  const lagnaIdx=RASIS.findIndex(r=>r.name?.ta===lagnaRasiName);
+  const mudIdx=RASIS.findIndex(r=>r.id===mud.rasiId);
+  if(lagnaIdx<0||mudIdx<0) return {...mud,lagnaRasiName,mudakkuBhava:null};
+  const bhava=((mudIdx-lagnaIdx+12)%12)+1;
+  const rule=MUDakku_PARIHARA_RULES[bhava];
+  const group=MUDakku_RASI_GROUP[mud.rasiId] || MUDakku_RASI_GROUP[RASIS[mudIdx]?.name?.ta];
+  const nodes=rule?.nodes||{};
+  const rahuBhava=getPlanetBhava(savedPlanetsForChart?.Rahu,lagnaIdx);
+  const ketuBhava=getPlanetBhava(savedPlanetsForChart?.Ketu,lagnaIdx);
+  return { ...mud, lagnaRasiName, mudakkuBhava:bhava, mudakkuRasiName:RASIS[mudIdx]?.name?.ta,
+    group, rule, rahuInMudakkuBhava:rahuBhava===bhava, ketuInMudakkuBhava:ketuBhava===bhava };
+}
+
+let mudakkuPariharaActive=false;
+function clearMudakkuPariharaInfo(){
+  document.getElementById('mudakkuPariharaInfoBox')?.remove();
+}
+function addMudakkuPariharaInfo(){
+  clearMudakkuPariharaInfo();
+  const r=getMudakkuPariharaResult();
+  const box=document.createElement('div');
+  box.id='mudakkuPariharaInfoBox';
+  box.className='mudakku-info-box';
+  if(!r){
+    box.innerHTML='<div class="mudakku-info-title">முடக்கு பரிகாரம்</div><strong>முடக்கு தகவல் கிடைக்கவில்லை.</strong><br>முதலில் பிறப்பு ஜாதகத்தை கணக்கிடவும்.';
+  }else if(!r.mudakkuBhava){
+    box.innerHTML=`<div class="mudakku-info-title">முடக்கு பரிகாரம்</div><div>முடக்கு ராசி: <strong>${r.mudakkuRasiName||'—'}</strong></div><div class="mudakku-warning">பிறப்பு லக்ன ராசி கிடைக்கவில்லை.</div>`;
+  }else if(!r.rule){
+    box.innerHTML=`<div class="mudakku-info-title">முடக்கு பரிகாரம்</div><div>பிறப்பு லக்னம்: <strong>${r.lagnaRasiName}</strong> • முடக்கு ராசி: <strong>${r.mudakkuRasiName}</strong> • <strong>${r.mudakkuBhava}ஆம் பாவம்</strong></div><div class="mudakku-warning">இந்த பாவத்திற்கான பரிகார ஸ்தல தகவல் படம் வழங்கப்படவில்லை.</div>`;
+  }else{
+    const base=r.mudakkuBhava===1 ? r.rule.base : r.rule.rasi?.[r.group];
+    let html=`<div class="mudakku-info-title">முடக்கு பரிகாரம்</div>
+      <div>பிறப்பு லக்னம்: <strong>${r.lagnaRasiName}</strong> • முடக்கு ராசி: <strong>${r.mudakkuRasiName}</strong></div>
+      <div class="mudakku-info-main">முடக்கு பாவம்: <strong>${r.mudakkuBhava}</strong></div>
+      <div class="mudakku-place">பரிகார கோவில்: ${base||'—'}</div>`;
+    if(r.rahuInMudakkuBhava && r.rule.nodes?.rahu) html+=`<div class="mudakku-node">ராகு முடக்கு பாவத்தில் உள்ளது → <strong>${r.rule.nodes.rahu}</strong></div>`;
+    if(r.ketuInMudakkuBhava && r.rule.nodes?.ketu) html+=`<div class="mudakku-node">கேது முடக்கு பாவத்தில் உள்ளது → <strong>${r.rule.nodes.ketu}</strong></div>`;
+    html+=`<div class="mudakku-warning">முடக்கு பாவம் = பிறப்பு லக்னத்திலிருந்து முடக்கு ராசி இருக்கும் பாவம். ராகு / கேது அதே பாவத்தில் இருந்தால், அந்த கிரகத்திற்கான கூடுதல் பரிகார ஸ்தலமும் காட்டப்படும்.</div>`;
+    box.innerHTML=html;
+  }
+  const bhavam=document.getElementById('bhavaChooser');
+  if(bhavam?.parentNode) bhavam.insertAdjacentElement('afterend',box);
+  else { const chart=document.getElementById('rasiChart'); if(chart?.parentNode) chart.parentNode.insertBefore(box,chart); }
+}
+
 function applyMudakkuHighlight(){
   clearMudakkuHighlight();
   if(!mudakkuActive) return;
@@ -2136,9 +2513,13 @@ function stopMudakku(){
 document.getElementById('btnMudakku')?.addEventListener('click', ()=>{
   if(mudakkuActive){
     stopMudakku();
+    mudakkuPariharaActive=false;
+    clearMudakkuPariharaInfo();
   }else{
     mudakkuActive=true;
     applyMudakkuHighlight();
+    mudakkuPariharaActive=true;
+    addMudakkuPariharaInfo();
   }
 });
 
@@ -2555,6 +2936,7 @@ async function fetchCurrentPlanetsForCalculationDate(){
   if(currentPlanetsForChart && currentPlanetsCalcDate === value){
     placeCurrentPlanetsOnChart(currentPlanetsForChart);
     drawNavamsaChart();
+    renderCurrentPlanetsInfoBox();
     return currentPlanetsForChart;
   }
 
@@ -2617,6 +2999,7 @@ async function fetchCurrentPlanetsForCalculationDate(){
 
     placeCurrentPlanetsOnChart(currentPlanetsForChart);
     drawNavamsaChart();
+    renderCurrentPlanetsInfoBox();
     return currentPlanetsForChart;
 
   }catch(e){
@@ -2630,33 +3013,95 @@ async function fetchCurrentPlanetsForCalculationDate(){
 }
 
 
-/* ===== Current Planet button: fetch only on customer request ===== */
-function renderCurrentPlanetsCard(){
-  return; // Current planets are shown only on the chart; no table/card.
-  const card=document.getElementById('currentPlanetsCard');
-  const title=document.getElementById('currentPlanetsTitle');
-  const dateEl=document.getElementById('currentPlanetsCalcDate');
-  const list=document.getElementById('currentPlanetsList');
-  if(!card||!dateEl||!list)return;
-  if(!currentPlanetsForChart){card.style.display='none';return;}
+/* ===== Current Planets info box =====
+   Shows the same 9 current planets that are displayed GREEN on the chart.
+   The box is created only when the user clicks "தற்போதைய கிரகங்கள்".
+   Clicking again removes it. Changing கணிப்புக்கான தேதி also removes it.
+*/
+function clearCurrentPlanetsInfoBox(){
+  document.getElementById('currentPlanetsInfoBox')?.remove();
+}
+
+function renderCurrentPlanetsInfoBox(){
+  clearCurrentPlanetsInfoBox();
+  if(!currentPlanetsEnabled || !currentPlanetsForChart) return;
+
+  const box=document.createElement('div');
+  box.id='currentPlanetsInfoBox';
+  box.className='current-planets-info-box';
+
   const value=document.getElementById('caldate')?.value||'';
   let dateText=value;
-  if(value){const d=new Date(value);if(!Number.isNaN(d.getTime()))dateText=formatDateUI(d);}
-  title.textContent=LANG==='ta'?'தற்போதைய கிரக நிலைகள்':'Current Planet Positions';
-  dateEl.textContent=LANG==='ta'?`கணிப்புக்கான தேதி: ${dateText||'—'}`:`Calculation date: ${dateText||'—'}`;
+  if(value){
+    const d=new Date(value);
+    if(!Number.isNaN(d.getTime())) dateText=formatDateUI(d);
+  }
+
+  const title=LANG==='ta' ? 'தற்போதைய கிரக நிலைகள்' : 'Current Planet Positions';
+  const dateLabel=LANG==='ta' ? 'கணிப்புக்கான தேதி' : 'Calculation Date';
+  const planetHead=LANG==='ta' ? 'கிரகம்' : 'Planet';
+  const rasiHead=LANG==='ta' ? 'ராசி' : 'Rasi';
+  const nakHead=LANG==='ta' ? 'நட்சத்திரம்' : 'Nakshatra';
+  const padaHead=LANG==='ta' ? 'பாதம்' : 'Pada';
+
   const order=['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Rahu','Ketu'];
   const rows=[];
+
   order.forEach(key=>{
-    const obj=currentPlanetsForChart?.[key]; if(!obj||obj.fullDegree==null)return;
-    const deg=Number(obj.fullDegree); if(!Number.isFinite(deg))return;
-    const dms=decToDMS(deg); const ni=getNakPadaFromDegree(deg);
+    const obj=currentPlanetsForChart?.[key];
+    if(!obj || obj.fullDegree==null) return;
+
+    const deg=Number(obj.fullDegree);
+    if(!Number.isFinite(deg)) return;
+
+    const ni=getNakPadaFromDegree(deg);
     const nak=nameNakById(ni.nakId)||'—';
     const rasi=nameRasiByIdx(Math.floor((((deg%360)+360)%360)/30))||'—';
     const label=planetChartLabel(key,obj,false);
-    rows.push(`<div class="current-planet-row"><span class="current-planet-name">${label}</span><span class="current-planet-deg">${dms.deg}° ${dms.min}' ${dms.sec}" • ${rasi} • ${nak} ${LANG==='ta'?'பாதம்':'Pada'} ${ni.pada}</span></div>`);
+
+    rows.push(`
+      <tr>
+        <td><strong class="current-planet-green-name">${label}</strong></td>
+        <td>${rasi}</td>
+        <td>${nak}</td>
+        <td><strong>${ni.pada}</strong></td>
+      </tr>`);
   });
-  list.innerHTML=rows.length?rows.join(''):`<div class="muted">${LANG==='ta'?'தற்போதைய கிரகத் தகவல் இல்லை.':'No current planet data.'}</div>`;
-  card.style.display='block';
+
+  box.innerHTML=`
+    <div class="current-planets-info-title">🟢 ${title}</div>
+    <div class="current-planets-info-date">${dateLabel}: <strong>${dateText||'—'}</strong></div>
+    <div class="current-planets-table-wrap">
+      <table class="current-planets-info-table">
+        <thead>
+          <tr>
+            <th>${planetHead}</th>
+            <th>${rasiHead}</th>
+            <th>${nakHead}</th>
+            <th>${padaHead}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.length ? rows.join('') : `<tr><td colspan="4">${LANG==='ta'?'தற்போதைய கிரகத் தகவல் இல்லை.':'No current planet data.'}</td></tr>`}
+        </tbody>
+      </table>
+    </div>`;
+
+  const bhavam=document.getElementById('bhavaChooser');
+  if(bhavam?.parentNode){
+    bhavam.insertAdjacentElement('afterend',box);
+    return;
+  }
+
+  const btn=document.getElementById('btnCurrentPlanets');
+  const toolbar=btn?.closest('.toolbar');
+  if(toolbar?.parentNode){
+    toolbar.insertAdjacentElement('afterend',box);
+    return;
+  }
+
+  const chart=document.getElementById('rasiChart');
+  if(chart?.parentNode) chart.parentNode.insertBefore(box,chart);
 }
 
 function updateCurrentPlanetsToggleUI(){
@@ -2684,7 +3129,9 @@ async function setCurrentPlanetsEnabled(enabled){
     currentPlanetDegrees={};
     currentPlanetsCalcDate='';
     clearCurrentPlanetsFromChart();
+    clearCurrentPlanetsInfoBox();
     updateCurrentPlanetsToggleUI();
+    try{ window.dispatchEvent(new CustomEvent('jpCurrentPlanetsUpdated')); }catch(e){}
     try{if(typeof _autoSaveDebounced==='function')_autoSaveDebounced();}catch(e){}
     return;
   }
@@ -2708,10 +3155,17 @@ async function setCurrentPlanetsEnabled(enabled){
     if(!result){
       currentPlanetsEnabled=false;
       clearCurrentPlanetsFromChart();
+      clearCurrentPlanetsInfoBox();
+      updateCurrentPlanetsToggleUI();
       alert(LANG==='ta'?'தற்போதைய கிரகத் தகவலை பெற முடியவில்லை.':'Unable to fetch current planet positions.');
     }else{
       placeCurrentPlanetsOnChart(currentPlanetsForChart);
       drawNavamsaChart();
+      renderCurrentPlanetsInfoBox();
+
+      // Refresh the Dasa/Puthi/Anthara table immediately.
+      // The DBA table uses the SAME current-planet data and exact Nakshatra-Pada.
+      try{ window.dispatchEvent(new CustomEvent('jpCurrentPlanetsUpdated')); }catch(e){}
       try{if(typeof _autoSaveDebounced==='function')_autoSaveDebounced();}catch(e){}
     }
   }finally{
@@ -2733,6 +3187,7 @@ document.getElementById('btnCurrentPlanets')?.addEventListener('click',()=>{
     currentPlanetDegrees={};
     currentPlanetsCalcDate='';
     clearCurrentPlanetsFromChart();
+    clearCurrentPlanetsInfoBox();
     updateCurrentPlanetsToggleUI();
   });
 });
@@ -4322,30 +4777,61 @@ function applyALPBhavaRotation(state){
   if(!state) return;
 
   /*
-    ALP and the 12 birth Bhavas are separate.
+    ALP Bhava system
+    ----------------
+    When ALP is ON:
 
-    The existing Bhava 1..12 arrangement is controlled only by
-    applyBhavaRotation() / BHAVA_SELECTED.
+    RASI:
+      ALP running Pada = Bhava 1 starting Pada.
+      Every next 9 Padas = next Bhava.
+      Therefore all 108 Nakshatra Padas are numbered 1..12.
 
-    ALP NEVER changes the Bhava numbering.
-    It only highlights the currently running ALP Pada.
+    NAVAMSA:
+      ALP exact Navamsa position = Navamsa Bhava 1.
+      Every next 9 Navamsa Padas = next Bhava.
+      applyNavamsaBhavaNumbers() uses the ALP Navamsa anchor.
 
-    At the final 120-year return, the remaining 9 ALP Padas are
-    highlighted inside the birth-Lagna Bhava.
+    IMPORTANT:
+      Birth-Lagna Bhava numbering must NOT be used while ALP is active.
+      The current ALP running Pada is the new Bhava-1 anchor.
   */
 
-  const birthPada=getLagnaPadaFromInputs();
-  if(!birthPada) return;
+  const alpPada = Number(state.runningPada);
 
-  if(Number(state.ageYears)>=119.999999){
-    applyFinalALPBalanceToBirthLagna(state);
+  if(!Number.isInteger(alpPada) || alpPada < 1 || alpPada > 108){
+    return;
   }
 
-  /*
-    Do not call applyRasiNumberChips(), highlightLagnaNumberedBands(),
-    or applyNavamsaBhavaNumbers() here. Those can redefine the user's
-    Bhava arrangement.
-  */
+  /* =====================================
+     1. RASI — Bhava 1..12 from ALP Pada
+     ===================================== */
+
+  // Bhava 1 starts from the current ALP Nakshatra Pada.
+  highlightLagnaNumberedBands(alpPada);
+
+  // Rasi title numbers must also start from the ALP Rasi.
+  RASI_NUMBER_START_IDX = Math.floor((alpPada - 1) / 9);
+  applyRasiNumberChips();
+
+  // Re-apply Nakshatra-level Bhava numbering because
+  // applyRasiNumberChips() changes only the Rasi titles.
+  highlightLagnaNumberedBands(alpPada);
+
+  /* =====================================
+     2. NAVAMSA — Bhava 1..12 from ALP D9
+     ===================================== */
+
+  // applyNavamsaBhavaNumbers() detects alpActive and
+  // uses getALPNavamsaPosition(state) as the anchor.
+  applyNavamsaBhavaNumbers();
+
+  /* =====================================
+     3. FINAL 120-YEAR ALP BALANCE
+     ===================================== */
+
+  if(Number(state.ageYears) >= 119.999999){
+    applyFinalALPBalanceToBirthLagna(state);
+  }
 }
 
 function restoreBirthBhavaRotation(){
@@ -4522,6 +5008,7 @@ function renderBirthKarana(){
 function updateBirthKarana(){
   try{ renderBirthKarana(); }catch(e){ console.warn('Birth Karana:',e); }
 }
+
 
 /* ===== கரணம் பரிகார ஸ்தலங்கள் =====
    Source: user's supplied Karana Parihara Kovil table.
@@ -7898,7 +8385,11 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
     if (!ok){
       const lord = nakLordById(base.nakId);
       const txt  = fmtNakPada(base.nakId, base.pada, lord);
-      return {dasa:{txt}, puthi:{txt}, anth:{txt}};
+      return {
+        dasa:{txt, nakId:base.nakId, pada:base.pada, lordKey:lord, lordName:lord ? planetLabelByLang(lord) : ''},
+        puthi:{txt, nakId:base.nakId, pada:base.pada, lordKey:lord, lordName:lord ? planetLabelByLang(lord) : ''},
+        anth:{txt, nakId:base.nakId, pada:base.pada, lordKey:lord, lordName:lord ? planetLabelByLang(lord) : ''}
+      };
     }
     try{
       const tree = window.dasaTree(baseDeg, dob, when);
@@ -7924,16 +8415,81 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
       const atLord = normalizePlanetKey(at?.lordKey) || nakLordById(atId);
 
       return {
-        dasa:{txt: fmtNakPada(mdId, mdPada, mdLord)},
-        puthi:{txt: fmtNakPada(ptId, ptPada, ptLord)},
-        anth:{txt: fmtNakPada(atId, atPada, atLord)}
+        dasa:{
+          txt: fmtNakPada(mdId, mdPada, mdLord),
+          nakId: mdId, pada: mdPada,
+          lordKey: mdLord,
+          lordName: mdLord ? planetLabelByLang(mdLord) : ''
+        },
+        puthi:{
+          txt: fmtNakPada(ptId, ptPada, ptLord),
+          nakId: ptId, pada: ptPada,
+          lordKey: ptLord,
+          lordName: ptLord ? planetLabelByLang(ptLord) : ''
+        },
+        anth:{
+          txt: fmtNakPada(atId, atPada, atLord),
+          nakId: atId, pada: atPada,
+          lordKey: atLord,
+          lordName: atLord ? planetLabelByLang(atLord) : ''
+        }
       };
     }catch(e){
       const lord = nakLordById(base.nakId);
       const txt  = fmtNakPada(base.nakId, base.pada, lord);
-      return {dasa:{txt}, puthi:{txt}, anth:{txt}};
+      return {
+        dasa:{txt, nakId:base.nakId, pada:base.pada, lordKey:lord, lordName:lord ? planetLabelByLang(lord) : ''},
+        puthi:{txt, nakId:base.nakId, pada:base.pada, lordKey:lord, lordName:lord ? planetLabelByLang(lord) : ''},
+        anth:{txt, nakId:base.nakId, pada:base.pada, lordKey:lord, lordName:lord ? planetLabelByLang(lord) : ''}
+      };
     }
   }
+
+  // --- Current planet matching for DBA table ---
+  // Uses exactly the same current-planet positions that are displayed GREEN on the chart.
+  function getCurrentPlanetsAtPada(nakId, pada){
+    if(!currentPlanetsEnabled || !currentPlanetsForChart || !nakId || !pada) return [];
+    const wantNak = Number(nakId);
+    const wantPada = Number(pada);
+    if(!Number.isFinite(wantNak) || !Number.isFinite(wantPada)) return [];
+
+    const out=[];
+    Object.entries(currentPlanetsForChart).forEach(([key,obj])=>{
+      if(!obj || obj.fullDegree==null || !CURRENT_PLANET_KEYS.includes(key)) return;
+      const deg=Number(obj.fullDegree);
+      if(!Number.isFinite(deg)) return;
+      const pos=nakPadaFromDeg(deg);
+      if(Number(pos.nakId)===wantNak && Number(pos.pada)===wantPada){
+        out.push(key);
+      }
+    });
+    return out;
+  }
+
+  function dbaCellHTML(part){
+    if(!part) return '—';
+
+    const matches=getCurrentPlanetsAtPada(part.nakId, part.pada);
+    const txt=part.txt || '—';
+
+    // No current planet at this exact Nakshatra + Pada.
+    if(!matches.length) return txt;
+
+    const names=matches.map(key=>
+      `<span class="dba-current-planet">🟢 ${planetLabelByLang(key)}</span>`
+    ).join(' ');
+
+    // The complete matching Pada gets a green background, while the
+    // current planet name is shown in the same green style as the chart.
+    const title=matches.map(key=>planetLabelByLang(key)).join(', ') +
+      ' — current planet at this Nakshatra Pada';
+
+    return `<span class="dba-current-match" title="${title}">` +
+           `<span class="dba-current-nakpada">${txt}</span>` +
+           `<span class="dba-current-planet-list">${names}</span>` +
+           `</span>`;
+  }
+
 
   // --- Render ---
   function render(planets, dob, now){
@@ -7964,13 +8520,27 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
       const nat = toDMS(baseDeg);
       const B = computeDBA(baseDeg, dob, dob);
 
+      /*
+        Show the actual Dasa / Puthi / Anthara planet prominently.
+        The Nakshatra + Pada information remains underneath it.
+      */
+      const dBirth = B.dasa?.lordName
+        ? `<strong>${B.dasa.lordName}</strong><br><span class="dba-sub">${dbaCellHTML(B.dasa)}</span>`
+        : B.dasa.txt;
+      const pBirth = B.puthi?.lordName
+        ? `<strong>${B.puthi.lordName}</strong><br><span class="dba-sub">${dbaCellHTML(B.puthi)}</span>`
+        : B.puthi.txt;
+      const aBirth = B.anth?.lordName
+        ? `<strong>${B.anth.lordName}</strong><br><span class="dba-sub">${dbaCellHTML(B.anth)}</span>`
+        : B.anth.txt;
+
       bT.insertAdjacentHTML('beforeend',
         `<tr>
           <td data-label="${hdrMap.th2Planet}">${planetLabelByLang(key)}</td>
           <td data-label="${hdrMap.th2DegBirth}">${nat.d}° ${nat.m}′ ${nat.s}″</td>
-          <td data-label="${hdrMap.th2Dasa}">${B.dasa.txt}</td>
-          <td data-label="${hdrMap.th2Puthi}">${B.puthi.txt}</td>
-          <td data-label="${hdrMap.th2Anth}">${B.anth.txt}</td>
+          <td data-label="${hdrMap.th2Dasa}">${dBirth}</td>
+          <td data-label="${hdrMap.th2Puthi}">${pBirth}</td>
+          <td data-label="${hdrMap.th2Anth}">${aBirth}</td>
         </tr>`);
 
       let curDeg = baseDeg;
@@ -7981,13 +8551,28 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
       const cur = toDMS(curDeg);
       const N = computeDBA(baseDeg, dob, now);
 
+      /*
+        "இப்போது" table:
+        show the CURRENT Dasa / Puthi / Anthara planets
+        explicitly, with their Nakshatra + Pada below.
+      */
+      const dNow = N.dasa?.lordName
+        ? `<strong>${N.dasa.lordName}</strong><br><span class="dba-sub">${dbaCellHTML(N.dasa)}</span>`
+        : N.dasa.txt;
+      const pNow = N.puthi?.lordName
+        ? `<strong>${N.puthi.lordName}</strong><br><span class="dba-sub">${dbaCellHTML(N.puthi)}</span>`
+        : N.puthi.txt;
+      const aNow = N.anth?.lordName
+        ? `<strong>${N.anth.lordName}</strong><br><span class="dba-sub">${dbaCellHTML(N.anth)}</span>`
+        : N.anth.txt;
+
       nT.insertAdjacentHTML('beforeend',
         `<tr>
           <td data-label="${hdrMap.th3Planet}">${planetLabelByLang(key)}</td>
           <td data-label="${hdrMap.th3DegNow}">${cur.d}° ${cur.m}′ ${cur.s}″</td>
-          <td data-label="${hdrMap.th3Dasa}">${N.dasa.txt}</td>
-          <td data-label="${hdrMap.th3Puthi}">${N.puthi.txt}</td>
-          <td data-label="${hdrMap.th3Anth}">${N.anth.txt}</td>
+          <td data-label="${hdrMap.th3Dasa}">${dNow}</td>
+          <td data-label="${hdrMap.th3Puthi}">${pNow}</td>
+          <td data-label="${hdrMap.th3Anth}">${aNow}</td>
         </tr>`);
     });
 
@@ -8031,6 +8616,12 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
       }
     }
   }, 400);
+
+  // Re-render DBA immediately when the Current Planets button finishes.
+  // This is the important bridge between the green chart planets and the DBA table.
+  window.addEventListener('jpCurrentPlanetsUpdated', function(){
+    try{ updateFromPage(); }catch(e){ console.warn('DBA current-planet refresh:', e); }
+  });
 
   // Hook common app actions if present
   if (typeof window.run === 'function'){
