@@ -753,9 +753,21 @@ header .toolbar > *:not(.tb-edge) { position: relative; z-index: 1; }
   color: #16a34a;
 }
 .planet-current {
-  margin-left: 4px;
-  color: #16a34a !important;
-  font-weight: 800;
+  display:inline-block;
+  margin-left:4px;
+  color:#16a34a !important;
+  font-weight:800;
+  white-space:nowrap;
+  text-shadow:0 0 1px rgba(22,163,74,.25);
+}
+
+.line .planet-current{
+  color:#16a34a !important;
+  font-weight:900;
+}
+
+body.dark .line .planet-current{
+  color:#4ade80 !important;
 }
 body.dark .planet-current {
   color: #4ade80 !important;
@@ -1289,6 +1301,29 @@ body.dark .vainasigam-info-box{background:#1b1220;border-color:#765080;color:#ee
 .yogi-info-box .yogi-yellow{color:#b66b00;font-weight:800}
 .yogi-info-box .yogi-sthalam{margin-top:2px;word-break:break-word}
 
+
+
+/* ===== CURRENT PLANETS INFO BOX ===== */
+#currentPlanetsInfoBox{
+  width:min(900px,96%);margin:8px auto 12px;box-sizing:border-box;
+  border:1px solid #22a55a;border-radius:10px;background:#f4fff7;color:#173b25;
+  padding:10px 12px;box-shadow:0 1px 5px rgba(0,0,0,.08);
+}
+#currentPlanetsInfoBox .cp-title{font-weight:900;font-size:16px;color:#168443;text-align:center;margin-bottom:4px}
+#currentPlanetsInfoBox .cp-date{text-align:center;font-weight:900;margin-bottom:8px}
+#currentPlanetsInfoBox .cp-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+#currentPlanetsInfoBox .cp-item{border:1px solid #b9dec5;border-radius:8px;padding:7px 6px;background:rgba(255,255,255,.7);text-align:center;min-width:0}
+#currentPlanetsInfoBox .cp-name{font-weight:900}
+#currentPlanetsInfoBox .cp-detail{font-size:12px;margin-top:3px;line-height:1.35}
+body.dark #currentPlanetsInfoBox{background:#0f2115;border-color:#22c55e;color:#d9ffe5}
+body.dark #currentPlanetsInfoBox .cp-title{color:#4ade80}
+body.dark #currentPlanetsInfoBox .cp-item{background:#13281a;border-color:#236b39}
+#rasiInfoSlideshow .rasi-info-calcdate{text-align:center;font-size:13px;font-weight:900;margin:0 0 7px;padding:5px 7px;border-radius:7px;background:rgba(22,163,74,.08);color:#0f6b35}
+body.dark #rasiInfoSlideshow .rasi-info-calcdate{background:rgba(34,197,94,.10);color:#86efac}
+@media(max-width:700px){#currentPlanetsInfoBox .cp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Calculation date is intentionally prominent */
+#caldate{font-weight:900 !important;border:2px solid var(--accent) !important;box-shadow:0 0 0 2px rgba(217,164,32,.10)}
+#lblCalcDate{font-weight:900 !important}
 
 /* ===== Birth Panchangam — five limbs ===== */
 .birth-panchang-five{
@@ -3048,6 +3083,13 @@ const CURRENT_PLANET_KEYS = [
   'Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Rahu','Ketu'
 ];
 
+function updateCurrentPlanetsToggleUI(){
+  const btn=document.getElementById('btnCurrentPlanets');
+  if(!btn) return;
+  btn.classList.toggle('active', !!currentPlanetsEnabled);
+  btn.setAttribute('aria-pressed', currentPlanetsEnabled ? 'true' : 'false');
+  btn.disabled=false;
+}
 function clearCurrentPlanetsFromChart(){
   // Current planet spans use the planet-current class.
   document.querySelectorAll('.planet-current').forEach(el => el.remove());
@@ -3085,29 +3127,92 @@ function planetChartLabel(apiKey, obj, useBirthRetrograde=false){
   return retro ? `(${shortName})` : shortName;
 }
 
+function ensureCurrentPlanetsInfoBox(){
+  let box = document.getElementById('currentPlanetsInfoBox');
+
+  if(!box){
+    box = document.createElement('div');
+    box.id = 'currentPlanetsInfoBox';
+    box.className = 'current-planets-info-box';
+    box.style.display = 'none';
+  }
+
+  const bhava = document.getElementById('bhavaChooser');
+  const chart = document.getElementById('rasiChart');
+
+  // Keep Current Planets OUTSIDE the Rasi chart.
+  // Exact order: Bhava 1-12 -> Current Planets -> Rasi chart.
+  if(bhava && bhava.parentNode){
+    if(bhava.nextElementSibling !== box){
+      bhava.insertAdjacentElement('afterend', box);
+    }
+  }else if(chart && chart.parentNode){
+    chart.parentNode.insertBefore(box, chart);
+  }
+
+  return box;
+}
+
 function placeCurrentPlanetsOnChart(planets){
-  if(!padaDomList.length) return;
+  /*
+    CURRENT PLANETS
+    - Birth planets remain RED.
+    - Current planets are shown GREEN inside the exact
+      Nakshatra-Pada cell in the Rasi chart.
+    - If a current planet is retrograde, it is displayed
+      with parentheses: (கிரகப் பெயர்).
+    - Current planet information box remains above the Rasi chart.
+  */
 
   clearCurrentPlanetsFromChart();
-  if(!planets) return;
+
+  if(!currentPlanetsEnabled || !planets || !padaDomList.length){
+    if(currentPlanetsEnabled){
+      ensureCurrentPlanetsInfoBox();
+      renderCurrentPlanetsCard();
+    }
+    return;
+  }
+
+  const allow = CURRENT_PLANET_KEYS || [
+    'Sun','Moon','Mercury','Venus','Mars',
+    'Jupiter','Saturn','Rahu','Ketu'
+  ];
 
   Object.entries(planets).forEach(([key,obj])=>{
-    if(!obj || obj.fullDegree == null) return;
-    if(!CURRENT_PLANET_KEYS.includes(key)) return;
+    if(!obj || obj.fullDegree == null || !allow.includes(key)) return;
 
     const idx = getGlobalPada(Number(obj.fullDegree));
     const cell = padaDomList[idx];
     if(!cell) return;
 
     const span = document.createElement('span');
-    span.textContent = planetChartLabel(key, obj);
-    span.className = `planet-current-${key}`;
-    span.classList.add('planet-current');
+
+    // Green current-planet label.
+    // Retrograde is automatically shown as (கிரகம்).
+    span.textContent = planetChartLabel(key, obj, false);
+    span.className = 'planet-current';
+    span.style.cssText =
+      'margin-left:4px;color:#16a34a !important;font-weight:800;';
+
     span.title = isPlanetRetrograde(obj)
-      ? (LANG === 'ta' ? 'கணிப்புக்கான தேதி — வக்ர கிரகம்' : 'Calculation-date planet — Retrograde')
-      : (LANG === 'ta' ? 'கணிப்புக்கான தேதி கிரகம்' : 'Planet at calculation date');
+      ? (LANG === 'ta'
+          ? 'தற்போதைய கிரகம் — வக்ரம்'
+          : 'Current planet — Retrograde')
+      : (LANG === 'ta'
+          ? 'தற்போதைய கிரகம்'
+          : 'Current planet');
+
     cell.appendChild(span);
   });
+
+  ensureCurrentPlanetsInfoBox();
+  renderCurrentPlanetsCard();
+
+  // Keep Navamsa current-planet positions synchronized too.
+  try{
+    if(typeof drawNavamsaChart === 'function') drawNavamsaChart();
+  }catch(e){}
 }
 
 async function fetchCurrentPlanetsForCalculationDate(){
@@ -3118,7 +3223,7 @@ async function fetchCurrentPlanetsForCalculationDate(){
   // This prevents repeated API calls when the customer presses the button again.
   if(currentPlanetsForChart && currentPlanetsCalcDate === value){
     placeCurrentPlanetsOnChart(currentPlanetsForChart);
-    drawNavamsaChart();
+    drawNavamsaChart(); renderCurrentPlanetsCard();
     return currentPlanetsForChart;
   }
 
@@ -3195,48 +3300,105 @@ async function fetchCurrentPlanetsForCalculationDate(){
 
 
 /* ===== Current Planet button: fetch only on customer request ===== */
-function renderCurrentPlanetsCard(){
-  return; // Current planets are shown only on the chart; no table/card.
-  const card=document.getElementById('currentPlanetsCard');
-  const title=document.getElementById('currentPlanetsTitle');
-  const dateEl=document.getElementById('currentPlanetsCalcDate');
-  const list=document.getElementById('currentPlanetsList');
-  if(!card||!dateEl||!list)return;
-  if(!currentPlanetsForChart){card.style.display='none';return;}
-  const value=document.getElementById('caldate')?.value||'';
-  let dateText=value;
-  if(value){const d=new Date(value);if(!Number.isNaN(d.getTime()))dateText=formatDateUI(d);}
-  title.textContent=LANG==='ta'?'தற்போதைய கிரக நிலைகள்':'Current Planet Positions';
-  dateEl.textContent=LANG==='ta'?`கணிப்புக்கான தேதி: ${dateText||'—'}`:`Calculation date: ${dateText||'—'}`;
-  const order=['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Rahu','Ketu'];
-  const rows=[];
-  order.forEach(key=>{
-    const obj=currentPlanetsForChart?.[key]; if(!obj||obj.fullDegree==null)return;
-    const deg=Number(obj.fullDegree); if(!Number.isFinite(deg))return;
-    const dms=decToDMS(deg); const ni=getNakPadaFromDegree(deg);
-    const nak=nameNakById(ni.nakId)||'—';
-    const rasi=nameRasiByIdx(Math.floor((((deg%360)+360)%360)/30))||'—';
-    const label=planetChartLabel(key,obj,false);
-    rows.push(`<div class="current-planet-row"><span class="current-planet-name">${label}</span><span class="current-planet-deg">${dms.deg}° ${dms.min}' ${dms.sec}" • ${rasi} • ${nak} ${LANG==='ta'?'பாதம்':'Pada'} ${ni.pada}</span></div>`);
-  });
-  list.innerHTML=rows.length?rows.join(''):`<div class="muted">${LANG==='ta'?'தற்போதைய கிரகத் தகவல் இல்லை.':'No current planet data.'}</div>`;
-  card.style.display='block';
+
+/* =========================================================
+   CURRENT PLANETS — UCHAM / NEECHAM
+   ONLY for the "தற்போதைய கிரகங்கள்" table.
+
+   U = உச்சம்
+   N = நீச்சம்
+
+   User-specified Rasi rules:
+   மேஷம்      : சூரியன்(U), சனி(N)
+   ரிஷபம்     : சந்திரன்(U), ராகு(U), கேது(N)
+   கடகம்       : செவ்வாய்(N), குரு(U)
+   கன்னி      : புதன்(U), சுக்கிரன்(N)
+   துலாம்     : சனி(U), சூரியன்(N)
+   விருச்சிகம் : கேது(U), ராகு(N), சந்திரன்(N)
+   மகரம்      : செவ்வாய்(U), குரு(N)
+   மீனம்      : சுக்கிரன்(U), புதன்(N)
+
+   Display is ONLY in the current-planets information table.
+   Rasi chart planet labels are NOT changed by this rule.
+   ========================================================= */
+const CURRENT_UCHAM_NEECHAM = {
+  "மேஷம்": {
+    Sun: "U",
+    Saturn: "N"
+  },
+  "ரிஷபம்": {
+    Moon: "U",
+    Rahu: "U",
+    Ketu: "N"
+  },
+  "கடகம்": {
+    Mars: "N",
+    Jupiter: "U"
+  },
+  "கன்னி": {
+    Mercury: "U",
+    Venus: "N"
+  },
+  "துலாம்": {
+    Saturn: "U",
+    Sun: "N"
+  },
+  "விருச்சிகம்": {
+    Ketu: "U",
+    Rahu: "N",
+    Moon: "N"
+  },
+  "மகரம்": {
+    Mars: "U",
+    Jupiter: "N"
+  },
+  "மீனம்": {
+    Venus: "U",
+    Mercury: "N"
+  }
+};
+
+function getCurrentPlanetUNMarker(planetKey, rasiName){
+  return CURRENT_UCHAM_NEECHAM?.[rasiName]?.[planetKey] || "";
 }
 
-function updateCurrentPlanetsToggleUI(){
-  const btn=document.getElementById('btnCurrentPlanets');
-  if(!btn) return;
-  if(currentPlanetsEnabled){
-    btn.textContent='தற்போதைய கிரகங்கள்';
-    btn.classList.add('active');
-    btn.setAttribute('aria-pressed','true');
-    btn.title='கணிப்புக்கான தேதியின் தற்போதைய கிரகங்கள் — ON';
-  }else{
-    btn.textContent='தற்போதைய கிரகங்கள்';
-    btn.classList.remove('active');
-    btn.setAttribute('aria-pressed','false');
-    btn.title='கணிப்புக்கான தேதியின் தற்போதைய கிரகங்கள் — OFF';
+function renderCurrentPlanetsCard(){
+  const box=ensureCurrentPlanetsInfoBox();
+  if(!box) return;
+
+  if(!currentPlanetsEnabled){
+    box.style.display='none';
+    box.innerHTML='';
+    return;
   }
+
+  const source=currentPlanetsForChart || {};
+  const order=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+  const names={Sun:'சூரியன்',Moon:'சந்திரன்',Mars:'செவ்வாய்',Mercury:'புதன்',Jupiter:'குரு',Venus:'சுக்கிரன்',Saturn:'சனி',Rahu:'ராகு',Ketu:'கேது'};
+
+  const cards=order.map(key=>{
+    const deg=Number(source?.[key]?.fullDegree ?? currentPlanetDegrees?.[key]);
+    if(!Number.isFinite(deg)) return '';
+    const np=getNakPadaFromDegree(deg);
+    const nak=nameNakById(np.nakId)||'—';
+    const rasi=nameRasiByIdx(Math.floor((((deg%360)+360)%360)/30))||'—';
+    const d=decToDMS(deg);
+    const retroText = isPlanetRetrograde(source?.[key])
+      ? (LANG === 'ta' ? ' — வக்ரம்' : ' — Retrograde')
+      : '';
+
+    const unMarker = getCurrentPlanetUNMarker(key, rasi);
+    const unSuffix = unMarker ? ` (${unMarker})` : '';
+
+    return `<div class="cp-item">
+      <div class="cp-name">${names[key]}${unSuffix}${isPlanetRetrograde(source?.[key]) ? ' <span style="color:#16a34a;">(வக்ரம்)</span>' : ''}</div>
+      <div class="cp-detail">${rasi}<br>${nak} — பாதம் ${np.pada}<br>${d.deg}° ${d.min}' ${d.sec}"${retroText}</div>
+    </div>`;
+  }).filter(Boolean).join('');
+
+  box.innerHTML=`<div class="cp-title">தற்போதைய கிரகங்கள்</div>
+    <div class="cp-grid">${cards || '<div class="cp-item" style="grid-column:1/-1">தற்போதைய கிரகத் தகவல் இல்லை.</div>'}</div>`;
+  box.style.display='block';
 }
 
 async function setCurrentPlanetsEnabled(enabled){
@@ -3248,6 +3410,7 @@ async function setCurrentPlanetsEnabled(enabled){
     currentPlanetDegrees={};
     currentPlanetsCalcDate='';
     clearCurrentPlanetsFromChart();
+    renderCurrentPlanetsCard();
     updateCurrentPlanetsToggleUI();
     try{if(typeof _autoSaveDebounced==='function')_autoSaveDebounced();}catch(e){}
     return;
@@ -3275,8 +3438,7 @@ async function setCurrentPlanetsEnabled(enabled){
       alert(LANG==='ta'?'தற்போதைய கிரகத் தகவலை பெற முடியவில்லை.':'Unable to fetch current planet positions.');
     }else{
       placeCurrentPlanetsOnChart(currentPlanetsForChart);
-      drawNavamsaChart();
-      try{if(typeof _autoSaveDebounced==='function')_autoSaveDebounced();}catch(e){}
+      drawNavamsaChart(); renderCurrentPlanetsCard(); try{if(typeof _autoSaveDebounced==='function')_autoSaveDebounced();}catch(e){}
     }
   }finally{
     if(btn) btn.disabled=false;
@@ -3284,21 +3446,101 @@ async function setCurrentPlanetsEnabled(enabled){
   }
 }
 
-document.getElementById('btnCurrentPlanets')?.addEventListener('click',()=>{
-  setCurrentPlanetsEnabled(!currentPlanetsEnabled);
-});
-
-// Changing the calculation date invalidates the displayed current planets.
-// We turn the switch OFF instead of silently making another API call.
-['input','change'].forEach(evt=>{
-  document.getElementById('caldate')?.addEventListener(evt,()=>{
+document.getElementById('btnCurrentPlanets')?.addEventListener('click',async ()=>{
+  if(currentPlanetsEnabled){
+    // OFF: remove chart markings AND information box.
     currentPlanetsEnabled=false;
     currentPlanetsForChart=null;
     currentPlanetDegrees={};
     currentPlanetsCalcDate='';
     clearCurrentPlanetsFromChart();
+    const box=document.getElementById('currentPlanetsInfoBox');
+    if(box) box.style.display='none';
     updateCurrentPlanetsToggleUI();
-  });
+    return;
+  }
+
+  // ON: only this information box is shown.
+  if(typeof window.jpHideOtherFeatureInfo==='function'){
+    window.jpHideOtherFeatureInfo('currentPlanetsInfoBox');
+  }
+
+  await setCurrentPlanetsEnabled(true);
+  if(currentPlanetsEnabled){
+    renderCurrentPlanetsCard();
+  }
+});
+
+/*
+  IMPORTANT:
+  If Current Planets is ON and the customer changes
+  கணிப்புக்கான தேதி / நேரம், automatically fetch the new
+  current-planet positions and keep the button ON.
+
+  The previous code turned Current Planets OFF here.
+  That prevented the green Nakshatra-Pada positions from
+  updating when the calculation date changed.
+*/
+let currentPlanetsDateRequestId = 0;
+
+document.getElementById('caldate')?.addEventListener('change', async ()=>{
+  if(!currentPlanetsEnabled) return;
+
+  const requestId = ++currentPlanetsDateRequestId;
+  const newValue = document.getElementById('caldate')?.value || '';
+
+  if(!newValue){
+    currentPlanetsForChart = null;
+    currentPlanetDegrees = {};
+    currentPlanetsCalcDate = '';
+    clearCurrentPlanetsFromChart();
+    renderCurrentPlanetsCard();
+    return;
+  }
+
+  // Remove the old green positions immediately.
+  clearCurrentPlanetsFromChart();
+
+  const box = ensureCurrentPlanetsInfoBox();
+  if(box){
+    box.style.display = 'block';
+    box.innerHTML =
+      '<div class="cp-title">தற்போதைய கிரகங்கள்</div>' +
+      '<div style="text-align:center;padding:10px;">' +
+      'புதிய கணிப்புக்கான கிரக நிலைகள் கணக்கிடப்படுகிறது...' +
+      '</div>';
+  }
+
+  try{
+    const result = await fetchCurrentPlanetsForCalculationDate();
+
+    // Ignore an older API response if the user changed the date again.
+    if(requestId !== currentPlanetsDateRequestId) return;
+
+    if(result){
+      currentPlanetsEnabled = true;
+      placeCurrentPlanetsOnChart(result);
+      renderCurrentPlanetsCard();
+      updateCurrentPlanetsToggleUI();
+
+      try{
+        if(typeof _autoSaveDebounced === 'function'){
+          _autoSaveDebounced();
+        }
+      }catch(e){}
+    }else{
+      clearCurrentPlanetsFromChart();
+      renderCurrentPlanetsCard();
+      updateCurrentPlanetsToggleUI();
+    }
+  }catch(e){
+    console.warn('Current planet date-change update failed:', e);
+    if(requestId === currentPlanetsDateRequestId){
+      clearCurrentPlanetsFromChart();
+      renderCurrentPlanetsCard();
+      updateCurrentPlanetsToggleUI();
+    }
+  }
 });
 
 // Start in OFF state.
@@ -5732,7 +5974,7 @@ const RASI_INFO_SLIDES = [
     title:'12 பாவ ஸ்தானங்கள்',
     subtitle:'ஒவ்வொரு ஸ்தானமும் / வீடும் நம் வாழ்வில் உள்ள பல்வேறு அம்சங்களை கூறுகிறது.',
     items:[
-      ['1','லக்னம்,தலைமை,தலை, ஜாதகர் ஸ்தானம் '],
+      ['1','லக்னம்,தலைமை, தலை,ஜாதகர் ஸ்தானம்'],
       ['2',', தன வாக்கு குடும்ப ஸ்தானம்'],
       ['3','இளைய சகோதரர், தைரிய வீரிய ஸ்தானம், தகவல் தொடர்பு, இசைக் கருவிகள் ,செல்போன்'],
       ['4','தாயார்,வண்டி,வீடு, வாகனம்,சொத்து, சுக ஸ்தானம்'],
@@ -5780,6 +6022,16 @@ function renderRasiInfoSlideshow(){
   const itemClass=isPlanetSlide?'planet-info-item':'bhava-info-item';
   box.innerHTML=`
     <div class="rasi-info-slide" data-slide-id="${slide.id}">
+      <div class="rasi-info-calcdate">${(() => {
+        const v=document.getElementById('caldate')?.value || '';
+        if(!v) return 'கணிப்புக்கான தேதி: —';
+        const d=new Date(v);
+        if(Number.isNaN(d.getTime())) return 'கணிப்புக்கான தேதி: '+v;
+        const tx=d.toLocaleString('ta-IN',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
+        const now=new Date();
+        const today=d.getFullYear()===now.getFullYear() && d.getMonth()===now.getMonth() && d.getDate()===now.getDate();
+        return 'கணிப்புக்கான தேதி: '+tx+(today?' — இன்றைய தேதிக்கு ஏற்ப':'');
+      })()}</div>
       <div class="rasi-info-title">${slide.title}</div>
       <div class="rasi-info-subtitle">${slide.subtitle}</div>
       <div class="${gridClass}">
@@ -5789,6 +6041,9 @@ function renderRasiInfoSlideshow(){
         ).join('')}
       </div>
     </div>`;
+  if(currentPlanetsEnabled && typeof renderCurrentPlanetsCard==='function'){
+    renderCurrentPlanetsCard();
+  }
 }
 
 // Automatic information slideshow. No user-click controls for now.
@@ -9013,9 +9268,7 @@ function applyCustomerThithiSunya(){
     `<strong>திதி சூன்யம் — ${rule.label}</strong><br>`+
     `<strong>${isKrishna ? 'கிருஷ்ண பக்ஷம்' : 'சுக்ல பக்ஷம்'}</strong><br>`+
     `முதன்மை ராசி: <strong>${primary[0]}</strong><br>`+
-    `<span style="color:#a00000">முதன்மை ராசி பாதிக்கப்படவில்லை என்றால்: ${secondary[0]}</span><br>`+
-    `<small>━━ முதன்மை &nbsp;&nbsp; ┄┄ மாற்று / அடுத்த ராசி</small>`,
-    'legend'
+    `அல்லது: ${secondary[0]}</span><br>`
   );
 }
 
@@ -9964,6 +10217,49 @@ document.addEventListener('click', ()=>{
 })();
 </script>
 
+
+
+<script>
+/* ===== SINGLE FEATURE INFO/TABLE MODE =====
+   Only one information box/table is visible at a time.
+   Current-planet green chart marks remain until Current Planets is OFF
+   or the calculation date changes.
+*/
+(function(){
+  const ids=[
+    'currentPlanetsInfoBox','alpInfoBox','mudakkuPariharaInfoBox',
+    'karanaInfoBox','vainasigamInfoBox','yogiAvayogiInfoBox',
+    'dasaPlanetMeetings','puthiPlanetMeetings','dasaTablesCard',
+    'thithiSunyaCustomerBox'
+  ];
+  function hideOthers(except){
+    ids.forEach(id=>{
+      if(id===except)return;
+      const el=document.getElementById(id);
+      if(el) el.style.display='none';
+    });
+  }
+  window.jpHideOtherFeatureInfo=hideOthers;
+
+  document.addEventListener('click',function(ev){
+    const b=ev.target.closest('#btnALP,#btnDasaMeeting,#btnPuthiMeeting,#btnYogiAvayogi,#btnKarana,#btnVainasigam,#btnDBABirth,#btnDBACurrent,#btnThithiSunya,#btnMudakku');
+    if(!b)return;
+    const map={
+      btnALP:'alpInfoBox',
+      btnDasaMeeting:'dasaPlanetMeetings',
+      btnPuthiMeeting:'puthiPlanetMeetings',
+      btnYogiAvayogi:'yogiAvayogiInfoBox',
+      btnKarana:'karanaInfoBox',
+      btnVainasigam:'vainasigamInfoBox',
+      btnDBABirth:'dasaTablesCard',
+      btnDBACurrent:'dasaTablesCard',
+      btnThithiSunya:'thithiSunyaCustomerBox',
+      btnMudakku:'mudakkuPariharaInfoBox'
+    };
+    hideOthers(map[b.id]);
+  },true);
+})();
+</script>
 
 </body>
 </html>
