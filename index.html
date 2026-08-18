@@ -179,7 +179,37 @@ body.dark{
 
   .south-chart{display:grid;grid-template-columns:repeat(4,1fr);grid-template-areas:
     "r10 r11 r12 r01" "r09 photo photo r02" "r08 photo photo r03" "r07 r06 r05 r04";
-    gap:6px;max-width:1280px;margin:8px auto 18px;min-height:1200;height:flex;}
+    gap:6px;max-width:1280px;margin:8px auto 18px;min-height:1200px;height:flex;position:relative;}
+
+  /* ===== RASI CHART INFORMATION SLIDESHOW =====
+     Centre 2×2 area: slide 1 is the 12 Bhava reference supplied by the user.
+     More slides can be added later (9 planets, Nakshatras, etc.). */
+  .rasi-info-slideshow{
+    grid-area:photo; z-index:20; min-width:0; min-height:0; margin:6px;
+    border:2px solid var(--accent); border-radius:10px; background:var(--card);
+    box-shadow:var(--shadow); overflow:hidden; display:flex; align-items:stretch;
+    justify-content:center;
+  }
+  .rasi-info-slide{width:100%;height:100%;box-sizing:border-box;padding:10px;display:flex;flex-direction:column;justify-content:center;}
+  .rasi-info-title{text-align:center;font-weight:900;font-size:20px;margin:0 0 8px;color:var(--brand);}
+  .rasi-info-subtitle{text-align:center;font-size:12px;color:var(--muted);margin:-3px 0 8px;line-height:1.35;}
+  .bhava-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;width:100%;}
+  .bhava-info-item{min-height:52px;padding:6px 5px;box-sizing:border-box;border:1px solid var(--outline);border-radius:7px;background:rgba(255,255,255,.62);text-align:center;display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1.28;font-weight:700;}
+  .bhava-info-item strong{display:block;font-size:12.5px;}
+  .planet-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;width:100%;}
+  .planet-info-item{min-height:68px;padding:7px 6px;box-sizing:border-box;border:1px solid var(--outline);border-radius:8px;background:rgba(255,255,255,.62);font-size:12px;line-height:1.3;font-weight:700;}
+  .planet-info-item .planet-name{font-size:14px;font-weight:900;color:var(--brand);margin-bottom:3px;}
+  .planet-info-item .planet-desc{font-weight:700;}
+  body.dark .bhava-info-item,body.dark .planet-info-item{background:#101923;}
+  @media(max-width:900px){
+    .south-chart{grid-template-columns:repeat(2,1fr);position:relative;}
+    .rasi-info-slideshow{grid-area:1 / 1 / auto / -1 !important;margin:6px 0;min-height:360px;order:-1;}
+    .rasi-info-title{font-size:17px;}
+    .bhava-info-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .planet-info-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
+  #rasiChart.flat3 .rasi-info-slideshow{grid-area:1 / 1 / 2 / -1 !important;}
+
   .box{background:var(--card);border:2px solid var(--accent);border-radius:10px;box-shadow:var(--shadow);
     ;text-align:left;padding:6px 3px;min-height:300px;height: flex;transition:transform .15s}
   .box:hover{transform:scale(1.01)}
@@ -618,57 +648,6 @@ body.dark #bhavaChooser .bitem{ background:#0b1220; }
   font-size: 18px;
   line-height: 1;
 }
-/* === Dasa / Puthi / Anthara planet display === */
-#tblBirthDBA td strong,
-#tblCurrentDBA td strong{
-  font-size:1.02em;
-  font-weight:800;
-}
-#tblBirthDBA .dba-sub,
-#tblCurrentDBA .dba-sub{
-  display:inline-block;
-  margin-top:2px;
-  font-size:.88em;
-  line-height:1.25;
-  opacity:.82;
-}
-
-/* === Current planet matches inside Dasa / Puthi / Anthara tables === */
-.dba-current-match{
-  display:inline-flex;
-  flex-direction:column;
-  gap:4px;
-  padding:4px 6px;
-  border-radius:7px;
-  background:#e8f8ea;
-  border:1px solid #72c77a;
-  box-shadow:inset 0 0 0 1px rgba(22,163,74,.10);
-}
-.dba-current-nakpada{
-  background:#c7f9cc;
-  color:#14532d;
-  border-radius:5px;
-  padding:2px 5px;
-  font-weight:800;
-}
-.dba-current-planet-list{
-  display:flex;
-  flex-wrap:wrap;
-  gap:4px;
-}
-.dba-current-planet{
-  display:inline-block;
-  background:#16a34a;
-  color:#fff !important;
-  border-radius:999px;
-  padding:2px 7px;
-  font-weight:900;
-  line-height:1.2;
-}
-body.dark .dba-current-match{background:#102c1b;border-color:#22c55e}
-body.dark .dba-current-nakpada{background:#14532d;color:#bbf7d0}
-body.dark .dba-current-planet{background:#22c55e;color:#052e16 !important}
-
 /* === Responsive styles for Birth/Current DBA tables === */
 @media (max-width:900px){
   #tblBirthDBA, #tblCurrentDBA{
@@ -690,6 +669,17 @@ body.dark .dba-current-planet{background:#22c55e;color:#052e16 !important}
     content:attr(data-label); font-weight:700; color:var(--muted, #666); min-width:44%;
   }
 } 
+
+
+/* ===== DBA Birth / Current buttons ===== */
+#dasaTablesCard{
+  display:none;
+}
+.dba-toggle-btn.active{
+  background:#175397 !important;
+  color:#fff !important;
+  border-color:#0d3b6f !important;
+}
 
 /* DBA tables placeholder + debug button */
 .dba-placeholder { opacity: .75; font-style: italic; }
@@ -767,91 +757,6 @@ header .toolbar > *:not(.tb-edge) { position: relative; z-index: 1; }
   color: #16a34a !important;
   font-weight: 800;
 }
-
-/* ===== Current Planets information box ===== */
-.current-planets-info-box{
-  width:min(760px,94%);
-  margin:10px auto 12px auto !important;
-  box-sizing:border-box;
-  padding:12px 14px;
-  border:1px solid #55a85c;
-  border-radius:10px;
-  background:#f3fff4;
-  color:#173b1a;
-  line-height:1.5;
-  text-align:center;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-.current-planets-info-title{
-  font-size:16px;
-  font-weight:900;
-  color:#17671a;
-  margin-bottom:3px;
-}
-.current-planets-info-date{
-  font-size:13px;
-  margin-bottom:9px;
-  color:#49604b;
-}
-.current-planets-table-wrap{
-  width:100%;
-  overflow-x:auto;
-}
-.current-planets-info-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:500px;
-  background:#fff;
-}
-.current-planets-info-table th,
-.current-planets-info-table td{
-  border:1px solid #b9d8bb;
-  padding:7px 8px;
-  text-align:center;
-  white-space:nowrap;
-}
-.current-planets-info-table th{
-  background:#dff5e1;
-  color:#205a24;
-  font-weight:900;
-}
-.current-planets-info-table tbody tr:nth-child(even){
-  background:#f8fff8;
-}
-.current-planet-green-name{
-  color:#159447;
-  font-weight:900;
-}
-body.dark .current-planets-info-box{
-  background:#102316;
-  border-color:#398a43;
-  color:#d9f5dd;
-}
-body.dark .current-planets-info-title{color:#62e878}
-body.dark .current-planets-info-date{color:#b9d9bd}
-body.dark .current-planets-info-table{background:#142219}
-body.dark .current-planets-info-table th{background:#1c3822;color:#baf5c2}
-body.dark .current-planets-info-table th,
-body.dark .current-planets-info-table td{border-color:#38623d}
-body.dark .current-planets-info-table tbody tr:nth-child(even){background:#182b1c}
-@media(max-width:600px){
-  .current-planets-info-box{width:96%;padding:10px 7px}
-  .current-planets-info-table{min-width:460px;font-size:13px}
-  .current-planets-info-table th,.current-planets-info-table td{padding:6px 5px}
-}
-
-/* Current-planet Nakshatra/Pada markers inside DBA tables */
-.dba-current-planet {
-  display:inline-block; margin:2px 4px 2px 0; padding:2px 6px;
-  border-radius:6px; background:#c7f9cc; border:1px solid #1b5e20;
-  color:#166534 !important; font-weight:900; white-space:nowrap;
-}
-.dba-current-match {
-  display:inline-block; background:#e9fff0 !important; border-radius:7px;
-  padding:2px 4px; box-shadow:inset 0 0 0 1px #86efac;
-}
-body.dark .dba-current-planet { background:#123b22; border-color:#4ade80; color:#4ade80 !important; }
-body.dark .dba-current-match { background:#102c1b !important; box-shadow:inset 0 0 0 1px #22c55e; }
 body.dark .planet-current {
   color: #4ade80 !important;
 }
@@ -1542,6 +1447,72 @@ body.dark .ddm-badge{background:#0f2016;}
 
 
 
+
+
+/* =========================================================
+   FIX: REMOVE ONLY INTERNAL DIAGONAL CROSS-LINES
+   YOGI / AVAYOGI / ALP / NAVAMSA ALP
+   Keep colors and outer borders unchanged.
+   ========================================================= */
+.yogi-active-pada::after,
+.avayogi-active-pada::after,
+.alp-active-pada::after,
+.navamsa-chart .nav-alp-active-pada::after{
+  content:none !important;
+  display:none !important;
+}
+
+
+/* ===== Sandhippu cards: hidden until their own button is clicked ===== */
+#dasaPlanetMeetings,
+#puthiPlanetMeetings{
+  display:none;
+}
+
+/* Compact Dasa Sandhippu — keep the same compact feel as Puthi Sandhippu */
+.ddm-card{
+  padding:8px;
+}
+.ddm-head{
+  margin-bottom:5px;
+}
+.ddm-head strong{
+  font-size:14px;
+}
+.ddm-note{
+  font-size:11px;
+}
+.ddm-dasa-block{
+  margin:5px 0 !important;
+  padding:5px !important;
+}
+.ddm-dasa-block > div:first-child{
+  margin-bottom:3px !important;
+  font-size:12px;
+}
+.ddm-table th,
+.ddm-table td{
+  padding:4px 5px !important;
+}
+.ddm-table th{
+  font-size:10px;
+}
+.ddm-table td{
+  font-size:11px;
+}
+.ddm-badge{
+  padding:1px 5px;
+  font-size:10px;
+}
+
+/* Active Sandhippu button */
+#btnDasaMeeting.active,
+#btnPuthiMeeting.active{
+  background:#175397 !important;
+  color:#fff !important;
+  border-color:#0d3b6f !important;
+}
+
 </style>
 
 </head>
@@ -1836,7 +1807,7 @@ body.dark .ddm-badge{background:#0f2016;}
   <button id="btnBlinkPuthi" class="btn">புக்தி மின்மினிப்பு</button>
   <button id="btnBlinkAnth"  class="btn">அந்தரம் மின்மினிப்பு</button>
 <button id="btnRasiNameSeq" class="btn">ராசி — தசை→புக்தி→அந்தரம்</button>
-  <button id="btnMudakku" class="btn" type="button" title="சூரியன் பிறப்பு நிலையை வைத்து முடக்கு ராசி காட்டும்">முடக்கு</button> <button type="button" class="btn" id="btnThithiSunya">திதி சூன்யம்</button> <button type="button" class="btn" id="btnCurrentPlanets" aria-pressed="false" title="கணிப்புக்கான தேதியின் தற்போதைய கிரகங்களை காட்ட / மறைக்க">தற்போதைய கிரகங்கள்</button> <button type="button" class="btn" id="btnALP" title="120 ஆண்டுகள் / 108 நட்சத்திர பாதங்கள் அடிப்படையில் ALP">ALP</button> <button type="button" class="btn" id="btnDasaMeeting" title="Dasa Degree → Planet Meetings">தசை சந்திப்பு</button> <button type="button" class="btn" id="btnYogiAvayogi" title="பிறப்பு யோகத்தின் யோகி மற்றும் அவயோகி நட்சத்திர பாதங்கள்">யோகி — அவயோகி</button> <button type="button" class="btn" id="btnKarana" title="பிறப்பு கரணம் மற்றும் பரிகார ஸ்தலம்">கரணம்</button> <button type="button" class="btn" id="btnVainasigam" title="பிறப்பு சந்திர நட்சத்திரத்தின் 22-வது வைநாசிக நட்சத்திரம் மற்றும் பரிகார ஸ்தலம்">வைநாசிகம்</button>
+  <button id="btnMudakku" class="btn" type="button" title="சூரியன் பிறப்பு நிலையை வைத்து முடக்கு ராசி காட்டும்">முடக்கு</button> <button type="button" class="btn" id="btnThithiSunya">திதி சூன்யம்</button> <button type="button" class="btn" id="btnCurrentPlanets" aria-pressed="false" title="கணிப்புக்கான தேதியின் தற்போதைய கிரகங்களை காட்ட / மறைக்க">தற்போதைய கிரகங்கள்</button> <button type="button" class="btn" id="btnALP" title="120 ஆண்டுகள் / 108 நட்சத்திர பாதங்கள் அடிப்படையில் ALP">ALP</button> <button type="button" class="btn" id="btnDasaMeeting" title="Dasa Degree → Planet Meetings">தசை சந்திப்பு</button> <button type="button" class="btn" id="btnPuthiMeeting" title="Puthi Degree → Planet Meetings">புக்தி சந்திப்பு</button> <button type="button" class="btn" id="btnYogiAvayogi" title="பிறப்பு யோகத்தின் யோகி மற்றும் அவயோகி நட்சத்திர பாதங்கள்">யோகி — அவயோகி</button> <button type="button" class="btn" id="btnKarana" title="பிறப்பு கரணம் மற்றும் பரிகார ஸ்தலம்">கரணம்</button> <button type="button" class="btn" id="btnVainasigam" title="பிறப்பு சந்திர நட்சத்திரத்தின் 22-வது வைநாசிக நட்சத்திரம் மற்றும் பரிகார ஸ்தலம்">வைநாசிகம்</button> <button type="button" class="btn dba-toggle-btn" id="btnDBABirth" aria-pressed="false" title="பிறப்பில் தசை / புக்தி / அந்தரம் அட்டவணையை காட்ட / மறைக்க">DBA — பிறப்பில்</button> <button type="button" class="btn dba-toggle-btn" id="btnDBACurrent" aria-pressed="false" title="தற்போது தசை / புக்தி / அந்தரம் அட்டவணையை காட்ட / மறைக்க">DBA — இப்போது</button>
 
 </div>
 
@@ -2936,7 +2907,6 @@ async function fetchCurrentPlanetsForCalculationDate(){
   if(currentPlanetsForChart && currentPlanetsCalcDate === value){
     placeCurrentPlanetsOnChart(currentPlanetsForChart);
     drawNavamsaChart();
-    renderCurrentPlanetsInfoBox();
     return currentPlanetsForChart;
   }
 
@@ -2999,7 +2969,6 @@ async function fetchCurrentPlanetsForCalculationDate(){
 
     placeCurrentPlanetsOnChart(currentPlanetsForChart);
     drawNavamsaChart();
-    renderCurrentPlanetsInfoBox();
     return currentPlanetsForChart;
 
   }catch(e){
@@ -3013,95 +2982,33 @@ async function fetchCurrentPlanetsForCalculationDate(){
 }
 
 
-/* ===== Current Planets info box =====
-   Shows the same 9 current planets that are displayed GREEN on the chart.
-   The box is created only when the user clicks "தற்போதைய கிரகங்கள்".
-   Clicking again removes it. Changing கணிப்புக்கான தேதி also removes it.
-*/
-function clearCurrentPlanetsInfoBox(){
-  document.getElementById('currentPlanetsInfoBox')?.remove();
-}
-
-function renderCurrentPlanetsInfoBox(){
-  clearCurrentPlanetsInfoBox();
-  if(!currentPlanetsEnabled || !currentPlanetsForChart) return;
-
-  const box=document.createElement('div');
-  box.id='currentPlanetsInfoBox';
-  box.className='current-planets-info-box';
-
+/* ===== Current Planet button: fetch only on customer request ===== */
+function renderCurrentPlanetsCard(){
+  return; // Current planets are shown only on the chart; no table/card.
+  const card=document.getElementById('currentPlanetsCard');
+  const title=document.getElementById('currentPlanetsTitle');
+  const dateEl=document.getElementById('currentPlanetsCalcDate');
+  const list=document.getElementById('currentPlanetsList');
+  if(!card||!dateEl||!list)return;
+  if(!currentPlanetsForChart){card.style.display='none';return;}
   const value=document.getElementById('caldate')?.value||'';
   let dateText=value;
-  if(value){
-    const d=new Date(value);
-    if(!Number.isNaN(d.getTime())) dateText=formatDateUI(d);
-  }
-
-  const title=LANG==='ta' ? 'தற்போதைய கிரக நிலைகள்' : 'Current Planet Positions';
-  const dateLabel=LANG==='ta' ? 'கணிப்புக்கான தேதி' : 'Calculation Date';
-  const planetHead=LANG==='ta' ? 'கிரகம்' : 'Planet';
-  const rasiHead=LANG==='ta' ? 'ராசி' : 'Rasi';
-  const nakHead=LANG==='ta' ? 'நட்சத்திரம்' : 'Nakshatra';
-  const padaHead=LANG==='ta' ? 'பாதம்' : 'Pada';
-
+  if(value){const d=new Date(value);if(!Number.isNaN(d.getTime()))dateText=formatDateUI(d);}
+  title.textContent=LANG==='ta'?'தற்போதைய கிரக நிலைகள்':'Current Planet Positions';
+  dateEl.textContent=LANG==='ta'?`கணிப்புக்கான தேதி: ${dateText||'—'}`:`Calculation date: ${dateText||'—'}`;
   const order=['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Rahu','Ketu'];
   const rows=[];
-
   order.forEach(key=>{
-    const obj=currentPlanetsForChart?.[key];
-    if(!obj || obj.fullDegree==null) return;
-
-    const deg=Number(obj.fullDegree);
-    if(!Number.isFinite(deg)) return;
-
-    const ni=getNakPadaFromDegree(deg);
+    const obj=currentPlanetsForChart?.[key]; if(!obj||obj.fullDegree==null)return;
+    const deg=Number(obj.fullDegree); if(!Number.isFinite(deg))return;
+    const dms=decToDMS(deg); const ni=getNakPadaFromDegree(deg);
     const nak=nameNakById(ni.nakId)||'—';
     const rasi=nameRasiByIdx(Math.floor((((deg%360)+360)%360)/30))||'—';
     const label=planetChartLabel(key,obj,false);
-
-    rows.push(`
-      <tr>
-        <td><strong class="current-planet-green-name">${label}</strong></td>
-        <td>${rasi}</td>
-        <td>${nak}</td>
-        <td><strong>${ni.pada}</strong></td>
-      </tr>`);
+    rows.push(`<div class="current-planet-row"><span class="current-planet-name">${label}</span><span class="current-planet-deg">${dms.deg}° ${dms.min}' ${dms.sec}" • ${rasi} • ${nak} ${LANG==='ta'?'பாதம்':'Pada'} ${ni.pada}</span></div>`);
   });
-
-  box.innerHTML=`
-    <div class="current-planets-info-title">🟢 ${title}</div>
-    <div class="current-planets-info-date">${dateLabel}: <strong>${dateText||'—'}</strong></div>
-    <div class="current-planets-table-wrap">
-      <table class="current-planets-info-table">
-        <thead>
-          <tr>
-            <th>${planetHead}</th>
-            <th>${rasiHead}</th>
-            <th>${nakHead}</th>
-            <th>${padaHead}</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows.length ? rows.join('') : `<tr><td colspan="4">${LANG==='ta'?'தற்போதைய கிரகத் தகவல் இல்லை.':'No current planet data.'}</td></tr>`}
-        </tbody>
-      </table>
-    </div>`;
-
-  const bhavam=document.getElementById('bhavaChooser');
-  if(bhavam?.parentNode){
-    bhavam.insertAdjacentElement('afterend',box);
-    return;
-  }
-
-  const btn=document.getElementById('btnCurrentPlanets');
-  const toolbar=btn?.closest('.toolbar');
-  if(toolbar?.parentNode){
-    toolbar.insertAdjacentElement('afterend',box);
-    return;
-  }
-
-  const chart=document.getElementById('rasiChart');
-  if(chart?.parentNode) chart.parentNode.insertBefore(box,chart);
+  list.innerHTML=rows.length?rows.join(''):`<div class="muted">${LANG==='ta'?'தற்போதைய கிரகத் தகவல் இல்லை.':'No current planet data.'}</div>`;
+  card.style.display='block';
 }
 
 function updateCurrentPlanetsToggleUI(){
@@ -3129,9 +3036,7 @@ async function setCurrentPlanetsEnabled(enabled){
     currentPlanetDegrees={};
     currentPlanetsCalcDate='';
     clearCurrentPlanetsFromChart();
-    clearCurrentPlanetsInfoBox();
     updateCurrentPlanetsToggleUI();
-    try{ window.dispatchEvent(new CustomEvent('jpCurrentPlanetsUpdated')); }catch(e){}
     try{if(typeof _autoSaveDebounced==='function')_autoSaveDebounced();}catch(e){}
     return;
   }
@@ -3155,17 +3060,10 @@ async function setCurrentPlanetsEnabled(enabled){
     if(!result){
       currentPlanetsEnabled=false;
       clearCurrentPlanetsFromChart();
-      clearCurrentPlanetsInfoBox();
-      updateCurrentPlanetsToggleUI();
       alert(LANG==='ta'?'தற்போதைய கிரகத் தகவலை பெற முடியவில்லை.':'Unable to fetch current planet positions.');
     }else{
       placeCurrentPlanetsOnChart(currentPlanetsForChart);
       drawNavamsaChart();
-      renderCurrentPlanetsInfoBox();
-
-      // Refresh the Dasa/Puthi/Anthara table immediately.
-      // The DBA table uses the SAME current-planet data and exact Nakshatra-Pada.
-      try{ window.dispatchEvent(new CustomEvent('jpCurrentPlanetsUpdated')); }catch(e){}
       try{if(typeof _autoSaveDebounced==='function')_autoSaveDebounced();}catch(e){}
     }
   }finally{
@@ -3187,7 +3085,6 @@ document.getElementById('btnCurrentPlanets')?.addEventListener('click',()=>{
     currentPlanetDegrees={};
     currentPlanetsCalcDate='';
     clearCurrentPlanetsFromChart();
-    clearCurrentPlanetsInfoBox();
     updateCurrentPlanetsToggleUI();
   });
 });
@@ -4777,59 +4674,33 @@ function applyALPBhavaRotation(state){
   if(!state) return;
 
   /*
-    ALP Bhava system
-    ----------------
-    When ALP is ON:
+    ALP BHAVA ROTATION
+    ------------------
+    When ALP is ON, the CURRENT ALP LAGNA / RUNNING PADA is Bhava 1.
+    Every next 9 Nakshatra Padas = the next Bhava.
 
-    RASI:
-      ALP running Pada = Bhava 1 starting Pada.
-      Every next 9 Padas = next Bhava.
-      Therefore all 108 Nakshatra Padas are numbered 1..12.
+    Therefore the complete 108-Pada cycle is always numbered 1..12
+    from the current ALP Lagna, instead of continuing from the birth
+    Lagna. The Navamsa uses the exact ALP Navamsa Lagna in the same way.
 
-    NAVAMSA:
-      ALP exact Navamsa position = Navamsa Bhava 1.
-      Every next 9 Navamsa Padas = next Bhava.
-      applyNavamsaBhavaNumbers() uses the ALP Navamsa anchor.
-
-    IMPORTANT:
-      Birth-Lagna Bhava numbering must NOT be used while ALP is active.
-      The current ALP running Pada is the new Bhava-1 anchor.
+    This is deliberately applied every time ALP is highlighted/rebuilt,
+    so changing the calculation date moves the Bhava rotation too.
   */
+  const alpPada=Number(state.runningPada);
+  if(!Number.isInteger(alpPada) || alpPada<1 || alpPada>108) return;
 
-  const alpPada = Number(state.runningPada);
-
-  if(!Number.isInteger(alpPada) || alpPada < 1 || alpPada > 108){
-    return;
-  }
-
-  /* =====================================
-     1. RASI — Bhava 1..12 from ALP Pada
-     ===================================== */
-
-  // Bhava 1 starts from the current ALP Nakshatra Pada.
-  highlightLagnaNumberedBands(alpPada);
-
-  // Rasi title numbers must also start from the ALP Rasi.
-  RASI_NUMBER_START_IDX = Math.floor((alpPada - 1) / 9);
+  // Rasi: current ALP Nakshatra-Pada = Bhava 1.
+  LAST_LAGNA_PADA=alpPada;
+  RASI_NUMBER_START_IDX=Math.floor((alpPada-1)/9);
   applyRasiNumberChips();
-
-  // Re-apply Nakshatra-level Bhava numbering because
-  // applyRasiNumberChips() changes only the Rasi titles.
   highlightLagnaNumberedBands(alpPada);
 
-  /* =====================================
-     2. NAVAMSA — Bhava 1..12 from ALP D9
-     ===================================== */
-
-  // applyNavamsaBhavaNumbers() detects alpActive and
-  // uses getALPNavamsaPosition(state) as the anchor.
+  // Navamsa: exact current ALP Navamsa position = Bhava 1.
   applyNavamsaBhavaNumbers();
 
-  /* =====================================
-     3. FINAL 120-YEAR ALP BALANCE
-     ===================================== */
-
-  if(Number(state.ageYears) >= 119.999999){
+  // At the final 120-year return, retain the special 9-Pada balance
+  // highlight without changing the ALP-based Bhava numbering.
+  if(Number(state.ageYears)>=119.999999){
     applyFinalALPBalanceToBirthLagna(state);
   }
 }
@@ -5641,6 +5512,84 @@ function drawNavamsaChart(){
   placePlanetsOnNavamsaChart();
 }
 
+/* ===== RASI CHART INFORMATION SLIDESHOW =====
+   Slide 1 only for now. No click controls are added yet. */
+const RASI_INFO_SLIDES = [
+  {
+    id:'bhavas12',
+    title:'12 பாவ ஸ்தானங்கள்',
+    subtitle:'ஒவ்வொரு ஸ்தானமும் / வீடும் நம் வாழ்வில் உள்ள பல்வேறு அம்சங்களை கூறுகிறது.',
+    items:[
+      ['1','லக்னம்,தலைமை,தலை, ஜாதகர் ஸ்தானம் '],
+      ['2',', தன வாக்கு குடும்ப ஸ்தானம்'],
+      ['3','இளைய சகோதரர், தைரிய வீரிய ஸ்தானம், தகவல் தொடர்பு, இசைக் கருவிகள் ,செல்போன்'],
+      ['4','தாயார்,வண்டி,வீடு, வாகனம்,சொத்து, சுக ஸ்தானம்'],
+      ['5','பூர்வ புண்ணிய ஸ்தானம்,முதல் குழந்தை, தாத்தா, காதல்'],
+      ['6','வம்பு,வழக்கு, கடன்,நோய் எதிரி ஸ்தானம், வேலை'],
+      ['7','மனைவி, தொழில், கூட்டாளி ஸ்தானம்'],
+      ['8','ஆயுள்,அதிர்ஷ்டம்/ துரதிர்ஷ்டம், திடீர்'],
+      ['9','பாக்கியம்,சேவை, தந்தை ஸ்தானம்'],
+      ['10','கர்மம், தொழில் ஸ்தானம்'],
+      ['11','மூத்த சகோதரர், லாப ஸ்தானம்'],
+      ['12','விரய, மோட்ச,அயனசயனபோக ஸ்தானம்']
+    ]
+  },
+  {
+    id:'planets9',
+    title:'9 கிரகங்களின் தன்மைகள்',
+    subtitle:'நவகிரகங்களுடன் தொடர்புடைய முக்கிய காரகங்கள் — பின்னர் மேலும் தகவல்கள் சேர்க்கலாம்.',
+    items:[
+      ['சூரியன்','தந்தை'],
+      ['சந்திரன்','தாய்'],
+      ['செவ்வாய்','வயது வந்த ஆண் மகன் • சகோதரன்'],
+      ['புதன்',' இளைய சகோதரி • படிக்கும் சிறுவர்கள்'],
+      ['சுக்கிரன்','வயது வந்த பெண்'],
+      ['ராகு','தந்தை வழி உறவுகள் • தாத்தா'],
+      ['கேது','அம்மா வழி உறவுகள் • பாட்டி'],
+      ['குரு','குழந்தை • பணம் • கௌரவம் • ஆசிரியர் • வழிநடத்துபவர்'],
+      ['சனி','வயதானவர்கள் • வேலை • தொழில் • உண்மை • கருப்பு • கர்மா']
+    ]
+  }
+];
+let rasiInfoSlideIndex=0;
+function renderRasiInfoSlideshow(){
+  if(!rasiChart) return;
+  let box=document.getElementById('rasiInfoSlideshow');
+  if(!box){
+    box=document.createElement('div');
+    box.id='rasiInfoSlideshow';
+    box.className='rasi-info-slideshow';
+    rasiChart.appendChild(box);
+  }
+  const slide=RASI_INFO_SLIDES[rasiInfoSlideIndex] || RASI_INFO_SLIDES[0];
+  if(!slide) return;
+  const isPlanetSlide=slide.id==='planets9';
+  const gridClass=isPlanetSlide?'planet-info-grid':'bhava-info-grid';
+  const itemClass=isPlanetSlide?'planet-info-item':'bhava-info-item';
+  box.innerHTML=`
+    <div class="rasi-info-slide" data-slide-id="${slide.id}">
+      <div class="rasi-info-title">${slide.title}</div>
+      <div class="rasi-info-subtitle">${slide.subtitle}</div>
+      <div class="${gridClass}">
+        ${slide.items.map(([n,text])=>isPlanetSlide
+          ? `<div class="${itemClass}"><div class="planet-name">${n}</div><div class="planet-desc">${text}</div></div>`
+          : `<div class="${itemClass}"><div><strong>${n}</strong>${text}</div></div>`
+        ).join('')}
+      </div>
+    </div>`;
+}
+
+// Automatic information slideshow. No user-click controls for now.
+let rasiInfoSlideTimer=null;
+function startRasiInfoSlideshow(){
+  if(rasiInfoSlideTimer) clearInterval(rasiInfoSlideTimer);
+  rasiInfoSlideTimer=setInterval(()=>{
+    if(!document.getElementById('rasiInfoSlideshow')) return;
+    rasiInfoSlideIndex=(rasiInfoSlideIndex+1)%RASI_INFO_SLIDES.length;
+    renderRasiInfoSlideshow();
+  },8000);
+}
+
 function drawChartGrid(){
   // stop animation safely before rebuilding
   if (anim && anim.running) stopPadaAnimation();
@@ -5691,6 +5640,8 @@ function drawChartGrid(){
 
     rasiChart.appendChild(box);
   });
+     renderRasiInfoSlideshow();
+     startRasiInfoSlideshow();
      applyRasiNumberChips(); 
   applyMudakkuHighlight();
   if (thithiSunyaActive) applyThithiSunyaHighlight();
@@ -8385,11 +8336,7 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
     if (!ok){
       const lord = nakLordById(base.nakId);
       const txt  = fmtNakPada(base.nakId, base.pada, lord);
-      return {
-        dasa:{txt, nakId:base.nakId, pada:base.pada, lordKey:lord, lordName:lord ? planetLabelByLang(lord) : ''},
-        puthi:{txt, nakId:base.nakId, pada:base.pada, lordKey:lord, lordName:lord ? planetLabelByLang(lord) : ''},
-        anth:{txt, nakId:base.nakId, pada:base.pada, lordKey:lord, lordName:lord ? planetLabelByLang(lord) : ''}
-      };
+      return {dasa:{txt}, puthi:{txt}, anth:{txt}};
     }
     try{
       const tree = window.dasaTree(baseDeg, dob, when);
@@ -8415,81 +8362,16 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
       const atLord = normalizePlanetKey(at?.lordKey) || nakLordById(atId);
 
       return {
-        dasa:{
-          txt: fmtNakPada(mdId, mdPada, mdLord),
-          nakId: mdId, pada: mdPada,
-          lordKey: mdLord,
-          lordName: mdLord ? planetLabelByLang(mdLord) : ''
-        },
-        puthi:{
-          txt: fmtNakPada(ptId, ptPada, ptLord),
-          nakId: ptId, pada: ptPada,
-          lordKey: ptLord,
-          lordName: ptLord ? planetLabelByLang(ptLord) : ''
-        },
-        anth:{
-          txt: fmtNakPada(atId, atPada, atLord),
-          nakId: atId, pada: atPada,
-          lordKey: atLord,
-          lordName: atLord ? planetLabelByLang(atLord) : ''
-        }
+        dasa:{txt: fmtNakPada(mdId, mdPada, mdLord)},
+        puthi:{txt: fmtNakPada(ptId, ptPada, ptLord)},
+        anth:{txt: fmtNakPada(atId, atPada, atLord)}
       };
     }catch(e){
       const lord = nakLordById(base.nakId);
       const txt  = fmtNakPada(base.nakId, base.pada, lord);
-      return {
-        dasa:{txt, nakId:base.nakId, pada:base.pada, lordKey:lord, lordName:lord ? planetLabelByLang(lord) : ''},
-        puthi:{txt, nakId:base.nakId, pada:base.pada, lordKey:lord, lordName:lord ? planetLabelByLang(lord) : ''},
-        anth:{txt, nakId:base.nakId, pada:base.pada, lordKey:lord, lordName:lord ? planetLabelByLang(lord) : ''}
-      };
+      return {dasa:{txt}, puthi:{txt}, anth:{txt}};
     }
   }
-
-  // --- Current planet matching for DBA table ---
-  // Uses exactly the same current-planet positions that are displayed GREEN on the chart.
-  function getCurrentPlanetsAtPada(nakId, pada){
-    if(!currentPlanetsEnabled || !currentPlanetsForChart || !nakId || !pada) return [];
-    const wantNak = Number(nakId);
-    const wantPada = Number(pada);
-    if(!Number.isFinite(wantNak) || !Number.isFinite(wantPada)) return [];
-
-    const out=[];
-    Object.entries(currentPlanetsForChart).forEach(([key,obj])=>{
-      if(!obj || obj.fullDegree==null || !CURRENT_PLANET_KEYS.includes(key)) return;
-      const deg=Number(obj.fullDegree);
-      if(!Number.isFinite(deg)) return;
-      const pos=nakPadaFromDeg(deg);
-      if(Number(pos.nakId)===wantNak && Number(pos.pada)===wantPada){
-        out.push(key);
-      }
-    });
-    return out;
-  }
-
-  function dbaCellHTML(part){
-    if(!part) return '—';
-
-    const matches=getCurrentPlanetsAtPada(part.nakId, part.pada);
-    const txt=part.txt || '—';
-
-    // No current planet at this exact Nakshatra + Pada.
-    if(!matches.length) return txt;
-
-    const names=matches.map(key=>
-      `<span class="dba-current-planet">🟢 ${planetLabelByLang(key)}</span>`
-    ).join(' ');
-
-    // The complete matching Pada gets a green background, while the
-    // current planet name is shown in the same green style as the chart.
-    const title=matches.map(key=>planetLabelByLang(key)).join(', ') +
-      ' — current planet at this Nakshatra Pada';
-
-    return `<span class="dba-current-match" title="${title}">` +
-           `<span class="dba-current-nakpada">${txt}</span>` +
-           `<span class="dba-current-planet-list">${names}</span>` +
-           `</span>`;
-  }
-
 
   // --- Render ---
   function render(planets, dob, now){
@@ -8520,27 +8402,13 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
       const nat = toDMS(baseDeg);
       const B = computeDBA(baseDeg, dob, dob);
 
-      /*
-        Show the actual Dasa / Puthi / Anthara planet prominently.
-        The Nakshatra + Pada information remains underneath it.
-      */
-      const dBirth = B.dasa?.lordName
-        ? `<strong>${B.dasa.lordName}</strong><br><span class="dba-sub">${dbaCellHTML(B.dasa)}</span>`
-        : B.dasa.txt;
-      const pBirth = B.puthi?.lordName
-        ? `<strong>${B.puthi.lordName}</strong><br><span class="dba-sub">${dbaCellHTML(B.puthi)}</span>`
-        : B.puthi.txt;
-      const aBirth = B.anth?.lordName
-        ? `<strong>${B.anth.lordName}</strong><br><span class="dba-sub">${dbaCellHTML(B.anth)}</span>`
-        : B.anth.txt;
-
       bT.insertAdjacentHTML('beforeend',
         `<tr>
           <td data-label="${hdrMap.th2Planet}">${planetLabelByLang(key)}</td>
           <td data-label="${hdrMap.th2DegBirth}">${nat.d}° ${nat.m}′ ${nat.s}″</td>
-          <td data-label="${hdrMap.th2Dasa}">${dBirth}</td>
-          <td data-label="${hdrMap.th2Puthi}">${pBirth}</td>
-          <td data-label="${hdrMap.th2Anth}">${aBirth}</td>
+          <td data-label="${hdrMap.th2Dasa}">${B.dasa.txt}</td>
+          <td data-label="${hdrMap.th2Puthi}">${B.puthi.txt}</td>
+          <td data-label="${hdrMap.th2Anth}">${B.anth.txt}</td>
         </tr>`);
 
       let curDeg = baseDeg;
@@ -8551,28 +8419,13 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
       const cur = toDMS(curDeg);
       const N = computeDBA(baseDeg, dob, now);
 
-      /*
-        "இப்போது" table:
-        show the CURRENT Dasa / Puthi / Anthara planets
-        explicitly, with their Nakshatra + Pada below.
-      */
-      const dNow = N.dasa?.lordName
-        ? `<strong>${N.dasa.lordName}</strong><br><span class="dba-sub">${dbaCellHTML(N.dasa)}</span>`
-        : N.dasa.txt;
-      const pNow = N.puthi?.lordName
-        ? `<strong>${N.puthi.lordName}</strong><br><span class="dba-sub">${dbaCellHTML(N.puthi)}</span>`
-        : N.puthi.txt;
-      const aNow = N.anth?.lordName
-        ? `<strong>${N.anth.lordName}</strong><br><span class="dba-sub">${dbaCellHTML(N.anth)}</span>`
-        : N.anth.txt;
-
       nT.insertAdjacentHTML('beforeend',
         `<tr>
           <td data-label="${hdrMap.th3Planet}">${planetLabelByLang(key)}</td>
           <td data-label="${hdrMap.th3DegNow}">${cur.d}° ${cur.m}′ ${cur.s}″</td>
-          <td data-label="${hdrMap.th3Dasa}">${dNow}</td>
-          <td data-label="${hdrMap.th3Puthi}">${pNow}</td>
-          <td data-label="${hdrMap.th3Anth}">${aNow}</td>
+          <td data-label="${hdrMap.th3Dasa}">${N.dasa.txt}</td>
+          <td data-label="${hdrMap.th3Puthi}">${N.puthi.txt}</td>
+          <td data-label="${hdrMap.th3Anth}">${N.anth.txt}</td>
         </tr>`);
     });
 
@@ -8581,7 +8434,9 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
       nT.innerHTML = `<tr><td colspan="5" style="opacity:.7;padding:.6rem;">No planet data found yet — click <em>Calculate</em> first.</td></tr>`;
     }
 
-    card.style.display='block';
+    if (!document.getElementById('btnDBABirth')?.classList.contains('active') && !document.getElementById('btnDBACurrent')?.classList.contains('active')) {
+      card.style.display='none';
+    }
     window.__DBA_LAST__ = { planets, dob, now };
   }
 
@@ -8589,7 +8444,7 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
     const planets = readPlanets();
     const {dob, now} = readDates();
     if (Object.keys(planets).length && dob){ render(planets, dob, now); return true; }
-    ensureSection().style.display='block'; // show headers/placeholders
+    ensureSection().style.display='none'; // keep DBA hidden until its button is clicked
     return false;
   }
 
@@ -8617,12 +8472,6 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
     }
   }, 400);
 
-  // Re-render DBA immediately when the Current Planets button finishes.
-  // This is the important bridge between the green chart planets and the DBA table.
-  window.addEventListener('jpCurrentPlanetsUpdated', function(){
-    try{ updateFromPage(); }catch(e){ console.warn('DBA current-planet refresh:', e); }
-  });
-
   // Hook common app actions if present
   if (typeof window.run === 'function'){
     const _run = window.run;
@@ -8632,6 +8481,82 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
     const _al = window.applyLang;
     window.applyLang = function(){ const r=_al.apply(this, arguments); try{ updateFromPage(); }catch(_){} return r; };
   }
+
+  // ===== DBA Birth / Current display buttons =====
+  (function(){
+    const card = document.getElementById('dasaTablesCard');
+    const birthBtn = document.getElementById('btnDBABirth');
+    const currentBtn = document.getElementById('btnDBACurrent');
+    if (!card || !birthBtn || !currentBtn) return;
+
+    function setBtn(btn, on){
+      btn.classList.toggle('active', !!on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+
+    function hideDBA(){
+      card.style.display = 'none';
+      setBtn(birthBtn, false);
+      setBtn(currentBtn, false);
+    }
+
+    function showBirth(){
+      const birthTitle = document.getElementById('hdrBirthDBA');
+      const birthTable = document.getElementById('tblBirthDBA');
+      const currentTitle = document.getElementById('hdrCurrentDBA');
+      const currentTable = document.getElementById('tblCurrentDBA');
+
+      if (!birthTable || !currentTable) return;
+
+      // Show only Birth DBA.
+      card.style.display = 'block';
+      if (birthTitle) birthTitle.style.display = '';
+      birthTable.style.display = '';
+      if (currentTitle) currentTitle.style.display = 'none';
+      currentTable.style.display = 'none';
+
+      setBtn(birthBtn, true);
+      setBtn(currentBtn, false);
+    }
+
+    function showCurrent(){
+      const birthTitle = document.getElementById('hdrBirthDBA');
+      const birthTable = document.getElementById('tblBirthDBA');
+      const currentTitle = document.getElementById('hdrCurrentDBA');
+      const currentTable = document.getElementById('tblCurrentDBA');
+
+      if (!birthTable || !currentTable) return;
+
+      // Show only Current DBA.
+      card.style.display = 'block';
+      if (birthTitle) birthTitle.style.display = 'none';
+      birthTable.style.display = 'none';
+      if (currentTitle) currentTitle.style.display = '';
+      currentTable.style.display = '';
+
+      setBtn(birthBtn, false);
+      setBtn(currentBtn, true);
+    }
+
+    birthBtn.addEventListener('click', function(){
+      const active = birthBtn.classList.contains('active');
+      if (active) hideDBA();
+      else showBirth();
+    });
+
+    currentBtn.addEventListener('click', function(){
+      const active = currentBtn.classList.contains('active');
+      if (active) hideDBA();
+      else showCurrent();
+    });
+
+    // Absolutely hidden on initial load.
+    hideDBA();
+
+    // Re-hide after Calculate / language changes only if the user has not
+    // explicitly opened a DBA view.
+    window.__hideDBAViews = hideDBA;
+  })();
 })();
 
 
@@ -8857,9 +8782,7 @@ function applyCustomerThithiSunya(){
     `<strong>திதி சூன்யம் — ${rule.label}</strong><br>`+
     `<strong>${isKrishna ? 'கிருஷ்ண பக்ஷம்' : 'சுக்ல பக்ஷம்'}</strong><br>`+
     `முதன்மை ராசி: <strong>${primary[0]}</strong><br>`+
-    `<span style="color:#a00000">முதன்மை ராசி பாதிக்கப்படவில்லை என்றால்: ${secondary[0]}</span><br>`+
-    `<small>━━ முதன்மை &nbsp;&nbsp; ┄┄ மாற்று / அடுத்த ராசி</small>`,
-    'legend'
+    `<span style="color:#a00000">அல்லது: ${secondary[0]}</span><br>`
   );
 }
 
@@ -9030,12 +8953,14 @@ document.addEventListener('click', ()=>{
   function render(){
     const wrap=document.getElementById('ddmTableWrap');
     if(!wrap) return;
+
     const dobVal=document.getElementById('dob')?.value || document.getElementById('dob_api')?.value;
     const moonDeg=(typeof planetDegrees?.Moon==='number') ? planetDegrees.Moon :
       (typeof savedPlanetsForChart?.Moon?.fullDegree==='number' ? savedPlanetsForChart.Moon.fullDegree :
       ((typeof moon_deg!=='undefined') ? Number(moon_deg.value||0)+Number(moon_min?.value||0)/60+Number(moon_sec?.value||0)/3600 : NaN));
     const dob=dobVal ? parseLocalDateOnly(dobVal) : null;
-    if(!dob||!Number.isFinite(moonDeg)){
+
+    if(!dob || !Number.isFinite(moonDeg)){
       wrap.innerHTML=`<div class="ddm-note">${LANG==='ta'?'பிறப்பு தேதி மற்றும் சந்திரன் degree தேவை.':'Birth date and Moon degree are required.'}</div>`;
       return;
     }
@@ -9043,53 +8968,65 @@ document.addEventListener('click', ()=>{
     const degrees=getBirthPlanetDegrees();
     const now=new Date();
     const dasas=getDasaOrder(moonDeg,dob,now);
-    if(!dasas.length){ wrap.innerHTML='<div class="ddm-note">Dasa data unavailable.</div>'; return; }
+    if(!dasas.length){
+      wrap.innerHTML='<div class="ddm-note">Dasa data unavailable.</div>';
+      return;
+    }
 
     const lang=(typeof LANG!=='undefined'?LANG:'ta');
-    const birthNak=nakInfo(moonDeg);
     const firstLord=dasas[0].lordKey;
     const title=lang==='ta' ? 'தசை டிகிரி → கிரக சந்திப்பு' : 'Dasa Degree → Planet Meetings';
     const note=lang==='ta'
-      ? `பிறப்பு நட்சத்திர அதிபதி: ${(PLANET_NAME[lang]?.[firstLord]||firstLord)} • தசை டிகிரி 0°00′–13°20′. அதே degree 120°–133°20′ மற்றும் 240°–253°20′ பகுதிகளிலும் ஒப்பிடப்படும்.`
-      : `Birth star lord: ${(PLANET_NAME[lang]?.[firstLord]||firstLord)} • Dasa Degree 0°00′–13°20′. The same degree is matched in all 3 stars of the same lord (0°→13°20′, 120°→133°20′, 240°→253°20′).`;
+      ? `பிறப்பு நட்சத்திர அதிபதி: ${(PLANET_NAME[lang]?.[firstLord]||firstLord)} • தசை டிகிரி 0°00′–13°20′.`
+      : `Birth star lord: ${(PLANET_NAME[lang]?.[firstLord]||firstLord)} • Dasa Degree 0°00′–13°20′.`;
 
-    let html=`<div class="ddm-head"><strong>${title}</strong><span class="ddm-note">${note}</span></div>`;
-    html+=`<div class="ddm-note" style="margin:4px 0 10px;">${lang==='ta'?'தசை வரிசை பிறப்பு சந்திர நட்சத்திர அதிபதியிலிருந்து தொடங்கும். ஒவ்வொரு அதிபதிக்கும் 3 நட்சத்திரங்கள்; அந்த 3 இடங்களிலும் அதே 0°00′–13°20′ Dasa Degree பயன்படுத்தப்படும்.':'Dasa order starts from the birth Moon Nakshatra lord. Each lord has 3 stars, and the same 0°00′–13°20′ Dasa Degree is matched in all three star zones.'}</div>`;
+    let html=`<div class="ddm-head">
+      <strong>${title}</strong>
+      <span class="ddm-note">${note}</span>
+    </div>`;
+
+    html+=`<table class="ddm-table"><thead><tr>
+      <th>${lang==='ta'?'தசை':'Dasa'}</th>
+      <th>${lang==='ta'?'நட்சத்திரம்':'Nakshatra'}</th>
+      <th>${lang==='ta'?'கிரகம்':'Planet'}</th>
+      <th>${lang==='ta'?'பிறப்பு Degree':'Birth Degree'}</th>
+      <th>${lang==='ta'?'தசை Degree':'Dasa Degree'}</th>
+      <th>${lang==='ta'?'சந்திப்பு தேதி':'Meeting Date'}</th>
+    </tr></thead><tbody>`;
+
+    let found=0;
 
     dasas.forEach((md,i)=>{
       const lordName=PLANET_NAME[lang]?.[md.lordKey]||md.lordKey;
       const starRows=placementsForDasaLord(md.lordKey,degrees);
-      const currentBadge=md.current ? `<span class="ddm-badge">${lang==='ta'?'நடப்பு':'Current'}</span>` : '';
-      html+=`<div class="ddm-dasa-block" style="border:1px solid var(--outline);border-radius:10px;margin:10px 0;padding:8px;">`;
-      html+=`<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:6px;"><strong>${i+1}. ${lordName} ${lang==='ta'?'தசை':'Dasa'}</strong><span class="ddm-note">${fmtDateTime(md.start)} → ${fmtDateTime(md.end)} ${currentBadge}</span></div>`;
-      html+=`<table class="ddm-table"><thead><tr>
-        <th>${lang==='ta'?'நட்சத்திரம்':'Nakshatra'}</th>
-        <th>${lang==='ta'?'அந்த நட்சத்திர பகுதி':'Star Zone'}</th>
-        <th>${lang==='ta'?'கிரகம்':'Planet'}</th>
-        <th>${lang==='ta'?'பிறப்பு Degree':'Birth Degree'}</th>
-        <th>${lang==='ta'?'Dasa Degree':'Dasa Degree'}</th>
-        <th>${lang==='ta'?'சந்திப்பு தேதி':'Meeting Date'}</th>
-      </tr></thead><tbody>`;
+
       starRows.forEach(sr=>{
-        if(!sr.planets.length){
-          html+=`<tr><td data-label="Nakshatra" class="ddm-star">${sr.starName}</td><td colspan="5" class="ddm-none">${lang==='ta'?'கிரக நிலை இல்லை':'No planet placement'}</td></tr>`;
-        }else{
-          sr.planets.forEach(p=>{
-            const meeting=meetingDate(md,p.relativeDeg);
-            html+=`<tr>
-              <td data-label="Nakshatra" class="ddm-star">${sr.starName} ${lang==='ta'?'பாதம்':'Pada'} ${p.nak.pada}</td>
-              <td data-label="Star Zone">${starZoneLabel(sr.starIdx)}</td>
-              <td data-label="Planet" class="ddm-planet">${planetLabel(p.planetKey)}</td>
-              <td data-label="Birth Degree">${dms(p.planetDeg)}</td>
-              <td data-label="Dasa Degree" class="ddm-meet">${dms(p.relativeDeg)}</td>
-              <td data-label="Meeting Date" class="ddm-meet">${fmtDateTime(meeting)}</td>
-            </tr>`;
-          });
-        }
+        sr.planets.forEach(p=>{
+          found++;
+          const meeting=meetingDate(md,p.relativeDeg);
+          const currentBadge=md.current
+            ? ` <span class="ddm-badge">${lang==='ta'?'நடப்பு':'Current'}</span>`
+            : '';
+
+          html+=`<tr>
+            <td data-label="Dasa" class="ddm-planet">${i+1}. ${lordName}${currentBadge}</td>
+            <td data-label="Nakshatra" class="ddm-star">${sr.starName} ${lang==='ta'?'பாதம்':'Pada'} ${p.nak.pada}</td>
+            <td data-label="Planet" class="ddm-planet">${planetLabel(p.planetKey)}</td>
+            <td data-label="Birth Degree">${dms(p.planetDeg)}</td>
+            <td data-label="Dasa Degree" class="ddm-meet">${dms(p.relativeDeg)}</td>
+            <td data-label="Meeting Date" class="ddm-meet">${fmtDateTime(meeting)}</td>
+          </tr>`;
+        });
       });
-      html+=`</tbody></table></div>`;
     });
 
+    if(!found){
+      html+=`<tr><td colspan="6" class="ddm-none">
+        ${lang==='ta'?'தசை சந்திப்புக்கான கிரக நிலைகள் இல்லை.':'No planet placements found for Dasa meetings.'}
+      </td></tr>`;
+    }
+
+    html+='</tbody></table>';
     wrap.innerHTML=html;
   }
 
@@ -9217,9 +9154,7 @@ document.addEventListener('click', ()=>{
       const pName=PLANET_NAME?.[lang]?.[KEY[pt.lordKey]]||pt.lordKey;
       const rows=placements(pt.lordKey,getDegrees());
       const any=rows.some(r=>r.planets.length);
-      if(!any){
-        html+=`<tr><td data-label="Puthi" class="pdm-planet">${pName}</td><td colspan="5" class="pdm-none">${lang==='ta'?'இந்த புக்தியின் 3 நட்சத்திரங்களில் கிரக நிலை இல்லை':'No planet placement in this Puthi lord’s 3 stars'}</td></tr>`;
-      }else{
+      {
         rows.forEach(r=>r.planets.forEach(p=>{
           const meet=meeting(pt,p.relative);
           html+=`<tr><td data-label="Puthi" class="pdm-planet">${pName}</td><td data-label="Nakshatra">${r.name} ${lang==='ta'?'பாதம்':'Pada'} ${p.nak.pada}</td><td data-label="Planet" class="pdm-planet">${pname(p.key)}</td><td data-label="Birth Degree">${dms(p.deg)}</td><td data-label="Puthi Degree" class="pdm-meet">${dms(p.relative)}</td><td data-label="Meeting Date" class="pdm-meet">${fmt(meet)}</td></tr>`;
@@ -9228,17 +9163,65 @@ document.addEventListener('click', ()=>{
     }
     html+='</tbody></table>'; wrap.innerHTML=html;
   }
-  function toggle(){
-    const d=document.getElementById('dasaPlanetMeetings'), p=document.getElementById('puthiPlanetMeetings');
-    if(!d||!p)return;
-    const open=d.style.display==='none';
-    d.style.display=open?'block':'none'; p.style.display=open?'block':'none';
-    if(open){selectedDasaIndex=0; renderPuthi(); if(typeof window.renderDasaPlanetMeetings==='function')window.renderDasaPlanetMeetings();}
+  function showDasa(){
+    const d=document.getElementById('dasaPlanetMeetings');
+    const p=document.getElementById('puthiPlanetMeetings');
+    const db=document.getElementById('btnDasaMeeting');
+    const pb=document.getElementById('btnPuthiMeeting');
+    if(!d||!p) return;
+
+    const opening=d.style.display==='none' || d.style.display==='';
+    d.style.display=opening?'block':'none';
+    p.style.display='none';
+
+    db?.classList.toggle('active',opening);
+    pb?.classList.remove('active');
+
+    if(opening && typeof window.renderDasaPlanetMeetings==='function'){
+      window.renderDasaPlanetMeetings();
+    }
   }
+
+  function showPuthi(){
+    const d=document.getElementById('dasaPlanetMeetings');
+    const p=document.getElementById('puthiPlanetMeetings');
+    const db=document.getElementById('btnDasaMeeting');
+    const pb=document.getElementById('btnPuthiMeeting');
+    if(!d||!p) return;
+
+    const opening=p.style.display==='none' || p.style.display==='';
+    p.style.display=opening?'block':'none';
+    d.style.display='none';
+
+    pb?.classList.toggle('active',opening);
+    db?.classList.remove('active');
+
+    if(opening){
+      selectedDasaIndex=0;
+      renderPuthi();
+      if(typeof window.renderDasaPlanetMeetings==='function'){
+        window.renderDasaPlanetMeetings();
+      }
+    }
+  }
+
   document.addEventListener('click',e=>{
-    const b=e.target.closest('#btnDasaMeeting'); if(!b)return;
-    e.preventDefault(); e.stopPropagation(); toggle();
+    const bD=e.target.closest('#btnDasaMeeting');
+    if(bD){
+      e.preventDefault();
+      e.stopPropagation();
+      showDasa();
+      return;
+    }
+
+    const bP=e.target.closest('#btnPuthiMeeting');
+    if(bP){
+      e.preventDefault();
+      e.stopPropagation();
+      showPuthi();
+    }
   },true);
+
   window.renderPuthiPlanetMeetings=renderPuthi;
 })();
 </script>
@@ -9668,6 +9651,40 @@ document.addEventListener('click', ()=>{
     }
   };
 
+})();
+</script>
+
+
+<script>
+/* ===== Move DBA info card directly below Bhava chooser ===== */
+(function(){
+  function placeDBACard(){
+    const bhava = document.getElementById('bhavaChooser');
+    const dba = document.getElementById('dasaTablesCard');
+    if(!bhava || !dba) return;
+    if(bhava.nextElementSibling !== dba){
+      bhava.parentNode.insertBefore(dba, bhava.nextElementSibling);
+    }
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', placeDBACard);
+  }else{
+    placeDBACard();
+  }
+})();
+</script>
+
+
+<script>
+(function(){
+  function initSandhippuButtons(){
+    const d=document.getElementById('dasaPlanetMeetings');
+    const p=document.getElementById('puthiPlanetMeetings');
+    if(d) d.style.display='none';
+    if(p) p.style.display='none';
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initSandhippuButtons);
+  else initSandhippuButtons();
 })();
 </script>
 
