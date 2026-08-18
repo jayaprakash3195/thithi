@@ -1620,9 +1620,139 @@ body.dark .ddm-badge{background:#0f2016;}
   #jpIntroSplash{animation:jpIntroFadeOut .4s ease-in-out 4.6s forwards;}
 }
 
+
+/* =========================================================
+   START INFORMATION - SHOW ON PAGE OPEN / REFRESH
+   ========================================================= */
+#jpStartInfo{
+  position:fixed;
+  inset:0;
+  z-index:2147483646;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.68);
+  backdrop-filter:blur(5px);
+}
+.jp-start-card{
+  width:min(650px,94vw);
+  max-height:88vh;
+  overflow:auto;
+  background:linear-gradient(145deg,#fffdf5,#f4f7ff);
+  border:2px solid #d39b16;
+  border-radius:18px;
+  box-shadow:0 18px 60px rgba(0,0,0,.38),0 0 25px rgba(211,155,22,.18);
+  padding:20px 22px 18px;
+  color:#172033;
+}
+.jp-start-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:12px;
+}
+.jp-start-title{
+  margin:0;
+  font-size:22px;
+  font-weight:800;
+  color:#9a6800;
+}
+.jp-start-close{
+  border:1px solid #bbb;
+  background:#fff;
+  border-radius:50%;
+  width:34px;
+  height:34px;
+  font-size:22px;
+  line-height:30px;
+  cursor:pointer;
+}
+.jp-start-list{
+  margin:8px 0 14px;
+  padding-left:28px;
+}
+.jp-start-list li{
+  margin:8px 0;
+  line-height:1.45;
+  font-size:15px;
+}
+.jp-start-note{
+  padding:11px 13px;
+  border-radius:10px;
+  background:#eef5ff;
+  border:1px solid #c7d9f5;
+  font-size:14px;
+  line-height:1.45;
+}
+.jp-start-profile{
+  margin-top:13px;
+  padding:11px 13px;
+  border-radius:10px;
+  background:#f4f1ff;
+  border:1px solid #d8c8ff;
+}
+.jp-start-profile-title{
+  font-weight:800;
+  margin-bottom:7px;
+}
+.jp-start-load{
+  margin-top:8px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid #315b9a;
+  background:#315b9a;
+  color:#fff;
+  border-radius:8px;
+  padding:7px 13px;
+  cursor:pointer;
+  font-weight:700;
+}
+@media(max-width:520px){
+  .jp-start-card{padding:16px;}
+  .jp-start-title{font-size:19px;}
+  .jp-start-list li{font-size:14px;}
+}
+
 </style>
 </head>
 <body>
+
+<!-- JP Astro Research - Start Information -->
+<div id="jpStartInfo" role="dialog" aria-modal="true" aria-labelledby="jpStartInfoTitle">
+  <div class="jp-start-card">
+    <div class="jp-start-head">
+      <h2 id="jpStartInfoTitle" class="jp-start-title">ஜாதகம் கணக்கிடும் முறை</h2>
+      <button type="button" class="jp-start-close" id="jpStartInfoClose" aria-label="Close">×</button>
+    </div>
+
+    <ol class="jp-start-list">
+      <li><b>Profile பெயரை</b> உள்ளிடவும்.</li>
+      <li><b>பிறந்த தேதியை</b> உள்ளிடவும்.</li>
+      <li><b>பிறந்த நேரத்தை</b> உள்ளிடவும்.</li>
+      <li><b>பிறந்த இடத்தை</b> தேர்வு / உள்ளிடவும்.</li>
+      <li><b>API மூலம் கணக்கிடு</b> என்பதை கிளிக் செய்யவும்.</li>
+      <li>தரவு கிடைத்த பிறகு <b>Profile-ஐ Save</b> செய்யவும்.</li>
+      <li><b>ஜாதகம் Ready.</b></li>
+    </ol>
+
+    <div class="jp-start-note">
+      ஏற்கனவே Profile Save செய்திருந்தால், புதிய தகவல்களை உள்ளிட வேண்டியதில்லை.
+      <b>Profile Name list</b>-ல் பெயரை தேர்வு செய்து
+      <b>Load Profile</b> மட்டும் கொடுக்கவும்.
+    </div>
+
+    <div class="jp-start-profile" id="jpStartSavedProfileBox" style="display:none;">
+      <div class="jp-start-profile-title">ஏற்கனவே சேமித்த Profile</div>
+      <div id="jpStartSavedProfileText">Profile list-ல் இருந்து பெயரை தேர்வு செய்யவும்.</div>
+      <button type="button" class="jp-start-load" id="jpStartLoadProfile">Load Profile</button>
+    </div>
+  </div>
+</div>
+
+
 
 <!-- JP'S ASTRO RESEARCH opening promotion -->
 <div id="jpIntroSplash" aria-label="JP's Astro Research">
@@ -9801,6 +9931,83 @@ document.addEventListener('click', ()=>{
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initSandhippuButtons);
   else initSandhippuButtons();
+})();
+</script>
+
+
+
+<script>
+/* =========================================================
+   START INFORMATION BEHAVIOUR
+   - Shows on every open / refresh
+   - Close button
+   - If saved profiles exist, show Load Profile shortcut
+   - Does not change calculation/profile logic
+   ========================================================= */
+(function(){
+  function initJPStartInfo(){
+    const box = document.getElementById('jpStartInfo');
+    const close = document.getElementById('jpStartInfoClose');
+    const profileList = document.getElementById('profileList');
+    const savedBox = document.getElementById('jpStartSavedProfileBox');
+    const savedText = document.getElementById('jpStartSavedProfileText');
+    const loadBtn = document.getElementById('jpStartLoadProfile');
+
+    if(!box) return;
+
+    function refreshSavedProfileInfo(){
+      if(!profileList || !savedBox) return;
+
+      const options = Array.from(profileList.options || [])
+        .filter(o => o.value && o.value !== '__none__');
+
+      if(options.length){
+        savedBox.style.display = 'block';
+        const selected = profileList.options[profileList.selectedIndex];
+        if(selected && selected.value){
+          savedText.textContent = `“${selected.textContent}” தேர்வு செய்யப்பட்டுள்ளது. Load Profile கொடுக்கவும்.`;
+        }else{
+          savedText.textContent = 'Profile list-ல் இருந்து பெயரை தேர்வு செய்து Load Profile கொடுக்கவும்.';
+        }
+      }else{
+        savedBox.style.display = 'none';
+      }
+    }
+
+    function closeInfo(){
+      box.style.display = 'none';
+    }
+
+    close?.addEventListener('click', closeInfo);
+
+    // Escape key closes the information box.
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && box.style.display !== 'none'){
+        closeInfo();
+      }
+    });
+
+    profileList?.addEventListener('change', refreshSavedProfileInfo);
+
+    // Use the existing Load Profile button so all existing profile logic
+    // remains unchanged.
+    loadBtn?.addEventListener('click', function(){
+      const existing = document.getElementById('btnLoadProfile');
+      if(existing) existing.click();
+      setTimeout(closeInfo, 250);
+    });
+
+    // Check after the existing profile-list population code has run.
+    refreshSavedProfileInfo();
+    setTimeout(refreshSavedProfileInfo, 150);
+    setTimeout(refreshSavedProfileInfo, 600);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initJPStartInfo);
+  }else{
+    initJPStartInfo();
+  }
 })();
 </script>
 
