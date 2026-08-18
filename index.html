@@ -1686,30 +1686,6 @@ body.dark .ddm-badge{background:#0f2016;}
   font-size:14px;
   line-height:1.45;
 }
-.jp-start-profile{
-  margin-top:13px;
-  padding:11px 13px;
-  border-radius:10px;
-  background:#f4f1ff;
-  border:1px solid #d8c8ff;
-}
-.jp-start-profile-title{
-  font-weight:800;
-  margin-bottom:7px;
-}
-.jp-start-load{
-  margin-top:8px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid #315b9a;
-  background:#315b9a;
-  color:#fff;
-  border-radius:8px;
-  padding:7px 13px;
-  cursor:pointer;
-  font-weight:700;
-}
 @media(max-width:520px){
   .jp-start-card{padding:16px;}
   .jp-start-title{font-size:19px;}
@@ -1721,7 +1697,7 @@ body.dark .ddm-badge{background:#0f2016;}
 <body>
 
 <!-- JP Astro Research - Start Information -->
-<div id="jpStartInfo" role="dialog" aria-modal="true" aria-labelledby="jpStartInfoTitle">
+<div id="jpStartInfo" role="dialog" aria-modal="true" aria-labelledby="jpStartInfoTitle" style="display:none;">
   <div class="jp-start-card">
     <div class="jp-start-head">
       <h2 id="jpStartInfoTitle" class="jp-start-title">ஜாதகம் கணக்கிடும் முறை</h2>
@@ -1740,19 +1716,11 @@ body.dark .ddm-badge{background:#0f2016;}
 
     <div class="jp-start-note">
       ஏற்கனவே Profile Save செய்திருந்தால், புதிய தகவல்களை உள்ளிட வேண்டியதில்லை.
-      <b>Profile Name list</b>-ல் பெயரை தேர்வு செய்து
-      <b>Load Profile</b> மட்டும் கொடுக்கவும்.
-    </div>
-
-    <div class="jp-start-profile" id="jpStartSavedProfileBox" style="display:none;">
-      <div class="jp-start-profile-title">ஏற்கனவே சேமித்த Profile</div>
-      <div id="jpStartSavedProfileText">Profile list-ல் இருந்து பெயரை தேர்வு செய்யவும்.</div>
-      <button type="button" class="jp-start-load" id="jpStartLoadProfile">Load Profile</button>
+      மேலே உள்ள <b>Profile Name list</b>-ல் தேவையான பெயரை தேர்வு செய்து,
+      <b>Load Profile</b> பட்டனை கிளிக் செய்யவும்.
     </div>
   </div>
 </div>
-
-
 
 <!-- JP'S ASTRO RESEARCH opening promotion -->
 <div id="jpIntroSplash" aria-label="JP's Astro Research">
@@ -7701,18 +7669,31 @@ function jp_applyPayload(payload){
   currentPlanetsForChart = payload?.currentPlanetsForChart || null;
   currentPlanetDegrees = payload?.currentPlanetDegrees || {};
   currentPlanetsCalcDate = payload?.currentPlanetsCalcDate || '';
-  renderBirthPanchang?.();
-  /* Current planets are restored to memory only; they remain OFF until the user presses the button. */
+
+  /*
+    IMPORTANT:
+    Rebuild savedPlanetsForChart BEFORE rendering Birth Panchang.
+    renderBirthPanchang() reads the birth Moon from
+    savedPlanetsForChart.Moon. Previously it was called too early,
+    before savedPlanetsForChart was restored, so Nakshatra/Pada stayed blank
+    until a second Load Profile click.
+  */
   savedPlanetsForChart = (function mapDegsToPlanets(degMap, retroMap){
     const out={};
     Object.entries(degMap||{}).forEach(([k,deg])=>{
-      out[k] = {
-        fullDegree:Number(deg),
-        isRetro: retroMap?.[k] === true
-      };
+      const n = Number(deg);
+      if(Number.isFinite(n)){
+        out[k] = {
+          fullDegree:n,
+          isRetro: retroMap?.[k] === true
+        };
+      }
     });
     return out;
   })(planetDegrees, birthPlanetRetrograde);
+
+  // Now Birth Panchang can immediately read the restored Moon degree.
+  renderBirthPanchang?.();
 
   ensurePlanetButtons?.();
   drawChartGrid?.();
@@ -7721,6 +7702,12 @@ function jp_applyPayload(payload){
     buildPlanetsTable?.(savedPlanetsForChart);
   }
   run?.();
+
+  // Final refresh after the existing chart calculation finishes.
+  // This makes Profile Load behave exactly like a fresh Calculate/API result.
+  setTimeout(() => {
+    try { renderBirthPanchang?.(); } catch(e) { console.warn('Birth Panchang refresh:', e); }
+  }, 0);
 }
 
 /* Storage helpers */
@@ -9938,69 +9925,35 @@ document.addEventListener('click', ()=>{
 
 <script>
 /* =========================================================
-   START INFORMATION BEHAVIOUR
-   - Shows on every open / refresh
-   - Close button
-   - If saved profiles exist, show Load Profile shortcut
-   - Does not change calculation/profile logic
+   JP ASTRO RESEARCH - START INFORMATION
+   Shows after the 5-second opening promotion.
+   Existing Profile Name list + Load Profile button is used.
    ========================================================= */
 (function(){
   function initJPStartInfo(){
     const box = document.getElementById('jpStartInfo');
-    const close = document.getElementById('jpStartInfoClose');
-    const profileList = document.getElementById('profileList');
-    const savedBox = document.getElementById('jpStartSavedProfileBox');
-    const savedText = document.getElementById('jpStartSavedProfileText');
-    const loadBtn = document.getElementById('jpStartLoadProfile');
+    const closeBtn = document.getElementById('jpStartInfoClose');
 
     if(!box) return;
-
-    function refreshSavedProfileInfo(){
-      if(!profileList || !savedBox) return;
-
-      const options = Array.from(profileList.options || [])
-        .filter(o => o.value && o.value !== '__none__');
-
-      if(options.length){
-        savedBox.style.display = 'block';
-        const selected = profileList.options[profileList.selectedIndex];
-        if(selected && selected.value){
-          savedText.textContent = `“${selected.textContent}” தேர்வு செய்யப்பட்டுள்ளது. Load Profile கொடுக்கவும்.`;
-        }else{
-          savedText.textContent = 'Profile list-ல் இருந்து பெயரை தேர்வு செய்து Load Profile கொடுக்கவும்.';
-        }
-      }else{
-        savedBox.style.display = 'none';
-      }
-    }
 
     function closeInfo(){
       box.style.display = 'none';
     }
 
-    close?.addEventListener('click', closeInfo);
+    function showInfo(){
+      box.style.display = 'flex';
+    }
 
-    // Escape key closes the information box.
+    closeBtn?.addEventListener('click', closeInfo);
+
     document.addEventListener('keydown', function(e){
       if(e.key === 'Escape' && box.style.display !== 'none'){
         closeInfo();
       }
     });
 
-    profileList?.addEventListener('change', refreshSavedProfileInfo);
-
-    // Use the existing Load Profile button so all existing profile logic
-    // remains unchanged.
-    loadBtn?.addEventListener('click', function(){
-      const existing = document.getElementById('btnLoadProfile');
-      if(existing) existing.click();
-      setTimeout(closeInfo, 250);
-    });
-
-    // Check after the existing profile-list population code has run.
-    refreshSavedProfileInfo();
-    setTimeout(refreshSavedProfileInfo, 150);
-    setTimeout(refreshSavedProfileInfo, 600);
+    // Show after the 5-second opening logo promotion.
+    setTimeout(showInfo, 5100);
   }
 
   if(document.readyState === 'loading'){
@@ -10010,6 +9963,7 @@ document.addEventListener('click', ()=>{
   }
 })();
 </script>
+
 
 </body>
 </html>
