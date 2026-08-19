@@ -1475,6 +1475,78 @@ body.dark .ddm-badge{background:#0f2016;}
 .mudakku-place{margin-top:5px;font-weight:700}
 .mudakku-node{margin-top:4px}
 .mudakku-warning{margin-top:6px;font-size:.92rem;opacity:.85}
+
+/* =========================================================
+   CURRENT 9 PLANETS — BHAVA / SARANATHAN TABLE
+   ========================================================= */
+#currentPlanetBhavaTableBox{
+  width:min(1100px,96%); margin:12px auto; padding:10px; box-sizing:border-box;
+  border:1px solid #22a55a; border-radius:10px; background:#f4fff7; color:#173b25;
+  box-shadow:0 1px 5px rgba(0,0,0,.08);
+}
+#currentPlanetBhavaTableBox .cpbh-title{font-weight:900;font-size:17px;color:#168443;text-align:center;margin-bottom:4px}
+#currentPlanetBhavaTableBox .cpbh-subtitle{text-align:center;font-size:12px;font-weight:700;margin-bottom:9px;color:#386247}
+#currentPlanetBhavaTable{width:100%;border-collapse:collapse;table-layout:fixed}
+#currentPlanetBhavaTable th{padding:8px 6px;border:1px solid #9acdae;background:#dff7e7;color:#145c2e;font-weight:900;text-align:center;vertical-align:middle;font-size:13px}
+#currentPlanetBhavaTable td{padding:8px 6px;border:1px solid #b9dec5;text-align:center;vertical-align:middle;font-size:13px;font-weight:700}
+#currentPlanetBhavaTable tbody tr:nth-child(even){background:rgba(255,255,255,.55)}
+#currentPlanetBhavaTable .cpbh-planet{font-weight:900;color:#0d6b35;white-space:nowrap}
+#currentPlanetBhavaTable .cpbh-number{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:26px;padding:0 7px;border-radius:7px;background:#e7f8ec;border:1px solid #7fc393;font-weight:900;color:#12632f}
+#currentPlanetBhavaTable .cpbh-rasi{display:block;margin-top:3px;font-size:11px;font-weight:700;color:#477057}
+#currentPlanetBhavaTable .cpbh-star-lord{font-weight:900;color:#155e75;margin-bottom:2px}
+#currentPlanetBhavaTable .cpbh-own{font-weight:900;color:#7c3aed}
+#currentPlanetBhavaTable .cpbh-none{color:#888;font-weight:700}
+body.dark #currentPlanetBhavaTableBox{background:#0f2115;border-color:#22c55e;color:#d9ffe5}
+body.dark #currentPlanetBhavaTableBox .cpbh-title{color:#4ade80}
+body.dark #currentPlanetBhavaTableBox .cpbh-subtitle{color:#a7d9b5}
+body.dark #currentPlanetBhavaTable th{background:#173a22;color:#b8f5c8;border-color:#2b7040}
+body.dark #currentPlanetBhavaTable td{border-color:#285c36}
+body.dark #currentPlanetBhavaTable tbody tr:nth-child(even){background:rgba(20,50,27,.65)}
+body.dark #currentPlanetBhavaTable .cpbh-planet{color:#4ade80}
+body.dark #currentPlanetBhavaTable .cpbh-number{background:#163a21;border-color:#398653;color:#a7f3b9}
+body.dark #currentPlanetBhavaTable .cpbh-rasi{color:#9acba8}
+body.dark #currentPlanetBhavaTable .cpbh-star-lord{color:#67d5f5}
+body.dark #currentPlanetBhavaTable .cpbh-own{color:#c4a5ff}
+@media(max-width:700px){
+  #currentPlanetBhavaTableBox{width:98%;padding:7px}
+  #currentPlanetBhavaTable{table-layout:auto}
+  #currentPlanetBhavaTable th,#currentPlanetBhavaTable td{padding:7px 4px;font-size:11px}
+  #currentPlanetBhavaTable th{font-size:11px}
+  #currentPlanetBhavaTable .cpbh-rasi{font-size:9px}
+  #currentPlanetBhavaTable .cpbh-number{min-width:23px;height:22px;padding:0 5px}
+}
+@media(max-width:450px){
+  #currentPlanetBhavaTable th,#currentPlanetBhavaTable td{padding:6px 2px;font-size:10px}
+  #currentPlanetBhavaTable th{font-size:9px}
+  #currentPlanetBhavaTable .cpbh-rasi{font-size:8px}
+}
+
+
+/* ===== Compact Birth / Current Planet Bhava buttons & table ===== */
+.cpbh-toggle-btn{font-size:11px!important;padding:5px 8px!important;line-height:1.15!important}
+.cpbh-toggle-btn.active{background:#168443!important;color:#fff!important;border-color:#168443!important}
+#currentPlanetBhavaTableBox{width:min(900px,94%);margin:7px auto;padding:7px;box-sizing:border-box;border:1px solid #55b879;border-radius:8px;background:#f7fff9;color:#173b25;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+#currentPlanetBhavaTableBox .cpbh-title{font-size:14px;font-weight:900;text-align:center;color:#168443;margin:0 0 2px}
+#currentPlanetBhavaTableBox .cpbh-subtitle{font-size:10px;font-weight:700;text-align:center;color:#477057;margin:0 0 5px}
+#currentPlanetBhavaTable{width:100%;border-collapse:collapse;table-layout:fixed}
+#currentPlanetBhavaTable th{padding:5px 3px;border:1px solid #a8d5b7;background:#e7f8ec;color:#145c2e;font-size:10px;line-height:1.15;text-align:center}
+#currentPlanetBhavaTable td{padding:4px 3px;border:1px solid #c5e2ce;text-align:center;vertical-align:middle;font-size:10px;line-height:1.1}
+#currentPlanetBhavaTable .cpbh-planet{font-weight:900;color:#0d6b35;white-space:nowrap}
+#currentPlanetBhavaTable .cpbh-number{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:19px;padding:0 4px;border-radius:5px;background:#e7f8ec;border:1px solid #7fc393;font-size:10px;font-weight:900;color:#12632f}
+#currentPlanetBhavaTable .cpbh-rasi{display:inline;font-size:9px;font-weight:700;color:#477057;margin-left:2px}
+#currentPlanetBhavaTable .cpbh-star-lord{font-size:10px;font-weight:900;color:#155e75}
+#currentPlanetBhavaTable .cpbh-own{font-size:9px;font-weight:900;color:#7c3aed}
+#currentPlanetBhavaTable .cpbh-own-note{font-size:8px;font-weight:800;color:#8a5a00;margin-bottom:2px}
+#currentPlanetBhavaTable .cpbh-none{color:#888;font-weight:700}
+body.dark #currentPlanetBhavaTableBox{background:#0f2115;border-color:#2f8d4b;color:#d9ffe5}
+body.dark #currentPlanetBhavaTableBox .cpbh-title{color:#4ade80}
+body.dark #currentPlanetBhavaTableBox .cpbh-subtitle{color:#a7d9b5}
+body.dark #currentPlanetBhavaTable th{background:#173a22;color:#b8f5c8;border-color:#2b7040}
+body.dark #currentPlanetBhavaTable td{border-color:#285c36}
+body.dark #currentPlanetBhavaTable .cpbh-number{background:#163a21;border-color:#398653;color:#a7f3b9}
+body.dark #currentPlanetBhavaTable .cpbh-rasi{color:#9acba8}
+body.dark #currentPlanetBhavaTable .cpbh-star-lord{color:#67d5f5}
+@media(max-width:700px){#currentPlanetBhavaTableBox{width:98%;padding:5px}#currentPlanetBhavaTable th,#currentPlanetBhavaTable td{padding:4px 2px;font-size:9px}#currentPlanetBhavaTable th{font-size:9px}#currentPlanetBhavaTable .cpbh-rasi{font-size:8px}#currentPlanetBhavaTable .cpbh-number{min-width:18px;height:18px;font-size:9px}}
 </style>
 
 <style id="desktopOnlyFix">
@@ -1728,6 +1800,77 @@ body.dark .ddm-badge{background:#0f2016;}
 }
 
 </style>
+
+<style id="cpbh-dba-fixed-css">
+/* ===== Current Dasa / Puthi / Anthra highlighting ===== */
+#currentPlanetBhavaTable tr.cpbh-dasa td{
+  background:#dcfce7 !important;
+  border-top:2px solid #16a34a !important;
+  border-bottom:2px solid #16a34a !important;
+  color:#166534 !important;
+}
+#currentPlanetBhavaTable tr.cpbh-puthi td{
+  background:#fef3c7 !important;
+  border-top:2px solid #d97706 !important;
+  border-bottom:2px solid #d97706 !important;
+  color:#92400e !important;
+}
+#currentPlanetBhavaTable tr.cpbh-anthra td{
+  background:#dbeafe !important;
+  border-top:2px solid #2563eb !important;
+  border-bottom:2px solid #2563eb !important;
+  color:#1e40af !important;
+}
+
+/* If one planet is both/all levels */
+#currentPlanetBhavaTable tr.cpbh-dasa.cpbh-puthi td{
+  background:#ede9fe !important;
+  border-color:#9333ea !important;
+  color:#6b21a8 !important;
+}
+#currentPlanetBhavaTable tr.cpbh-puthi.cpbh-anthra td{
+  background:#cffafe !important;
+  border-color:#0891b2 !important;
+  color:#155e75 !important;
+}
+#currentPlanetBhavaTable tr.cpbh-dasa.cpbh-anthra td{
+  background:#e0e7ff !important;
+  border-color:#4f46e5 !important;
+  color:#3730a3 !important;
+}
+#currentPlanetBhavaTable tr.cpbh-dasa.cpbh-puthi.cpbh-anthra td{
+  background:#f3e8ff !important;
+  border-color:#9333ea !important;
+  color:#581c87 !important;
+}
+
+.cpbh-dba-tags{
+  margin-top:2px;
+  line-height:1.15;
+}
+.cpbh-dba-tag{
+  display:inline-block;
+  margin:1px 2px;
+  padding:1px 4px;
+  border-radius:4px;
+  font-size:8px;
+  font-weight:900;
+}
+.cpbh-dba-tag.dasa{background:#bbf7d0;color:#166534}
+.cpbh-dba-tag.puthi{background:#fde68a;color:#92400e}
+.cpbh-dba-tag.anthra{background:#bfdbfe;color:#1e40af}
+
+body.dark #currentPlanetBhavaTable tr.cpbh-dasa td{
+  background:#12361f !important;border-color:#22c55e !important;color:#bbf7d0 !important;
+}
+body.dark #currentPlanetBhavaTable tr.cpbh-puthi td{
+  background:#3b2807 !important;border-color:#f59e0b !important;color:#fde68a !important;
+}
+body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
+  background:#102d4d !important;border-color:#3b82f6 !important;color:#bfdbfe !important;
+}
+</style>
+
 </head>
 <body>
 
@@ -2054,7 +2197,7 @@ body.dark .ddm-badge{background:#0f2016;}
   <button id="btnBlinkPuthi" class="btn">புக்தி மின்மினிப்பு</button>
   <button id="btnBlinkAnth"  class="btn">அந்தரம் மின்மினிப்பு</button>
 <button id="btnRasiNameSeq" class="btn">ராசி — தசை→புக்தி→அந்தரம்</button>
-  <button id="btnMudakku" class="btn" type="button" title="சூரியன் பிறப்பு நிலையை வைத்து முடக்கு ராசி காட்டும்">முடக்கு</button> <button type="button" class="btn" id="btnThithiSunya">திதி சூன்யம்</button> <button type="button" class="btn" id="btnCurrentPlanets" aria-pressed="false" title="கணிப்புக்கான தேதியின் தற்போதைய கிரகங்களை காட்ட / மறைக்க">தற்போதைய கிரகங்கள்</button> <button type="button" class="btn" id="btnALP" title="120 ஆண்டுகள் / 108 நட்சத்திர பாதங்கள் அடிப்படையில் ALP">ALP</button> <button type="button" class="btn" id="btnDasaMeeting" title="Dasa Degree → Planet Meetings">தசை சந்திப்பு</button> <button type="button" class="btn" id="btnPuthiMeeting" title="Puthi Degree → Planet Meetings">புக்தி சந்திப்பு</button> <button type="button" class="btn" id="btnYogiAvayogi" title="பிறப்பு யோகத்தின் யோகி மற்றும் அவயோகி நட்சத்திர பாதங்கள்">யோகி — அவயோகி</button> <button type="button" class="btn" id="btnKarana" title="பிறப்பு கரணம் மற்றும் பரிகார ஸ்தலம்">கரணம்</button> <button type="button" class="btn" id="btnVainasigam" title="பிறப்பு சந்திர நட்சத்திரத்தின் 22-வது வைநாசிக நட்சத்திரம் மற்றும் பரிகார ஸ்தலம்">வைநாசிகம்</button> <button type="button" class="btn dba-toggle-btn" id="btnDBABirth" aria-pressed="false" title="பிறப்பில் தசை / புக்தி / அந்தரம் அட்டவணையை காட்ட / மறைக்க">DBA — பிறப்பில்</button> <button type="button" class="btn dba-toggle-btn" id="btnDBACurrent" aria-pressed="false" title="தற்போது தசை / புக்தி / அந்தரம் அட்டவணையை காட்ட / மறைக்க">DBA — இப்போது</button>
+  <button id="btnMudakku" class="btn" type="button" title="சூரியன் பிறப்பு நிலையை வைத்து முடக்கு ராசி காட்டும்">முடக்கு</button> <button type="button" class="btn" id="btnThithiSunya">திதி சூன்யம்</button> <button type="button" class="btn" id="btnCurrentPlanets" aria-pressed="false" title="கணிப்புக்கான தேதியின் தற்போதைய கிரகங்களை காட்ட / மறைக்க">தற்போதைய கிரகங்கள்</button> <button type="button" class="btn cpbh-toggle-btn" id="btnBirthPlanetBhava" aria-pressed="false" title="பிறப்பு கிரக பாவக தொடர்புகளை காட்ட / மறைக்க">பிறப்பு கிரக பாவக தொடர்புகள்</button> <button type="button" class="btn cpbh-toggle-btn" id="btnCurrentPlanetBhava" aria-pressed="false" title="தற்போதைய கிரக பாவக தொடர்புகளை காட்ட / மறைக்க">தற்போதைய கிரக பாவக தொடர்புகள்</button> <button type="button" class="btn" id="btnALP" title="120 ஆண்டுகள் / 108 நட்சத்திர பாதங்கள் அடிப்படையில் ALP">ALP</button> <button type="button" class="btn" id="btnDasaMeeting" title="Dasa Degree → Planet Meetings">தசை சந்திப்பு</button> <button type="button" class="btn" id="btnPuthiMeeting" title="Puthi Degree → Planet Meetings">புக்தி சந்திப்பு</button> <button type="button" class="btn" id="btnYogiAvayogi" title="பிறப்பு யோகத்தின் யோகி மற்றும் அவயோகி நட்சத்திர பாதங்கள்">யோகி — அவயோகி</button> <button type="button" class="btn" id="btnKarana" title="பிறப்பு கரணம் மற்றும் பரிகார ஸ்தலம்">கரணம்</button> <button type="button" class="btn" id="btnVainasigam" title="பிறப்பு சந்திர நட்சத்திரத்தின் 22-வது வைநாசிக நட்சத்திரம் மற்றும் பரிகார ஸ்தலம்">வைநாசிகம்</button> <button type="button" class="btn dba-toggle-btn" id="btnDBABirth" aria-pressed="false" title="பிறப்பில் தசை / புக்தி / அந்தரம் அட்டவணையை காட்ட / மறைக்க">DBA — பிறப்பில்</button> <button type="button" class="btn dba-toggle-btn" id="btnDBACurrent" aria-pressed="false" title="தற்போது தசை / புக்தி / அந்தரம் அட்டவணையை காட்ட / மறைக்க">DBA — இப்போது</button>
 
 </div>
 
@@ -3388,7 +3531,9 @@ function renderCurrentPlanetsCard(){
       : '';
 
     const unMarker = getCurrentPlanetUNMarker(key, rasi);
-    const unSuffix = unMarker ? ` (${unMarker})` : '';
+    const unSuffix = unMarker
+      ? ` (${unMarker === 'U' ? 'உ' : unMarker === 'N' ? 'நீ' : unMarker})`
+      : '';
 
     return `<div class="cp-item">
       <div class="cp-name">${names[key]}${unSuffix}${isPlanetRetrograde(source?.[key]) ? ' <span style="color:#16a34a;">(வக்ரம்)</span>' : ''}</div>
@@ -3399,6 +3544,11 @@ function renderCurrentPlanetsCard(){
   box.innerHTML=`<div class="cp-title">தற்போதைய கிரகங்கள்</div>
     <div class="cp-grid">${cards || '<div class="cp-item" style="grid-column:1/-1">தற்போதைய கிரகத் தகவல் இல்லை.</div>'}</div>`;
   box.style.display='block';
+
+  // Also refresh the 9-planet Bhava / Saranathan table.
+  if(typeof renderCurrentPlanetBhavaTable === 'function'){
+    renderCurrentPlanetBhavaTable();
+  }
 }
 
 async function setCurrentPlanetsEnabled(enabled){
@@ -5148,6 +5298,7 @@ function applyALPBhavaRotation(state){
   RASI_NUMBER_START_IDX=Math.floor((alpPada-1)/9);
   applyRasiNumberChips();
   highlightLagnaNumberedBands(alpPada);
+  if(typeof renderCurrentPlanetBhavaTable==='function') setTimeout(renderCurrentPlanetBhavaTable,0);
 
   // Navamsa: exact current ALP Navamsa position = Bhava 1.
   applyNavamsaBhavaNumbers();
@@ -8342,6 +8493,7 @@ function applyBhavaRotation(){
   // update the numbered bands 1..12 before each nakshatra-pada row
   // (this sets LAST_LAGNA_PADA so re-apply on scroll/resize keeps working)
   highlightLagnaNumberedBands(rotatedStartPada);
+  if(typeof renderCurrentPlanetBhavaTable==='function') setTimeout(renderCurrentPlanetBhavaTable,0);
 }
 
 // clicks on 1..12
@@ -10258,6 +10410,379 @@ document.addEventListener('click', ()=>{
     };
     hideOthers(map[b.id]);
   },true);
+})();
+</script>
+
+
+<script>
+/* =========================================================
+   JP ASTRO RESEARCH — BIRTH / CURRENT 9 PLANETS BHAVA THODARPUGAL
+   Two buttons:
+     1) பிறப்பு கிரக பாவக தொடர்புகள்
+     2) தற்போதைய கிரக பாவக தொடர்புகள்
+
+   Rules:
+   - Birth button uses savedPlanetsForChart.
+   - Current button uses currentPlanetsForChart.
+   - Birth Lagna / ALP Lagna follows the active ALP state.
+   - Bhava 1–12 chooser is respected.
+   - Rahu/Ketu own-house column uses the lord of the Rasi occupied by Rahu/Ketu.
+   ========================================================= */
+
+const CPBH_PLANETS=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+const CPBH_PLANET_NAMES={Sun:'சூரியன்',Moon:'சந்திரன்',Mars:'செவ்வாய்',Mercury:'புதன்',Jupiter:'குரு',Venus:'சுக்ரன்',Saturn:'சனி',Rahu:'ராகு',Ketu:'கேது'};
+const CPBH_API_TO_INTERNAL={Sun:'sun',Moon:'moon',Mars:'mars',Mercury:'mercury',Jupiter:'jupiter',Venus:'venus',Saturn:'saturn',Rahu:'rahu',Ketu:'ketu'};
+let CPBH_MODE=''; // 'birth' or 'current'
+
+function cpbhRasiIndexFromDegree(degree){
+  const d=((Number(degree)%360)+360)%360;
+  return Number.isFinite(d)?Math.floor(d/30):-1;
+}
+function cpbhNakshatraIndexFromDegree(degree){
+  const d=((Number(degree)%360)+360)%360;
+  return Number.isFinite(d)?Math.floor(d/nakLen):-1;
+}
+function cpbhStarLordFromDegree(degree){
+  const i=cpbhNakshatraIndexFromDegree(degree);
+  return i>=0&&NAKS[i]?NAKS[i].lord:null;
+}
+function cpbhPlanetName(key){
+  return (typeof PLANET_NAME!=='undefined'&&PLANET_NAME[LANG]?.[key])||key;
+}
+function cpbhRasiName(i){
+  return i>=0&&i<12?(RASIS[i]?.name?.[LANG]||RASIS[i]?.name?.ta||RASIS[i]?.name?.en||'—'):'—';
+}
+
+/* Active planet source */
+function cpbhSource(){
+  if(CPBH_MODE==='birth') return (typeof savedPlanetsForChart!=='undefined'&&savedPlanetsForChart)||{};
+  return (typeof currentPlanetsForChart!=='undefined'&&currentPlanetsForChart)||{};
+}
+function cpbhGetPlanetDegree(apiKey){
+  const source=cpbhSource();
+  const a=Number(source?.[apiKey]?.fullDegree);
+  if(Number.isFinite(a)) return a;
+  if(CPBH_MODE==='current'){
+    const b=Number(currentPlanetDegrees?.[apiKey]);
+    if(Number.isFinite(b)) return b;
+  }
+  if(CPBH_MODE==='birth' && typeof planetDegrees!=='undefined'){
+    const b=Number(planetDegrees?.[apiKey]);
+    if(Number.isFinite(b)) return b;
+  }
+  return null;
+}
+
+/* Birth Lagna / ALP Lagna + selected Bhava */
+function cpbhGetBasePada(){
+  if(typeof alpActive!=='undefined'&&alpActive){
+    try{
+      const st=getALPState();
+      if(st&&Number.isInteger(Number(st.runningPada))) return Number(st.runningPada);
+    }catch(e){}
+  }
+  try{
+    const lagna=getBirthLagnaForALP();
+    if(lagna&&Number.isInteger(Number(lagna.globalPada))) return Number(lagna.globalPada);
+  }catch(e){}
+  return null;
+}
+function cpbhGetStartPada(){
+  const base=cpbhGetBasePada();
+  if(!base) return null;
+  const selected=(typeof BHAVA_SELECTED==='number'&&BHAVA_SELECTED>=1&&BHAVA_SELECTED<=12)?BHAVA_SELECTED:1;
+  return ((base-1)+(selected-1)*9)%108+1;
+}
+function cpbhRasiToBhava(rasiIndex){
+  if(!Number.isInteger(rasiIndex)||rasiIndex<0||rasiIndex>11)return null;
+  const startPada=cpbhGetStartPada();
+  if(!startPada)return null;
+  const startRasi=Math.floor((startPada-1)/9);
+  return ((rasiIndex-startRasi+12)%12)+1;
+}
+
+/* Rahu/Ketu: use owner of occupied Rasi as effective planet owner */
+function cpbhEffectiveOwnKey(apiKey,degree){
+  const internal=CPBH_API_TO_INTERNAL[apiKey];
+  if(internal!=='rahu'&&internal!=='ketu')return internal;
+  const rasiIndex=cpbhRasiIndexFromDegree(degree);
+  return RASIS[rasiIndex]?.lord||null;
+}
+function cpbhOwnHousesForApi(apiKey,degree){
+  const effective=cpbhEffectiveOwnKey(apiKey,degree);
+  if(!effective||typeof PLANET_OWNERSHIP==='undefined')return [];
+  return PLANET_OWNERSHIP[effective]?.homes||[];
+}
+function cpbhFormatOwnHouseBhavas(apiKey,degree){
+  const homes=cpbhOwnHousesForApi(apiKey,degree);
+  if(!homes.length)return '<span class="cpbh-none">—</span>';
+  return homes.map(signId=>{
+    const idx=RASIS.findIndex(r=>r.id===signId);
+    if(idx<0)return '';
+    const b=cpbhRasiToBhava(idx);
+    const r=cpbhRasiName(idx);
+    return b?`<span class="cpbh-number">${b}</span><span class="cpbh-rasi">${r}</span>`:`<span class="cpbh-own">${r}</span>`;
+  }).filter(Boolean).join('<br>');
+}
+function cpbhFormatBhava(rasiIndex){
+  if(rasiIndex===null||rasiIndex===undefined||rasiIndex<0)return '<span class="cpbh-none">—</span>';
+  const b=cpbhRasiToBhava(rasiIndex),r=cpbhRasiName(rasiIndex);
+  return b?`<span class="cpbh-number">${b}</span><span class="cpbh-rasi">${r}</span>`:`<span class="cpbh-none">${r}</span>`;
+}
+function cpbhModeText(){
+  const alp=(typeof alpActive!=='undefined'&&alpActive);
+  const base=alp?'ALP லக்னம்':'பிறப்பு லக்னம்';
+  const bh=(typeof BHAVA_SELECTED==='number'?BHAVA_SELECTED:1);
+  return `${base} • பாவம் ${bh}`;
+}
+
+function ensureCurrentPlanetBhavaTableBox(){
+  let box=document.getElementById('currentPlanetBhavaTableBox');
+  if(!box){box=document.createElement('div');box.id='currentPlanetBhavaTableBox';box.style.display='none';}
+  const currentBox=document.getElementById('currentPlanetsInfoBox');
+  const bhava=document.getElementById('bhavaChooser');
+  const chart=document.getElementById('rasiChart');
+  if(currentBox?.parentNode){if(currentBox.nextElementSibling!==box)currentBox.insertAdjacentElement('afterend',box);}
+  else if(bhava?.parentNode){if(bhava.nextElementSibling!==box)bhava.insertAdjacentElement('afterend',box);}
+  else if(chart?.parentNode){chart.parentNode.insertBefore(box,chart);}
+  return box;
+}
+
+function updateCPBHToggleButtons(){
+  const b=document.getElementById('btnBirthPlanetBhava');
+  const c=document.getElementById('btnCurrentPlanetBhava');
+  if(b){b.classList.toggle('active',CPBH_MODE==='birth');b.setAttribute('aria-pressed',CPBH_MODE==='birth'?'true':'false');}
+  if(c){c.classList.toggle('active',CPBH_MODE==='current');c.setAttribute('aria-pressed',CPBH_MODE==='current'?'true':'false');}
+}
+function hideCPBHTable(){
+  const box=document.getElementById('currentPlanetBhavaTableBox');
+  if(box){box.style.display='none';box.innerHTML='';}
+  CPBH_MODE='';
+  updateCPBHToggleButtons();
+}
+
+
+/* =========================================================
+   CURRENT DASA / PUTHI / ANTHRA -> KIRAGA THODARPUGAL
+   Uses the SAME vimCurrentPath + vimData used by the
+   existing Dasa/Puthi/Anthra tree.
+   ========================================================= */
+
+function cpbhGetActiveDBAKeys(){
+  const out = {dasa:null, puthi:null, anthra:null};
+
+  try{
+    if(typeof vimData !== 'undefined' &&
+       typeof vimCurrentPath !== 'undefined' &&
+       vimCurrentPath){
+
+      const di = Number(vimCurrentPath.dasa);
+      const pi = Number(vimCurrentPath.puthi);
+      const ai = Number(vimCurrentPath.anth);
+
+      const md = (di >= 0) ? vimData[di] : null;
+      const pt = (md && pi >= 0) ? md.puthis?.[pi] : null;
+      const at = (pt && ai >= 0) ? pt.antharas?.[ai] : null;
+
+      out.dasa   = md?.lordKey || null;
+      out.puthi  = pt?.lordKey || null;
+      out.anthra = at?.lordKey || null;
+    }
+  }catch(e){
+    console.warn('CPBH DBA read error:', e);
+  }
+
+  return out;
+}
+
+function cpbhDBAClasses(apiKey){
+  const internal = CPBH_API_TO_INTERNAL[apiKey];
+  const dba = cpbhGetActiveDBAKeys();
+  const classes = [];
+
+  if(internal && internal === dba.dasa)   classes.push('cpbh-dasa');
+  if(internal && internal === dba.puthi)  classes.push('cpbh-puthi');
+  if(internal && internal === dba.anthra) classes.push('cpbh-anthra');
+
+  return classes.join(' ');
+}
+
+function cpbhDBATags(apiKey){
+  const internal = CPBH_API_TO_INTERNAL[apiKey];
+  const dba = cpbhGetActiveDBAKeys();
+  let html = '';
+
+  if(internal && internal === dba.dasa){
+    html += '<span class="cpbh-dba-tag dasa">தசை</span>';
+  }
+  if(internal && internal === dba.puthi){
+    html += '<span class="cpbh-dba-tag puthi">புக்தி</span>';
+  }
+  if(internal && internal === dba.anthra){
+    html += '<span class="cpbh-dba-tag anthra">அந்தரம்</span>';
+  }
+
+  return html ? `<div class="cpbh-dba-tags">${html}</div>` : '';
+}
+
+
+function renderCurrentPlanetBhavaTable(){
+  const box=ensureCurrentPlanetBhavaTableBox();
+  if(!box||!CPBH_MODE){if(box)box.style.display='none';updateCPBHToggleButtons();return;}
+
+  const source=cpbhSource();
+  const haveAny=CPBH_PLANETS.some(k=>cpbhGetPlanetDegree(k)!==null);
+  if(!haveAny){
+    box.innerHTML=`<div class="cpbh-title">${CPBH_MODE==='birth'?'பிறப்பு':'தற்போதைய'} கிரக பாவக தொடர்புகள்</div><div class="cpbh-subtitle">கிரகத் தகவல் கிடைக்கவில்லை.</div>`;
+    box.style.display='block';updateCPBHToggleButtons();return;
+  }
+
+  let rows='';
+  CPBH_PLANETS.forEach(apiKey=>{
+    const degree=cpbhGetPlanetDegree(apiKey);
+    if(degree===null){
+      rows+=`<tr><td class="cpbh-planet">${CPBH_PLANET_NAMES[apiKey]}</td><td><span class="cpbh-none">—</span></td><td><span class="cpbh-none">—</span></td><td><span class="cpbh-none">—</span></td><td><span class="cpbh-none">—</span></td></tr>`;
+      return;
+    }
+
+    const planetRasi=cpbhRasiIndexFromDegree(degree);
+    const starLordInternal=cpbhStarLordFromDegree(degree);
+    const starLordName=starLordInternal?cpbhPlanetName(starLordInternal):'—';
+    const starLordApi=starLordInternal?Object.entries(CPBH_API_TO_INTERNAL).find(([,v])=>v===starLordInternal)?.[0]:null;
+    const starLordDegree=starLordApi?cpbhGetPlanetDegree(starLordApi):null;
+    const starLordRasi=starLordDegree===null?-1:cpbhRasiIndexFromDegree(starLordDegree);
+    const effectiveOwner=(apiKey==='Rahu'||apiKey==='Ketu')?cpbhEffectiveOwnKey(apiKey,degree):null;
+    const ownerNote=effectiveOwner?`<div class="cpbh-own-note">ராசி அதிபதி: ${cpbhPlanetName(effectiveOwner)}</div>`:'';
+    const starOwn=starLordApi&&starLordDegree!==null?cpbhFormatOwnHouseBhavas(starLordApi,starLordDegree):'<span class="cpbh-none">—</span>';
+
+    const dbaClass = cpbhDBAClasses(apiKey);
+    const dbaTags = cpbhDBATags(apiKey);
+
+    rows+=`<tr class="${dbaClass}">
+      <td class="cpbh-planet ${dbaClass}">
+        ${CPBH_PLANET_NAMES[apiKey]}
+        ${dbaTags}
+      </td>
+      <td class="${dbaClass}">${cpbhFormatBhava(planetRasi)}</td>
+      <td class="${dbaClass}">
+        <div class="cpbh-star-lord">${starLordName}</div>
+        ${cpbhFormatBhava(starLordRasi)}
+      </td>
+      <td class="${dbaClass}">
+        ${ownerNote}${cpbhFormatOwnHouseBhavas(apiKey,degree)}
+      </td>
+      <td class="${dbaClass}">${starOwn}</td>
+    </tr>`;
+  });
+
+  const modeTitle=CPBH_MODE==='birth'?'பிறப்பு கிரக பாவக தொடர்புகள்':'தற்போதைய கிரக பாவக தொடர்புகள்';
+  box.innerHTML=`<div class="cpbh-title">${modeTitle}</div>
+    <div class="cpbh-subtitle">${cpbhModeText()}</div>
+    <table id="currentPlanetBhavaTable"><thead><tr>
+      <th>கிரகம்</th><th>கோள் நின்ற<br>பாவகம்</th><th>சாரநாதன்<br>அமர்ந்த பாவகம்</th><th>கோளின்<br>சொந்த பாவகம்</th><th>சாரநாதனின்<br>சொந்த பாவகம்</th>
+    </tr></thead><tbody>${rows}</tbody></table>`;
+  box.style.display='block';
+  updateCPBHToggleButtons();
+}
+
+function openCPBHMode(mode){
+  if(CPBH_MODE===mode){hideCPBHTable();return;}
+  CPBH_MODE=mode;
+  updateCPBHToggleButtons();
+
+  if(mode==='current' && (!currentPlanetsForChart || !Object.keys(currentPlanetsForChart).length)){
+    if(typeof setCurrentPlanetsEnabled==='function'){
+      setCurrentPlanetsEnabled(true).then(()=>setTimeout(renderCurrentPlanetBhavaTable,80));
+      return;
+    }
+  }
+  renderCurrentPlanetBhavaTable();
+}
+
+
+/* Refresh Kiraga Thodarbugal after Dasa/Puthi/Anthra state changes. */
+(function(){
+  let t = null;
+
+  function refreshDBA(){
+    clearTimeout(t);
+    t = setTimeout(function(){
+      if(CPBH_MODE){
+        renderCurrentPlanetBhavaTable();
+      }
+    }, 80);
+  }
+
+  /* Capture clicks anywhere in the Dasa tree. */
+  document.addEventListener('click', function(ev){
+    const el = ev.target.closest(
+      '#dasaColumn li,#puthiColumn li,#anthColumn li,' +
+      '.dasa-item,.puthi-item,.anth-item,' +
+      '[data-dasa-index],[data-puthi-index],[data-anth-index]'
+    );
+    if(el){
+      refreshDBA();
+      setTimeout(refreshDBA, 250);
+    }
+  }, true);
+
+  /* Current calculation date changes the active DBA. */
+  document.getElementById('caldate')?.addEventListener('change', function(){
+    refreshDBA();
+    setTimeout(refreshDBA, 700);
+  });
+
+  /* ALP/Bhava changes affect the table but not DBA lord itself;
+     refresh anyway so the highlighted row remains synchronized. */
+  document.getElementById('btnALP')?.addEventListener('click', refreshDBA, true);
+  document.getElementById('bhavaChooser')?.addEventListener('click', refreshDBA, true);
+
+  window.addEventListener('load', function(){
+    refreshDBA();
+    setTimeout(refreshDBA, 500);
+  });
+})();
+
+window.refreshCurrentPlanetBhavaTable=renderCurrentPlanetBhavaTable;
+
+/* Buttons */
+document.getElementById('btnBirthPlanetBhava')?.addEventListener('click',()=>openCPBHMode('birth'));
+document.getElementById('btnCurrentPlanetBhava')?.addEventListener('click',()=>openCPBHMode('current'));
+
+/* Recalculate immediately when Bhava 1–12 changes */
+document.getElementById('bhavaChooser')?.addEventListener('click',()=>{
+  if(CPBH_MODE)setTimeout(renderCurrentPlanetBhavaTable,80);
+});
+
+/* Recalculate after ALP button */
+document.getElementById('btnALP')?.addEventListener('click',()=>{
+  if(CPBH_MODE)setTimeout(renderCurrentPlanetBhavaTable,180);
+});
+
+/* Recalculate after current calculation date changes */
+document.getElementById('caldate')?.addEventListener('change',()=>{
+  if(CPBH_MODE)setTimeout(renderCurrentPlanetBhavaTable,700);
+});
+
+/* If current planets are refreshed by the existing application, refresh table too. */
+(function(){
+  const oldRender=window.renderCurrentPlanetsCard;
+  if(typeof oldRender==='function'&&!window.__CPBH_CURRENT_HOOK){
+    window.renderCurrentPlanetsCard=function(){
+      const result=oldRender.apply(this,arguments);
+      if(CPBH_MODE==='current')setTimeout(renderCurrentPlanetBhavaTable,30);
+      return result;
+    };
+    window.__CPBH_CURRENT_HOOK=true;
+  }
+})();
+
+(function(){
+  function init(){
+    ensureCurrentPlanetBhavaTableBox();
+    updateCPBHToggleButtons();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
 
