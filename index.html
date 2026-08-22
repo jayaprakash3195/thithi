@@ -1148,6 +1148,61 @@ body.dark .thithi-remedy-inside strong{
   pointer-events:none;
 }
 
+/* ===== ALP Planet Meeting Table (Rasi only) ===== */
+.alp-planet-meet-box{
+  width:min(760px,96%);
+  margin:10px auto 14px;
+  box-sizing:border-box;
+  border:1px solid #7a1fa2;
+  border-radius:12px;
+  background:var(--card,#fff);
+  padding:10px;
+  text-align:center;
+  overflow:hidden;
+}
+.alp-planet-meet-title{
+  font-weight:900;
+  color:#651887;
+  font-size:15px;
+  margin-bottom:7px;
+}
+.alp-planet-meet-subtitle{
+  font-size:11px;
+  color:#666;
+  margin-bottom:8px;
+  line-height:1.45;
+}
+.alp-planet-meet-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+.alp-planet-meet-table th,
+.alp-planet-meet-table td{
+  border:1px solid #d8c4df;
+  padding:6px 5px;
+  text-align:center;
+  vertical-align:middle;
+}
+.alp-planet-meet-table th{
+  background:#f2e8f7;
+  color:#4b1260;
+  font-weight:900;
+}
+.alp-planet-meet-table td strong{font-weight:900}
+body.dark .alp-planet-meet-box{background:#15101a;border-color:#654878}
+body.dark .alp-planet-meet-table th{background:#24182b;color:#f0d9fa}
+body.dark .alp-planet-meet-table th,
+body.dark .alp-planet-meet-table td{border-color:#654878}
+body.dark .alp-planet-meet-subtitle{color:#c9b9d0}
+.alp-meet-current-row{background:rgba(122,31,162,.10)}
+@media(max-width:600px){
+  .alp-planet-meet-box{padding:7px;width:98%}
+  .alp-planet-meet-table{font-size:10.5px}
+  .alp-planet-meet-table th,.alp-planet-meet-table td{padding:5px 3px}
+  .alp-planet-meet-subtitle{font-size:10px}
+}
+
 /* ===== ALP Rasi / Nakshatra Pada period navigation ===== */
 .alp-period-row{
   display:flex;align-items:center;justify-content:center;gap:8px;
@@ -1315,9 +1370,53 @@ body.dark .vainasigam-info-box{background:#1b1220;border-color:#765080;color:#ee
 #currentPlanetsInfoBox .cp-item{border:1px solid #b9dec5;border-radius:8px;padding:7px 6px;background:rgba(255,255,255,.7);text-align:center;min-width:0}
 #currentPlanetsInfoBox .cp-name{font-weight:900}
 #currentPlanetsInfoBox .cp-detail{font-size:12px;margin-top:3px;line-height:1.35}
+#currentPlanetsInfoBox .cp-status{display:inline-block;margin-left:4px;font-weight:900;font-size:.95em}
+#currentPlanetsInfoBox .cp-own,#currentPlanetsInfoBox .cp-ucham{color:#16a34a !important}
+#currentPlanetsInfoBox .cp-neecham{color:#dc2626 !important}
+#currentPlanetsInfoBox .cp-status-legend{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;padding:4px 8px 10px;font-size:.88em;font-weight:800}
+#currentPlanetsInfoBox .cp-legend-own,#currentPlanetsInfoBox .cp-legend-ucham{color:#16a34a !important}
+#currentPlanetsInfoBox .cp-legend-neecham{color:#dc2626 !important}
+#currentPlanetsInfoBox .cp-planet-name{font-weight:900}
+#currentPlanetsInfoBox .cp-retro{color:#16a34a !important;font-weight:800;margin-left:3px}
 body.dark #currentPlanetsInfoBox{background:#0f2115;border-color:#22c55e;color:#d9ffe5}
 body.dark #currentPlanetsInfoBox .cp-title{color:#4ade80}
 body.dark #currentPlanetsInfoBox .cp-item{background:#13281a;border-color:#236b39}
+/* ===== THITHI DETAILS SLIDESHOW ===== */
+#rasiInfoSlideshow .thithi-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+#rasiInfoSlideshow .thithi-info-item{display:flex;align-items:center;justify-content:center;min-height:42px;box-sizing:border-box;padding:8px 7px;border:1px solid #b9dec5;border-radius:8px;background:rgba(255,255,255,.75);color:#126b39;font-weight:900;text-decoration:none;text-align:center;transition:transform .15s,background .15s,box-shadow .15s}
+#rasiInfoSlideshow .thithi-info-item:hover{background:#eafff0;transform:translateY(-1px);box-shadow:0 2px 7px rgba(0,0,0,.10);text-decoration:underline}
+body.dark #rasiInfoSlideshow .thithi-info-item{background:#13281a;border-color:#236b39;color:#86efac}
+body.dark #rasiInfoSlideshow .thithi-info-item:hover{background:#183722}
+
+#rasiInfoSlideshow .karana-info-item{display:flex;align-items:center;justify-content:center;gap:7px;min-height:42px;box-sizing:border-box;padding:8px 7px;border:1px solid #c8d6ea;border-radius:8px;background:rgba(255,255,255,.75);color:var(--brand);font-weight:900;text-align:center;line-height:1.25}
+#rasiInfoSlideshow .karana-info-item strong{min-width:20px}
+#rasiInfoSlideshow .karana-info-item span{font-weight:900}
+#rasiInfoSlideshow .karana-info-item:hover{background:#eef5ff;transform:translateY(-1px);box-shadow:0 2px 7px rgba(0,0,0,.10)}
+body.dark #rasiInfoSlideshow .karana-info-item{background:#101923;border-color:#2f4b59;color:#9cc7ff}
+body.dark #rasiInfoSlideshow .karana-info-item:hover{background:#162333}
+
+/* 27 Nama Yoga slideshow */
+#rasiInfoSlideshow .yoga-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}
+#rasiInfoSlideshow .yoga-info-item{display:flex;align-items:center;justify-content:center;gap:6px;min-height:34px;box-sizing:border-box;padding:6px 5px;border:1px solid #d7c6e8;border-radius:8px;background:rgba(255,255,255,.75);color:#6b21a8;font-weight:900;text-align:center;line-height:1.15}
+#rasiInfoSlideshow .yoga-info-item strong{font-size:11px;min-width:18px}
+#rasiInfoSlideshow .yoga-info-item span{font-size:12px}
+body.dark #rasiInfoSlideshow .yoga-info-item{background:#1b1423;border-color:#5b3975;color:#d8b4fe}
+
+/* 27 Nakshatras grouped by owner */
+#rasiInfoSlideshow .nak-owner-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:8px}
+#rasiInfoSlideshow .nak-owner-info-item{min-height:55px;padding:7px 6px;box-sizing:border-box;border:1px solid #b9dec5;border-radius:8px;background:rgba(255,255,255,.75);text-align:center;line-height:1.25}
+#rasiInfoSlideshow .nak-owner-name{font-size:13px;font-weight:900;color:var(--brand);margin-bottom:3px}
+#rasiInfoSlideshow .nak-owner-stars{font-size:11.5px;font-weight:800;color:var(--ink)}
+body.dark #rasiInfoSlideshow .nak-owner-info-item{background:#101923;border-color:#2f4b59}
+body.dark #rasiInfoSlideshow .nak-owner-name{color:#7ab8ff}
+body.dark #rasiInfoSlideshow .nak-owner-stars{color:#d9e5f2}
+
+@media(max-width:700px){
+  #rasiInfoSlideshow .thithi-info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #rasiInfoSlideshow .yoga-info-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+  #rasiInfoSlideshow .nak-owner-info-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+}
+
 #rasiInfoSlideshow .rasi-info-calcdate{text-align:center;font-size:13px;font-weight:900;margin:0 0 7px;padding:5px 7px;border-radius:7px;background:rgba(22,163,74,.08);color:#0f6b35}
 body.dark #rasiInfoSlideshow .rasi-info-calcdate{background:rgba(34,197,94,.10);color:#86efac}
 @media(max-width:700px){#currentPlanetsInfoBox .cp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -1547,6 +1646,61 @@ body.dark #currentPlanetBhavaTable .cpbh-number{background:#163a21;border-color:
 body.dark #currentPlanetBhavaTable .cpbh-rasi{color:#9acba8}
 body.dark #currentPlanetBhavaTable .cpbh-star-lord{color:#67d5f5}
 @media(max-width:700px){#currentPlanetBhavaTableBox{width:98%;padding:5px}#currentPlanetBhavaTable th,#currentPlanetBhavaTable td{padding:4px 2px;font-size:9px}#currentPlanetBhavaTable th{font-size:9px}#currentPlanetBhavaTable .cpbh-rasi{font-size:8px}#currentPlanetBhavaTable .cpbh-number{min-width:18px;height:18px;font-size:9px}}
+
+/* ===== COMPACT JATHAGAR OPEN PANEL ===== */
+.jp-profile-modal{position:relative;width:100%;z-index:20;background:transparent;display:flex;align-items:flex-start;justify-content:center;padding:8px 12px 10px;box-sizing:border-box;pointer-events:auto}
+.jp-profile-modal-card{width:min(320px,92vw);max-height:min(58vh,460px);overflow:hidden;background:#fff;border:1px solid #b7d9c0;border-radius:14px;padding:10px;box-shadow:0 10px 28px rgba(0,0,0,.22);text-align:left;pointer-events:auto;animation:jpProfileDrop .16s ease-out}
+@keyframes jpProfileDrop{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.jp-profile-modal-title{font-size:16px;font-weight:900;margin:2px 2px 8px;color:#166534;display:flex;align-items:center;justify-content:space-between}
+.jp-profile-search{width:100%;height:36px;padding:7px 10px;border:1px solid #c9dfcf;border-radius:9px;box-sizing:border-box;outline:none;font-size:14px;background:#f8fff9;color:#173b22;margin-bottom:8px}
+.jp-profile-search:focus{border-color:#4ade80;box-shadow:0 0 0 2px rgba(74,222,128,.15)}
+.jp-profile-open-list{display:flex;flex-direction:column;gap:5px;margin:0 0 8px;max-height:calc(min(58vh,460px) - 105px);overflow-y:auto;padding:1px 2px}
+.jp-profile-open-item{width:100%;min-height:42px;padding:9px 11px;border:1px solid #d0e7d6;border-radius:8px;background:#f7fff8;color:#14532d;font-weight:800;cursor:pointer;text-align:left;box-sizing:border-box;font-size:14px;transition:.12s;display:flex;align-items:center;gap:9px}
+.jp-profile-open-item:hover{background:#dcfce7;border-color:#86efac;transform:translateX(2px)}
+.jp-profile-open-item.jp-longpressing{background:#fef3c7;border-color:#f59e0b;transform:none}
+.jp-profile-open-item small{display:none}
+.jp-profile-gender-icon{width:26px;height:26px;min-width:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#e8f5ec;color:#166534;font-size:17px;line-height:1;font-weight:900}.jp-profile-gender-icon.female{background:#fdebf3;color:#be185d}.jp-profile-gender-icon svg{width:18px;height:18px;display:block}
+body.dark .jp-profile-open-item.jp-longpressing{background:#3a2b0a;border-color:#f59e0b}
+body.dark .jp-profile-open-item small{color:#a7b7ab}
+.jp-profile-empty{padding:14px 6px;color:#666;font-weight:700;text-align:center;font-size:13px}
+.jp-profile-close{width:100%;height:34px;border:0;border-radius:8px;background:#edf7ef;color:#166534;font-weight:800;cursor:pointer}
+.jp-profile-close:hover{background:#dcfce7}
+body.dark .jp-profile-modal-card{background:#102016;border-color:#28633a;color:#e5ffe9}
+body.dark .jp-profile-modal-title{color:#86efac}
+body.dark .jp-profile-search{background:#14271a;border-color:#315d3d;color:#e5ffe9}
+body.dark .jp-profile-open-item{background:#16301d;border-color:#28633a;color:#dcffe5}
+body.dark .jp-profile-close{background:#19331f;color:#b8f5c8}
+@media(max-width:600px){.jp-profile-modal{padding:6px 8px 10px}.jp-profile-modal-card{width:min(300px,90vw);max-height:62vh}.jp-profile-open-list{max-height:calc(62vh - 105px)}}
+
+/* ===== JATHAGAR PROFILE CONTROLS NEAR BIRTH DETAILS ===== */
+.profile-near-birth{
+  align-items:flex-end;
+  margin-top:6px;
+}
+.profile-actions-field{
+  min-width:260px;
+}
+.profile-actions-inline{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.profile-actions-inline .btn{
+  min-width:72px;
+}
+@media(max-width:700px){
+  .profile-near-birth{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .profile-actions-field{
+    min-width:0;
+  }
+  .profile-actions-inline{
+    justify-content:center;
+  }
+}
 </style>
 
 <style id="desktopOnlyFix">
@@ -1883,19 +2037,18 @@ body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
     </div>
 
     <ol class="jp-start-list">
-      <li><b>Profile பெயரை</b> உள்ளிடவும்.</li>
-      <li><b>பிறந்த தேதியை</b> உள்ளிடவும்.</li>
-      <li><b>பிறந்த நேரத்தை</b> உள்ளிடவும்.</li>
-      <li><b>பிறந்த இடத்தை</b> தேர்வு / உள்ளிடவும்.</li>
-      <li><b>API மூலம் கணக்கிடு</b> என்பதை கிளிக் செய்யவும்.</li>
-      <li>தரவு கிடைத்த பிறகு <b>Profile-ஐ Save</b> செய்யவும்.</li>
+      <li><b>ஜாதகர் பெயரை</b> முதலில் உள்ளிடவும்.</li>
+      <li><b>பிறந்த தேதி</b>, <b>பிறந்த நேரம்</b>, <b>பிறந்த இடம்</b> ஆகியவற்றை உள்ளிடவும்.</li>
+      <li><b>கணக்கிட்டு சேமி</b> என்பதை ஒருமுறை கிளிக் செய்யவும்.</li>
+      <li>API மூலம் கிடைக்கும் ஜாதகத் தகவல்கள் தானாகவே அந்த <b>ஜாதகர் பெயரில் சேமிக்கப்படும்.</b></li>
+      <li>முன்பு சேமித்த ஜாதகத்தை பெற <b>திறக்க</b> என்பதை கிளிக் செய்து பெயரை தேர்வு செய்யவும்.</li>
       <li><b>ஜாதகம் Ready.</b></li>
     </ol>
 
     <div class="jp-start-note">
       ஏற்கனவே Profile Save செய்திருந்தால், புதிய தகவல்களை உள்ளிட வேண்டியதில்லை.
-      மேலே உள்ள <b>Profile Name list</b>-ல் தேவையான பெயரை தேர்வு செய்து,
-      <b>Load Profile</b> பட்டனை கிளிக் செய்யவும்.
+      மேலே உள்ள <b>ஜாதகர் பெயர் பட்டியல்</b>-ல் தேவையான பெயரை தேர்வு செய்து,
+      <b>ஜாதகத்தை திறக்கவும்</b> பட்டனை கிளிக் செய்யவும்.
     </div>
   </div>
 </div>
@@ -1925,15 +2078,15 @@ body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
        <img class="tb-edge right" src="logo-right.png" alt="" onerror="this.style.display='none'">
 
       <button id="langToggle" class="btn">தமிழ் / English</button>
-      <input id="profileName" type="text" placeholder="Profile name" style="width:140px" />
-      <button id="btnSaveProfile"  class="btn secondary">Save Profile</button>
-      <select id="profileList" style="max-width:180px"></select>
-      <button id="btnLoadProfile"  class="btn">Load Profile</button>
-      <button id="btnDeleteProfile" class="btn">Delete</button>
+      <!-- ஜாதகர் பெயர் / சேமி / திறக்க / நீக்கு are placed near birth details below -->
+      <select id="profileList" style="display:none"></select>
+      <button id="btnLoadProfile" class="btn" style="display:none">Load Profile</button>
       <button id="btnExportProfile" class="btn secondary">Export</button>
 <button id="btnImportProfile" class="btn">Import</button>
 <input id="importFile" type="file" accept="application/json" style="display:none" />
       
+
+
       <button id="themeToggle" class="btn">Light / Dark</button>
       <select id="saveTarget">
         <option value="app">Save: Full page</option>
@@ -1984,6 +2137,18 @@ body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
 
   </header>
 
+      <div id="profileOpenModal" class="jp-profile-modal" style="display:none">
+        <div class="jp-profile-modal-card">
+          <div class="jp-profile-modal-title">
+            <span>📂 ஜாதகங்கள்</span>
+            <span style="font-size:11px;color:#6b7280;font-weight:700">பெயரை தேர்வு செய்யவும்</span>
+          </div>
+          <input id="profileOpenSearch" class="jp-profile-search" type="search" placeholder="ஜாதகர் பெயரை தேடவும்..." autocomplete="off" />
+          <div id="profileOpenList" class="jp-profile-open-list"></div>
+          <button id="btnCloseProfileOpen" type="button" class="jp-profile-close">மூடு</button>
+        </div>
+      </div>
+
   <!-- Sticky Summary (no % here) -->
   
   <section class="card" id="legend" style="display:none">
@@ -2001,6 +2166,21 @@ body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
 
   <!-- API form -->
   <section class="form" id="apiFormWrap">
+    <!-- FIRST ROW: ஜாதகர் பெயர் + profile controls -->
+    <div class="row profile-near-birth" id="jathagarProfileRow">
+      <div class="field jathagar-name-field">
+        <label for="profileName">ஜாதகர் பெயர்</label>
+        <input id="profileName" type="text" placeholder="ஜாதகர் பெயர்" autocomplete="name" />
+      </div>
+      <div class="field profile-actions-field">
+        <label>&nbsp;</label>
+        <div class="profile-actions-inline">
+          <button id="btnOpenProfile" type="button" class="btn">திறக்க</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECOND ROW: பிறந்த தேதி + பிறந்த நேரம் -->
     <div class="row">
       <div class="field">
         <label id="lblDobApi">பிறந்த தேதி</label>
@@ -2012,7 +2192,8 @@ body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
       </div>
     </div>
     
-<div class="row">
+    <!-- THIRD ROW: பிறந்த இடம் + Calculate and Save -->
+    <div class="row">
       <div class="field pos-relative">
         <label id="lblPlace">பிறந்த இடம்</label>
         <input type="text" id="placeInput" placeholder="தொடங்குங்கள்..." autocomplete="off" />
@@ -2020,10 +2201,10 @@ body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
       </div>
       <div class="field">
         <label>&nbsp;</label>
-        
-<button id="btnApi" class="btn secondary" type="button">API மூலம் கணக்கிடு</button>
+        <button id="btnApi" class="btn secondary" type="button">கணக்கிட்டு சேமி</button>
       </div>
     </div>
+
 <div class="row" id="genderRow">
   <div class="field">
     <label>Gender</label>
@@ -2291,7 +2472,7 @@ body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
 /* ===== Language / Theme ===== */
 let LANG='ta';
 const LABELS={
-  ta:{dobApi:'பிறந்த தேதி',tobApi:'பிறந்த நேரம்',place:'பிறந்த இடம்',calc:'API மூலம் கணக்கிடு',dob:'பிறந்த தேதி',calcDate:'கணிப்புக்கான தேதி',lagna:'லக்னம் Degree (° \' ")',moon:'சந்திரன் Degree (° \' ")',run:'கணக்கிடு',animStart:'1–108 பாதங்கள் இயக்கம்',animStop:'நிறுத்து',tbl:{planet:'கிரகம்',deg:'அளவு (° \' ")',nak:'நட்சத்திரம் - பாதம்',rasi:'ராசி',rasiLord:'ராசி அதிபதி',nakLord:'நட்சத்திர அதிபதி'},summary:{dasa:'தசை',puthi:'புக்தி',anth:'அந்தரம்'},pada:'பாதம்'},
+  ta:{dobApi:'பிறந்த தேதி',tobApi:'பிறந்த நேரம்',place:'பிறந்த இடம்',calc:'கணக்கிட்டு சேமி',dob:'பிறந்த தேதி',calcDate:'கணிப்புக்கான தேதி',lagna:'லக்னம் Degree (° \' ")',moon:'சந்திரன் Degree (° \' ")',run:'கணக்கிடு',animStart:'1–108 பாதங்கள் இயக்கம்',animStop:'நிறுத்து',tbl:{planet:'கிரகம்',deg:'அளவு (° \' ")',nak:'நட்சத்திரம் - பாதம்',rasi:'ராசி',rasiLord:'ராசி அதிபதி',nakLord:'நட்சத்திர அதிபதி'},summary:{dasa:'தசை',puthi:'புக்தி',anth:'அந்தரம்'},pada:'பாதம்'},
   en:{dobApi:'Date of Birth',tobApi:'Time of Birth',place:'Place of Birth',calc:'Calculate via API',dob:'Date of Birth',calcDate:'Calculation Date',lagna:'Lagna Degree (° \' ")',moon:'Moon Degree (° \' ")',run:'Compute',animStart:'Animate 1–108',animStop:'Stop',tbl:{planet:'Planet',deg:'Degrees (° \' ")',nak:'Nakshatra - Pada',rasi:'Rasi',rasiLord:'Rasi Owner',nakLord:'Nakshatra Owner'},summary:{dasa:'Dasa',puthi:'Bhukti',anth:'Antara'},pada:'Pada'}
 };
 
@@ -3234,8 +3415,17 @@ function updateCurrentPlanetsToggleUI(){
   btn.disabled=false;
 }
 function clearCurrentPlanetsFromChart(){
-  // Current planet spans use the planet-current class.
+  // Remove current planets from BOTH Rasi and Navamsa charts.
   document.querySelectorAll('.planet-current').forEach(el => el.remove());
+  clearCurrentPlanetsFromNavamsa();
+}
+
+function clearCurrentPlanetsFromNavamsa(){
+  const chart=document.getElementById('navamsaChart');
+  if(!chart) return;
+  // IMPORTANT: remove only GREEN current-planet labels.
+  // Birth planets (RED) and Lagna marker must remain.
+  chart.querySelectorAll('.nav-planet-current').forEach(el => el.remove());
 }
 
 /* Free Astrology API returns retrograde status as isRetro: "true"/"false".
@@ -3445,64 +3635,85 @@ async function fetchCurrentPlanetsForCalculationDate(){
 /* ===== Current Planet button: fetch only on customer request ===== */
 
 /* =========================================================
-   CURRENT PLANETS — UCHAM / NEECHAM
+   CURRENT PLANETS — OWN HOUSE / UCHAM / NEECHAM
    ONLY for the "தற்போதைய கிரகங்கள்" table.
 
-   U = உச்சம்
-   N = நீச்சம்
+   (ஆ)  = ஆட்சி
+   (உ)  = உச்சம்
+   (நீ) = நீச்சம்
 
-   User-specified Rasi rules:
-   மேஷம்      : சூரியன்(U), சனி(N)
-   ரிஷபம்     : சந்திரன்(U), ராகு(U), கேது(N)
-   கடகம்       : செவ்வாய்(N), குரு(U)
-   கன்னி      : புதன்(U), சுக்கிரன்(N)
-   துலாம்     : சனி(U), சூரியன்(N)
-   விருச்சிகம் : கேது(U), ராகு(N), சந்திரன்(N)
-   மகரம்      : செவ்வாய்(U), குரு(N)
-   மீனம்      : சுக்கிரன்(U), புதன்(N)
-
-   Display is ONLY in the current-planets information table.
+   Rahu / Ketu have NO own house.
    Rasi chart planet labels are NOT changed by this rule.
    ========================================================= */
 const CURRENT_UCHAM_NEECHAM = {
-  "மேஷம்": {
-    Sun: "U",
-    Saturn: "N"
-  },
-  "ரிஷபம்": {
-    Moon: "U",
-    Rahu: "U",
-    Ketu: "N"
-  },
-  "கடகம்": {
-    Mars: "N",
-    Jupiter: "U"
-  },
-  "கன்னி": {
-    Mercury: "U",
-    Venus: "N"
-  },
-  "துலாம்": {
-    Saturn: "U",
-    Sun: "N"
-  },
-  "விருச்சிகம்": {
-    Ketu: "U",
-    Rahu: "N",
-    Moon: "N"
-  },
-  "மகரம்": {
-    Mars: "U",
-    Jupiter: "N"
-  },
-  "மீனம்": {
-    Venus: "U",
-    Mercury: "N"
-  }
+  "மேஷம்": { Sun: "U", Saturn: "N" },
+  "ரிஷபம்": { Moon: "U", Rahu: "U", Ketu: "N" },
+  "கடகம்": { Mars: "N", Jupiter: "U" },
+  "கன்னி": { Mercury: "U", Venus: "N" },
+  "துலாம்": { Saturn: "U", Sun: "N" },
+  "விருச்சிகம்": { Ketu: "U", Rahu: "N", Moon: "N" },
+  "மகரம்": { Mars: "U", Jupiter: "N" },
+  "மீனம்": { Venus: "U", Mercury: "N" }
+};
+
+/* =========================================================
+   CURRENT PLANETS — OWN HOUSE / AATCHI
+
+   சூரியன்  → சிம்மம்
+   சந்திரன் → கடகம்
+   செவ்வாய் → மேஷம், விருச்சிகம்
+   புதன்     → மிதுனம், கன்னி
+   குரு      → தனுசு, மீனம்
+   சுக்கிரன் → ரிஷபம், துலாம்
+   சனி      → மகரம், கும்பம்
+
+   ராகு / கேது → ஆட்சி இல்லை
+   ========================================================= */
+const CURRENT_OWN_HOUSES = {
+  Sun: ['சிம்மம்'],
+  Moon: ['கடகம்'],
+  Mars: ['மேஷம்', 'விருச்சிகம்'],
+  Mercury: ['மிதுனம்', 'கன்னி'],
+  Jupiter: ['தனுசு', 'மீனம்'],
+  Venus: ['ரிஷபம்', 'துலாம்'],
+  Saturn: ['மகரம்', 'கும்பம்'],
+  Rahu: [],
+  Ketu: []
 };
 
 function getCurrentPlanetUNMarker(planetKey, rasiName){
   return CURRENT_UCHAM_NEECHAM?.[rasiName]?.[planetKey] || "";
+}
+
+function getCurrentPlanetOwnHouseMarker(planetKey, rasiName){
+  const ownHouses = CURRENT_OWN_HOUSES?.[planetKey] || [];
+  return ownHouses.includes(rasiName) ? 'ஆ' : '';
+}
+
+/*
+   Status priority:
+   1. ஆட்சி
+   2. உச்சம்
+   3. நீச்சம்
+*/
+function getCurrentPlanetStatusHTML(planetKey, rasiName){
+  const ownMarker = getCurrentPlanetOwnHouseMarker(planetKey, rasiName);
+
+  if(ownMarker){
+    return '<span class="cp-status cp-own" title="ஆட்சி">(ஆ)</span>';
+  }
+
+  const unMarker = getCurrentPlanetUNMarker(planetKey, rasiName);
+
+  if(unMarker === 'U'){
+    return '<span class="cp-status cp-ucham" title="உச்சம்">(உ)</span>';
+  }
+
+  if(unMarker === 'N'){
+    return '<span class="cp-status cp-neecham" title="நீச்சம்">(நீ)</span>';
+  }
+
+  return '';
 }
 
 function renderCurrentPlanetsCard(){
@@ -3517,32 +3728,53 @@ function renderCurrentPlanetsCard(){
 
   const source=currentPlanetsForChart || {};
   const order=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
-  const names={Sun:'சூரியன்',Moon:'சந்திரன்',Mars:'செவ்வாய்',Mercury:'புதன்',Jupiter:'குரு',Venus:'சுக்கிரன்',Saturn:'சனி',Rahu:'ராகு',Ketu:'கேது'};
+  const names={
+    Sun:'சூரியன்', Moon:'சந்திரன்', Mars:'செவ்வாய்',
+    Mercury:'புதன்', Jupiter:'குரு', Venus:'சுக்கிரன்',
+    Saturn:'சனி', Rahu:'ராகு', Ketu:'கேது'
+  };
 
   const cards=order.map(key=>{
     const deg=Number(source?.[key]?.fullDegree ?? currentPlanetDegrees?.[key]);
     if(!Number.isFinite(deg)) return '';
+
     const np=getNakPadaFromDegree(deg);
     const nak=nameNakById(np.nakId)||'—';
     const rasi=nameRasiByIdx(Math.floor((((deg%360)+360)%360)/30))||'—';
     const d=decToDMS(deg);
-    const retroText = isPlanetRetrograde(source?.[key])
+
+    const retro=isPlanetRetrograde(source?.[key]);
+    const retroText=retro
       ? (LANG === 'ta' ? ' — வக்ரம்' : ' — Retrograde')
       : '';
 
-    const unMarker = getCurrentPlanetUNMarker(key, rasi);
-    const unSuffix = unMarker
-      ? ` (${unMarker === 'U' ? 'உ' : unMarker === 'N' ? 'நீ' : unMarker})`
+    const statusHTML=getCurrentPlanetStatusHTML(key, rasi);
+
+    const retroLabel=retro
+      ? '<span class="cp-retro" title="வக்ரம்">(வக்ரம்)</span>'
       : '';
 
     return `<div class="cp-item">
-      <div class="cp-name">${names[key]}${unSuffix}${isPlanetRetrograde(source?.[key]) ? ' <span style="color:#16a34a;">(வக்ரம்)</span>' : ''}</div>
+      <div class="cp-name">
+        <span class="cp-planet-name">${names[key]}</span>
+        ${statusHTML}
+        ${retroLabel}
+      </div>
       <div class="cp-detail">${rasi}<br>${nak} — பாதம் ${np.pada}<br>${d.deg}° ${d.min}' ${d.sec}"${retroText}</div>
     </div>`;
   }).filter(Boolean).join('');
 
-  box.innerHTML=`<div class="cp-title">தற்போதைய கிரகங்கள்</div>
-    <div class="cp-grid">${cards || '<div class="cp-item" style="grid-column:1/-1">தற்போதைய கிரகத் தகவல் இல்லை.</div>'}</div>`;
+  box.innerHTML=`
+    <div class="cp-title">தற்போதைய கிரகங்கள்</div>
+    <div class="cp-status-legend">
+      <span class="cp-legend-own">(ஆ) ஆட்சி</span>
+      <span class="cp-legend-ucham">(உ) உச்சம்</span>
+      <span class="cp-legend-neecham">(நீ) நீச்சம்</span>
+    </div>
+    <div class="cp-grid">
+      ${cards || '<div class="cp-item" style="grid-column:1/-1">தற்போதைய கிரகத் தகவல் இல்லை.</div>'}
+    </div>`;
+
   box.style.display='block';
 
   // Also refresh the 9-planet Bhava / Saranathan table.
@@ -3696,7 +3928,36 @@ document.getElementById('caldate')?.addEventListener('change', async ()=>{
 // Start in OFF state.
 updateCurrentPlanetsToggleUI();
 
+async function jp_autoSaveApiJathagar(){
+  const name=(document.getElementById('profileName')?.value||'').trim();
+  if(!name){
+    throw new Error(LANG==='ta' ? 'ஜாதகர் பெயரை முதலில் உள்ளிடவும்.' : 'Please enter Jathagar name first.');
+  }
+
+  const payload=jp_buildPayload();
+
+  if(window.__jpAuth?.currentUser && typeof jp_cloudSaveProfile==='function'){
+    await jp_cloudSaveProfile(name,payload);
+    try{ await jp_refreshProfileListCloud(); }catch(e){}
+  }else{
+    const map=jp_loadProfiles();
+    map[name]=payload;
+    jp_saveProfiles(map);
+    try{ jp_refreshProfileList(); }catch(e){}
+  }
+
+  try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(payload)); }catch(e){}
+  const sel=document.getElementById('profileList');
+  if(sel) sel.value=name;
+}
+
 btnApi.addEventListener('click', async ()=>{
+  const jathagarName=(document.getElementById('profileName')?.value||'').trim();
+  if(!jathagarName){
+    alert(LANG==='ta'?'முதலில் ஜாதகர் பெயரை உள்ளிடவும்.':'Please enter the Jathagar name first.');
+    document.getElementById('profileName')?.focus();
+    return;
+  }
   if(!selectedLat||!selectedLon){ alert(LANG==='ta'?'தயவுசெய்து இடம் தெரிவுசெய்யவும்!':'Please select a place!'); return; }
   const dob=dob_api.value, tob=tob_api.value;
   if(!dob||!tob){ alert(LANG==='ta'?'தேதி/நேரம் பூர்த்தி செய்யவும்!':'Please fill date/time!'); return; }
@@ -3741,6 +4002,21 @@ btnApi.addEventListener('click', async ()=>{
     apiDataFetched=true;
 
     run();
+
+    // IMPORTANT: API result is automatically saved under the Jathagar name.
+    // Wait one tick so run() finishes updating all calculated fields first.
+    try{
+      await new Promise(resolve=>setTimeout(resolve,0));
+      await jp_autoSaveApiJathagar();
+      apiResult.textContent=(LANG==='ta'
+        ? `ஜாதகம் கணக்கிடப்பட்டு “${jathagarName}” என்ற பெயரில் சேமிக்கப்பட்டது.`
+        : `Horoscope calculated and saved as “${jathagarName}”.`);
+    }catch(saveErr){
+      console.error('Automatic Jathagar save failed:',saveErr);
+      apiResult.textContent=(LANG==='ta'
+        ? 'கணக்கீடு முடிந்தது; ஆனால் ஜாதகர் பெயரில் சேமிக்க முடியவில்லை: '+saveErr.message
+        : 'Calculation completed, but automatic save failed: '+saveErr.message);
+    }
   }catch(e){ apiResult.textContent='Error: '+e.message; }
 });
 /* ===== Pada animation (1..108) ===== */
@@ -3919,6 +4195,8 @@ function clearALPHighlight(){
   });
   const old=document.getElementById('alpInfoBox');
   if(old) old.remove();
+  const meeting=document.getElementById('alpPlanetMeetingBox');
+  if(meeting) meeting.remove();
 }
 
 function parseLocalDateOnly(value){
@@ -4811,6 +5089,148 @@ function alpNavigateNakshatra(direction){
    UPDATED ALP INFORMATION BOX
    ========================================================= */
 
+/* =========================================================
+   ALP PLANET MEETING — RASI ONLY
+   ---------------------------------------------------------
+   This is a separate ALP concept. It does NOT change the
+   existing ALP calculation.
+
+   Rule used here:
+   1. Take each birth planet's absolute Rasi longitude.
+   2. Convert it to 0°00'–29°59' within its birth Rasi.
+   3. Take the current ALP Rasi from the existing ALP state.
+   4. Project that same 0–30° planet degree onto the current
+      ALP Rasi and calculate the ALP date at which the ALP
+      Lagna reaches that degree.
+   5. Bhava is calculated from the current ALP Rasi to the
+      planet's birth Rasi (Rasi chart only; NOT Navamsa).
+   ========================================================= */
+function alpGetBirthPlanetDegreesRasiOnly(){
+  const src=(typeof savedPlanetsForChart!=='undefined'&&savedPlanetsForChart)
+    ? savedPlanetsForChart
+    : {};
+  const keys=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+  const names={
+    Sun:'சூரியன்',Moon:'சந்திரன்',Mars:'செவ்வாய்',Mercury:'புதன்',
+    Jupiter:'குரு',Venus:'சுக்கிரன்',Saturn:'சனி',Rahu:'ராகு',Ketu:'கேது'
+  };
+  const out=[];
+  keys.forEach(key=>{
+    const raw=src?.[key]?.fullDegree ??
+      (typeof planetDegrees!=='undefined' ? planetDegrees?.[key] : null);
+    const deg=Number(raw);
+    if(!Number.isFinite(deg)) return;
+    const abs=((deg%360)+360)%360;
+    const rasiIndex=Math.floor(abs/30);
+    const localDeg=abs-(rasiIndex*30);
+    out.push({key,name:names[key]||key,abs,rasiIndex,localDeg});
+  });
+  return out;
+}
+
+function alpFormatMeetingDegree(deg){
+  const d=((Number(deg)%30)+30)%30;
+  const whole=Math.floor(d);
+  const minutes=Math.floor((d-whole)*60+1e-9);
+  const seconds=Math.round((((d-whole)*60)-minutes)*60);
+  let mm=minutes, ss=seconds;
+  if(ss>=60){ss=0;mm++;}
+  if(mm>=60){mm=0;}
+  return `${whole}° ${String(mm).padStart(2,'0')}′ ${String(ss).padStart(2,'0')}″`;
+}
+
+function alpMeetingDateForPlanet(state, planetLocalDeg){
+  if(!state || !Number.isFinite(planetLocalDeg)) return null;
+  const alpRasiIndex=Number(state.rasiIndex);
+  if(!Number.isInteger(alpRasiIndex)) return null;
+
+  // The meeting longitude is the current ALP Rasi + the planet's
+  // normalized 0–30° birth longitude.
+  const targetLongitude=alpRasiIndex*30+planetLocalDeg;
+  const birthLongitude=((Number(state.birthLagnaDeg)%360)+360)%360;
+  const forward=((targetLongitude-birthLongitude)%360+360)%360;
+
+  // ALP moves 3 degrees per year = 120 years for 360 degrees.
+  const meetingAge=forward/3;
+  const birthDate=getBirthDateForALP();
+  if(!birthDate) return null;
+
+  const date=new Date(birthDate.getTime()+meetingAge*365.2425*86400000);
+  return {date,ageYears:meetingAge,targetLongitude};
+}
+
+function alpPlanetMeetingBhava(alpRasiIndex, planetRasiIndex){
+  if(!Number.isInteger(alpRasiIndex)||!Number.isInteger(planetRasiIndex)) return null;
+  return ((planetRasiIndex-alpRasiIndex+12)%12)+1;
+}
+
+function renderALPPlanetMeetingTable(state){
+  const old=document.getElementById('alpPlanetMeetingBox');
+  if(old) old.remove();
+  if(!state) return;
+
+  const planets=alpGetBirthPlanetDegreesRasiOnly();
+  if(!planets.length) return;
+
+  const alpRasiIndex=Number(state.rasiIndex);
+  const alpRasiName=RASIS[alpRasiIndex]?.name?.[LANG] || RASIS[alpRasiIndex]?.name?.ta || '—';
+  const sorted=[...planets].sort((a,b)=>a.localDeg-b.localDeg);
+
+  const rows=sorted.map(p=>{
+    const meeting=alpMeetingDateForPlanet(state,p.localDeg);
+    const bhava=alpPlanetMeetingBhava(alpRasiIndex,p.rasiIndex);
+    const birthRasi=RASIS[p.rasiIndex]?.name?.[LANG] || RASIS[p.rasiIndex]?.name?.ta || '—';
+    const date=meeting?.date ? formatDateUI(meeting.date) : '—';
+    const age=meeting ? formatALPAge(meeting.ageYears) : '—';
+    const currentLocal=Math.abs(((Number(state.alpLongitude)-alpRasiIndex*30)-p.localDeg));
+    const nearNow=currentLocal<0.0001;
+    return `<tr class="${nearNow?'alp-meet-current-row':''}">
+      <td><strong>${p.name}</strong></td>
+      <td>${birthRasi}</td>
+      <td>${alpFormatMeetingDegree(p.localDeg)}</td>
+      <td>${alpRasiName} ${alpFormatMeetingDegree(p.localDeg)}</td>
+      <td>${date}</td>
+      <td>${age}</td>
+      <td><strong>${bhava??'—'}</strong></td>
+    </tr>`;
+  }).join('');
+
+  const box=document.createElement('div');
+  box.id='alpPlanetMeetingBox';
+  box.className='alp-planet-meet-box';
+  box.innerHTML=`
+    <div class="alp-planet-meet-title">ALP லக்ன degree-ஐ சந்திக்கும் பிறப்பு கிரகங்கள்</div>
+    <div class="alp-planet-meet-subtitle">
+      தற்போதைய ALP ராசி: <strong>${alpRasiName}</strong> •
+      பிறப்பு கிரக degree ஒவ்வொன்றும் அதன் ராசிக்குள் 0°–30° ஆக மாற்றப்பட்டு,
+      அதே degree தற்போதைய ALP ராசியில் சந்திக்கும் தேதியாக கணக்கிடப்படுகிறது.
+      இது <strong>Rasi chart மட்டும்</strong>; Navamsa கணக்கீடு இதில் இல்லை.
+    </div>
+    <div style="overflow-x:auto">
+      <table class="alp-planet-meet-table">
+        <thead><tr>
+          <th>கிரகம்</th>
+          <th>பிறப்பு ராசி</th>
+          <th>பிறப்பு 0–30°</th>
+          <th>ALP சந்திப்பு degree</th>
+          <th>சந்திப்பு தேதி</th>
+          <th>வயது</th>
+          <th>பாவம்</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+
+  const alpBox=document.getElementById('alpInfoBox');
+  if(alpBox?.parentNode){
+    alpBox.insertAdjacentElement('afterend',box);
+  }else{
+    const bhavam=document.getElementById('bhavaChooser');
+    if(bhavam?.parentNode) bhavam.insertAdjacentElement('afterend',box);
+  }
+}
+
 function addALPInfoBox(state){
   const old=document.getElementById('alpInfoBox');
   if(old) old.remove();
@@ -5070,6 +5490,9 @@ function addALPInfoBox(state){
       chart.parentNode.insertBefore(box,chart);
     }
   }
+
+  /* Separate ALP planet-meeting concept (Rasi only). */
+  renderALPPlanetMeetingTable(state);
 
   /* Buttons are now in the DOM, so bind them directly. */
   bindALPNavigationButtons();
@@ -5959,11 +6382,15 @@ function placePlanetsOnNavamsaChart(){
       if(birth[key]) appendNavamsaPlanet(key,birth[key],true);
     });
 
-  Object.entries(current).forEach(([key,obj])=>{
-    if(typeof CURRENT_PLANET_KEYS!=='undefined'&&CURRENT_PLANET_KEYS.includes(key)){
-      appendNavamsaPlanet(key,obj,false);
-    }
-  });
+  // Current planets are shown in Navamsa ONLY while the
+  // 'தற்போதைய கிரகங்கள்' button is ON.
+  if(typeof currentPlanetsEnabled==='undefined' || currentPlanetsEnabled){
+    Object.entries(current).forEach(([key,obj])=>{
+      if(typeof CURRENT_PLANET_KEYS!=='undefined'&&CURRENT_PLANET_KEYS.includes(key)){
+        appendNavamsaPlanet(key,obj,false);
+      }
+    });
+  }
 
   const asc=birth.Ascendant;
   const info=document.getElementById('navamsaLagnaInfo');
@@ -6154,6 +6581,97 @@ const RASI_INFO_SLIDES = [
       ['குரு','குழந்தை • பணம் • கௌரவம் • ஆசிரியர் • வழிநடத்துபவர்'],
       ['சனி','வயதானவர்கள் • வேலை • தொழில் • உண்மை • கருப்பு • கர்மா']
     ]
+  },
+  {
+    id:'thithi15',
+    title:'15 திதிகளின் விவரங்கள்',
+    subtitle:'ஒவ்வொரு திதியின் பலன்கள் மற்றும் செய்ய வேண்டியவற்றை பார்க்க கீழே உள்ள பெயரை அழுத்தவும்.',
+    linkItems:[
+      ['1. பிரதமை','https://www.arivomayiram.com/pirathamai-thithi-palangal/'],
+      ['2. துவிதியை','https://www.arivomayiram.com/thuvithiyay-thithi-palangal/'],
+      ['3. திருதியை','https://www.arivomayiram.com/thirithiyay-thithi-palangal/'],
+      ['4. சதுர்த்தி','https://www.arivomayiram.com/sathurthi-thithi-palangal/'],
+      ['5. பஞ்சமி','https://www.arivomayiram.com/panjami-thithi-palangal/'],
+      ['6. சஷ்டி','https://www.arivomayiram.com/sashti-thithi-palangal/'],
+      ['7. சப்தமி','https://www.arivomayiram.com/sapthami-thithi-palangal/'],
+      ['8. அஷ்டமி','https://www.arivomayiram.com/ashtami-thithi-palangal/'],
+      ['9. நவமி','https://www.arivomayiram.com/navami-thithi-palangal/'],
+      ['10. தசமி','https://www.arivomayiram.com/thasami-thithi-palangal/'],
+      ['11. ஏகாதசி','https://www.arivomayiram.com/yegathasi-thithi-palangal/'],
+      ['12. துவாதசி','https://www.arivomayiram.com/thuvathasi-thithi-palangal/'],
+      ['13. திரயோதசி','https://www.arivomayiram.com/thirayothasi-thithi-palangal/'],
+      ['14. சதுர்த்தசி','https://www.arivomayiram.com/sathurthasi-thithi-palangal/'],
+      ['15. பௌர்ணமி','https://www.arivomayiram.com/pournami-thithi-palangal/'],
+      ['15. அமாவாசை','https://www.arivomayiram.com/amavasai-thithi-palangal/']
+    ]
+  },
+  {
+    id:'karanams11',
+    title:'கரணங்கள்',
+    subtitle:'11 கரணங்களின் பெயர்கள்',
+    items:[
+      ['1','பவம்'],
+      ['2','பாலவம்'],
+      ['3','கெளலவம்'],
+      ['4','தைதுலம்'],
+      ['5','கரசை'],
+      ['6','வணிசை'],
+      ['7','பத்தரை (விஷ்டி)'],
+      ['8','சகுனி'],
+      ['9','சதுஷ்பாதம்'],
+      ['10','நாகவம்'],
+      ['11','கிம்ஸ்துக்னம்']
+    ]
+  },
+  {
+    id:'yogams27',
+    title:'27 நாம யோகங்கள்',
+    subtitle:'உங்கள் கோப்பில் உள்ள 27 யோகப் பெயர்கள்',
+    items:[
+      ['1','விஷ்கம்பம்'],
+      ['2','ப்ரீதி'],
+      ['3','ஆயுஷ்மான்'],
+      ['4','சௌபாக்கியம்'],
+      ['5','சோபனம்'],
+      ['6','அதிகண்டம்'],
+      ['7','சுகர்மம்'],
+      ['8','த்ருதி'],
+      ['9','சூலம்'],
+      ['10','கண்டம்'],
+      ['11','விருத்தி'],
+      ['12','த்ருவம்'],
+      ['13','வியாகாதம்'],
+      ['14','ஹர்ஷணம்'],
+      ['15','வஜ்ரம்'],
+      ['16','சித்தி'],
+      ['17','வியதீபாதம்'],
+      ['18','வரியான்'],
+      ['19','பரிகம்'],
+      ['20','சிவம்'],
+      ['21','சித்தம்'],
+      ['22','சாத்தியம்'],
+      ['23','சுபம்'],
+      ['24','சுக்லம்'],
+      ['25','பிரம்மம்'],
+      ['26','இந்திரம்'],
+      ['27','வைத்ருதி']
+    ]
+  },
+  {
+    id:'nakshatraOwners9',
+    title:'27 நட்சத்திரங்கள் — அதிபதி வாரியாக',
+    subtitle:'ஒரே நட்சத்திர அதிபதிக்கு உட்பட்ட 3 நட்சத்திரங்கள் ஒன்றாக',
+    ownerItems:[
+      ['சூரியன்','கிருத்திகை • உத்திரம் • உத்திராடம்'],
+      ['சந்திரன்','ரோகிணி • ஹஸ்தம் • திருவோணம்'],
+      ['செவ்வாய்','மிருகசீரிடம் • சித்திரை • அவிட்டம்'],
+      ['புதன்','ஆயில்யம் • கேட்டை • ரேவதி'],
+      ['குரு','புனர்பூசம் • விசாகம் • பூரட்டாதி'],
+      ['சுக்கிரன்','பரணி • பூரம் • பூராடம்'],
+      ['சனி','பூசம் • அனுஷம் • உத்திரட்டாதி'],
+      ['ராகு','திருவாதிரை • சுவாதி • சதயம்'],
+      ['கேது','அஸ்வினி • மகம் • மூலம்']
+    ]
   }
 ];
 let rasiInfoSlideIndex=0;
@@ -6169,8 +6687,21 @@ function renderRasiInfoSlideshow(){
   const slide=RASI_INFO_SLIDES[rasiInfoSlideIndex] || RASI_INFO_SLIDES[0];
   if(!slide) return;
   const isPlanetSlide=slide.id==='planets9';
-  const gridClass=isPlanetSlide?'planet-info-grid':'bhava-info-grid';
-  const itemClass=isPlanetSlide?'planet-info-item':'bhava-info-item';
+  const isThithiSlide=slide.id==='thithi15';
+  const isKaranaSlide=slide.id==='karanams11';
+  const isYogaSlide=slide.id==='yogams27';
+  const isNakOwnerSlide=slide.id==='nakshatraOwners9';
+  const gridClass=isPlanetSlide
+    ? 'planet-info-grid'
+    : (isThithiSlide || isKaranaSlide ? 'thithi-info-grid'
+      : (isYogaSlide ? 'yoga-info-grid'
+        : (isNakOwnerSlide ? 'nak-owner-info-grid' : 'bhava-info-grid')));
+  const itemClass=isPlanetSlide
+    ? 'planet-info-item'
+    : (isThithiSlide ? 'thithi-info-item'
+      : (isKaranaSlide ? 'karana-info-item'
+        : (isYogaSlide ? 'yoga-info-item'
+          : (isNakOwnerSlide ? 'nak-owner-info-item' : 'bhava-info-item'))));
   box.innerHTML=`
     <div class="rasi-info-slide" data-slide-id="${slide.id}">
       <div class="rasi-info-calcdate">${(() => {
@@ -6186,11 +6717,21 @@ function renderRasiInfoSlideshow(){
       <div class="rasi-info-title">${slide.title}</div>
       <div class="rasi-info-subtitle">${slide.subtitle}</div>
       <div class="${gridClass}">
-        ${slide.items.map(([n,text])=>isPlanetSlide
-          ? `<div class="${itemClass}"><div class="planet-name">${n}</div><div class="planet-desc">${text}</div></div>`
-          : `<div class="${itemClass}"><div><strong>${n}</strong>${text}</div></div>`
-        ).join('')}
-      </div>
+        ${isThithiSlide
+          ? slide.linkItems.map(([n,url])=>
+              `<a class="${itemClass}" href="${url}" target="_blank" rel="noopener noreferrer" title="${n} — திதி பலன்கள்">${n}</a>`
+            ).join('')
+          : isNakOwnerSlide
+            ? slide.ownerItems.map(([owner,naks])=>
+                `<div class="${itemClass}"><div class="nak-owner-name">${owner}</div><div class="nak-owner-stars">${naks}</div></div>`
+              ).join('')
+            : slide.items.map(([n,text])=>isPlanetSlide
+              ? `<div class="${itemClass}"><div class="planet-name">${n}</div><div class="planet-desc">${text}</div></div>`
+              : (isKaranaSlide || isYogaSlide)
+                ? `<div class="${itemClass}"><strong>${n}</strong><span>${text}</span></div>`
+                : `<div class="${itemClass}"><div><strong>${n}</strong>${text}</div></div>`
+            ).join('')
+        }      </div>
     </div>`;
   if(currentPlanetsEnabled && typeof renderCurrentPlanetsCard==='function'){
     renderCurrentPlanetsCard();
@@ -8203,7 +8744,7 @@ function jp_saveAsFile(obj, filename){
 /* Buttons */
 document.getElementById('btnSaveProfile')?.addEventListener('click', async ()=>{
   const name = (document.getElementById('profileName')?.value || '').trim();
-  if(!name){ return alert(LANG==='ta' ? 'ப்ரொஃபைல் பெயரை தரவும்.' : 'Please enter a profile name.'); }
+  if(!name){ return alert(LANG==='ta' ? 'ஜாதகர் பெயரை தரவும்.' : 'Please enter a profile name.'); }
   const payload = jp_buildPayload();
   try{
     if (window.__jpAuth?.currentUser){
@@ -10332,7 +10873,7 @@ document.addEventListener('click', ()=>{
 /* =========================================================
    JP ASTRO RESEARCH - START INFORMATION
    Shows after the 5-second opening promotion.
-   Existing Profile Name list + Load Profile button is used.
+   Existing ஜாதகர் பெயர் பட்டியல் + Load Profile button is used.
    ========================================================= */
 (function(){
   function initJPStartInfo(){
@@ -10786,5 +11327,152 @@ document.getElementById('caldate')?.addEventListener('change',()=>{
 })();
 </script>
 
+
+<script>
+/* =========================================================
+   JATHAGAR PEYAR / OPEN PROFILE
+   - Click name: automatically load horoscope
+   - Long press name: offer delete option
+   - No separate Save/Delete buttons are needed
+   ========================================================= */
+(function(){
+  const openBtn=document.getElementById('btnOpenProfile');
+  const modal=document.getElementById('profileOpenModal');
+  const listBox=document.getElementById('profileOpenList');
+  const closeBtn=document.getElementById('btnCloseProfileOpen');
+  const select=document.getElementById('profileList');
+  const searchBox=document.getElementById('profileOpenSearch');
+  let cachedNames=[];
+
+  function closeProfileModal(){ if(modal) modal.style.display='none'; }
+
+  async function deleteProfileByName(name){
+    if(!name) return false;
+    const ok=confirm(LANG==='ta'
+      ? `“${name}” ஜாதகத்தை நீக்கவா?\n\nநீண்ட நேரம் அழுத்தியதால் இந்த நீக்கல் விருப்பம் வந்துள்ளது.`
+      : `Delete “${name}”?\n\nThis option was opened by long-pressing the name.`);
+    if(!ok) return false;
+
+    try{
+      if(window.__jpAuth?.currentUser && typeof jp_cloudDeleteProfile==='function'){
+        await jp_cloudDeleteProfile(name);
+      }
+
+      const map=jp_loadProfiles();
+      if(Object.prototype.hasOwnProperty.call(map,name)){
+        delete map[name];
+        jp_saveProfiles(map);
+      }
+
+      try{ await jp_refreshProfileListCloud(); }catch(e){}
+      try{ jp_refreshProfileList(); }catch(e){}
+
+      if(document.getElementById('profileName')?.value===name){
+        document.getElementById('profileName').value='';
+      }
+
+      alert(LANG==='ta' ? `“${name}” நீக்கப்பட்டது.` : `“${name}” was deleted.`);
+      return true;
+    }catch(e){
+      console.error('Profile delete failed:',e);
+      alert(LANG==='ta' ? 'ஜாதகத்தை நீக்க முடியவில்லை: '+(e?.message||e) : 'Could not delete profile: '+(e?.message||e));
+      return false;
+    }
+  }
+
+  async function getGenderForName(name){
+    try{
+      if(window.__jpAuth?.currentUser && typeof jp_cloudLoadProfile==='function'){
+        const payload=await jp_cloudLoadProfile(name);
+        return String(payload?.gender || payload?.inputs?.gender || 'male').toLowerCase()==='female' ? 'female' : 'male';
+      }
+    }catch(e){ console.warn('Could not read cloud profile gender:', e); }
+    try{
+      const payload=jp_loadProfiles()?.[name];
+      return String(payload?.gender || payload?.inputs?.gender || 'male').toLowerCase()==='female' ? 'female' : 'male';
+    }catch(e){ return 'male'; }
+  }
+
+  function genderIconHTML(gender){
+    if(gender==='female'){
+      return `<span class="jp-profile-gender-icon female" title="பெண்" aria-label="பெண்"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 12v8M9 17h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>`;
+    }
+    return `<span class="jp-profile-gender-icon" title="ஆண்" aria-label="ஆண்"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="14" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 11l6-6M15 5h4v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+  }
+
+  async function renderNames(names){
+    if(!listBox) return;
+    const q=(searchBox?.value||'').trim().toLocaleLowerCase();
+    const filtered=names.filter(n=>String(n).toLocaleLowerCase().includes(q));
+    listBox.innerHTML='';
+    if(!filtered.length){
+      listBox.innerHTML='<div class="jp-profile-empty">ஜாதகர் பெயர் கிடைக்கவில்லை.</div>';
+      return;
+    }
+    for(const name of filtered){
+      const gender=await getGenderForName(name);
+      const b=document.createElement('button');
+      b.type='button';
+      b.className='jp-profile-open-item';
+      b.innerHTML=`${genderIconHTML(gender)}<span>${String(name).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}</span>`;
+      let pressTimer=null,longPressed=false,pointerStartX=0,pointerStartY=0;
+      const cancelPress=()=>{if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}b.classList.remove('jp-longpressing');};
+      const startPress=(ev)=>{
+        if(ev.pointerType==='mouse'&&ev.button!==0)return;
+        longPressed=false;pointerStartX=ev.clientX||0;pointerStartY=ev.clientY||0;b.classList.add('jp-longpressing');
+        pressTimer=setTimeout(async()=>{
+          pressTimer=null;longPressed=true;b.classList.remove('jp-longpressing');
+          const deleted=await deleteProfileByName(name);
+          if(deleted){const updated=await getNames();cachedNames=updated;await renderNames(cachedNames);}
+        },700);
+      };
+      const movePress=(ev)=>{const dx=(ev.clientX||0)-pointerStartX,dy=(ev.clientY||0)-pointerStartY;if(Math.hypot(dx,dy)>12)cancelPress();};
+      b.addEventListener('pointerdown',startPress);b.addEventListener('pointermove',movePress);b.addEventListener('pointerup',cancelPress);b.addEventListener('pointercancel',cancelPress);b.addEventListener('pointerleave',()=>{if(pressTimer)cancelPress();});
+      b.addEventListener('contextmenu',async(ev)=>{ev.preventDefault();cancelPress();const deleted=await deleteProfileByName(name);if(deleted){const updated=await getNames();cachedNames=updated;await renderNames(cachedNames);}});
+      b.addEventListener('click',async()=>{
+        if(longPressed){longPressed=false;return;}
+        try{
+          if(select)select.value=name;
+          let payload=null;
+          if(window.__jpAuth?.currentUser&&typeof jp_cloudLoadProfile==='function')payload=await jp_cloudLoadProfile(name);else payload=jp_loadProfiles()[name];
+          if(!payload){alert(LANG==='ta'?'ஜாதக தகவல் கிடைக்கவில்லை.':'Profile not found.');return;}
+          if(document.getElementById('profileName'))document.getElementById('profileName').value=name;
+          closeProfileModal();jp_applyPayload(payload);
+        }catch(e){console.error(e);alert('Load failed: '+(e?.message||e));}
+      });
+      listBox.appendChild(b);
+    }
+  }
+
+  async function getNames(){
+    try{
+      if(window.__jpAuth?.currentUser && typeof jp_cloudListProfiles==='function'){
+        const cloudNames=await jp_cloudListProfiles();
+        if(Array.isArray(cloudNames)) return cloudNames;
+      }
+    }catch(e){ console.warn('Cloud profile list failed:',e); }
+    try{
+      const map=jp_loadProfiles();
+      return Object.keys(map).sort((a,b)=>a.localeCompare(b));
+    }catch(e){ return []; }
+  }
+
+  async function openProfileList(){
+    if(!modal||!listBox) return;
+    modal.style.display='flex';
+    listBox.innerHTML='<div class="jp-profile-empty">ஜாதகர் பட்டியல் ஏற்றப்படுகிறது...</div>';
+    const names=await getNames();
+    cachedNames=names;
+    if(searchBox) searchBox.value='';
+    await renderNames(cachedNames);
+  }
+
+  openBtn?.addEventListener('click',openProfileList);
+  closeBtn?.addEventListener('click',closeProfileModal);
+  searchBox?.addEventListener('input',()=>renderNames(cachedNames));
+  modal?.addEventListener('click',e=>{ if(e.target===modal) closeProfileModal(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && modal?.style.display!=='none') closeProfileModal(); });
+})();
+</script>
 </body>
 </html>
