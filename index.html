@@ -6939,9 +6939,19 @@ function reapplyLagnaBands(){
   if(alpActive){
     const state=getALPState();
     if(state) applyALPBhavaRotation(state);
-    return;
+  }else if (LAST_LAGNA_PADA){
+    highlightLagnaNumberedBands(LAST_LAGNA_PADA);
   }
-  if (LAST_LAGNA_PADA) highlightLagnaNumberedBands(LAST_LAGNA_PADA);
+
+  // Mobile browsers can trigger layout/resize work while scrolling.
+  // If the chart was rebuilt, restore CURRENT planets only when the
+  // Current Planets button is still ON. Never make an API request here.
+  if (currentPlanetsEnabled && currentPlanetsForChart) {
+    const chart=document.getElementById('rasiChart');
+    if(chart && !chart.querySelector('.planet-current')){
+      placeCurrentPlanetsOnChart(currentPlanetsForChart);
+    }
+  }
 }
 
 // re-apply on scroll (mobile address-bar show/hide often fires resize too)
@@ -7844,8 +7854,14 @@ document.getElementById('btnLayoutFlat').onclick = () => {
   drawChartGrid();
   if (typeof drawNavamsaChart === 'function') drawNavamsaChart();
 
-  // put planets back if you have them
+  // Put birth planets back first.
   if (savedPlanetsForChart) placePlanetsOnChart(savedPlanetsForChart);
+
+  // Current planets must be restored AFTER birth planets because
+  // placePlanetsOnChart() removes all planet-* labels in each cell.
+  if (currentPlanetsEnabled && currentPlanetsForChart) {
+    placeCurrentPlanetsOnChart(currentPlanetsForChart);
+  }
 
   // respect your toggles
   if (typeof refreshOwnerRasiVisibility === 'function') refreshOwnerRasiVisibility();
@@ -7860,7 +7876,16 @@ if (typeof refreshPlanetTags === 'function')          refreshPlanetTags();
 window.addEventListener('resize', () => {
   drawChartGrid();
   applyMudakkuHighlight();
+
+  // Re-add birth planets first.
+  // placePlanetsOnChart() clears planet-* labels, so CURRENT planets
+  // must always be restored AFTER birth planets on mobile resize.
   if (savedPlanetsForChart) placePlanetsOnChart(savedPlanetsForChart);
+
+  if (currentPlanetsEnabled && currentPlanetsForChart) {
+    placeCurrentPlanetsOnChart(currentPlanetsForChart);
+  }
+
   refreshOwnerRasiVisibility();
   refreshPlanetTags();
   if (vimData) renderAll();
