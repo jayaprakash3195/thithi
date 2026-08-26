@@ -1701,6 +1701,16 @@ body.dark .jp-profile-close{background:#19331f;color:#b8f5c8}
     justify-content:center;
   }
 }
+
+/* ===== TODAY PANCHANGAM ===== */
+#todayPanchangCard{border:2px solid var(--accent);}
+#todayPanchangCard .legend-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+#todayPanchangCard .legend-head b{font-size:1.05rem;color:var(--brand)}
+#todayPanchangCard .bp-value{font-size:1.08rem}
+#todayPanchangCard .today-balance{font-weight:800;color:#a15c00}
+body.dark #todayPanchangCard .today-balance{color:#f6c66d}
+@media(max-width:700px){#todayPanchangCard .legend-head{align-items:flex-start;flex-direction:column;gap:2px}}
+
 </style>
 
 <style id="desktopOnlyFix">
@@ -2272,6 +2282,41 @@ body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
 
 
     <pre id="apiResult" class="muted" style="white-space:pre-wrap"></pre>
+
+<section class="card" id="todayPanchangCard" style="display:block;margin-top:10px">
+  <div class="legend-head">
+    <b>இன்றைய பஞ்சாங்கம்</b>
+    <span id="todayPanchangDate" class="muted">—</span>
+  </div>
+  <div class="birth-panchang-grid birth-panchang-five">
+    <div class="birth-panchang-item">
+      <div class="bp-label">நாள் / தேதி</div>
+      <div class="bp-value" id="todayVaraName">—</div>
+      <div class="bp-sub" id="todayDateDetails">—</div>
+    </div>
+    <div class="birth-panchang-item">
+      <div class="bp-label">நட்சத்திரம்</div>
+      <div class="bp-value" id="todayNakshatraName">—</div>
+      <div class="bp-sub" id="todayNakshatraDetails">—</div>
+    </div>
+    <div class="birth-panchang-item">
+      <div class="bp-label">திதி / பட்சம்</div>
+      <div class="bp-value" id="todayTithiName">—</div>
+      <div class="bp-sub" id="todayTithiDetails">—</div>
+    </div>
+    <div class="birth-panchang-item">
+      <div class="bp-label">யோகம்</div>
+      <div class="bp-value" id="todayYogaName">—</div>
+      <div class="bp-sub" id="todayYogaDetails">—</div>
+    </div>
+    <div class="birth-panchang-item">
+      <div class="bp-label">கரணம்</div>
+      <div class="bp-value" id="todayKaranaName">—</div>
+      <div class="bp-sub" id="todayKaranaDetails">—</div>
+    </div>
+  </div>
+  <div id="todayPanchangStatus" class="muted" style="margin-top:8px;text-align:center;font-size:.85rem">இன்றைய பஞ்சாங்கம் கணக்கிடப்படுகிறது...</div>
+</section>
 
 <section class="card" id="birthPanchangCard" style="display:none">
   <div class="legend-head">
@@ -8584,7 +8629,6 @@ function jp_buildPayload(){
     gender : (document.getElementById('genderSelect')?.value || 'male'),
     inputs: {
       dob     : document.getElementById('dob')?.value || '',
-      caldate : document.getElementById('caldate')?.value || '',
       moon    : readDMS('moon_deg','moon_min','moon_sec'),
       lagna   : readDMS('lagna_deg','lagna_min','lagna_sec'),
       gender  : (document.getElementById('genderSelect')?.value || 'male'),
@@ -8611,13 +8655,36 @@ function jp_buildPayload(){
 
 
 /* Apply payload → refill inputs, rebuild UI, run() */
+
+/* =========================================================
+   CALCULATION DATE POLICY
+   - Calculation date is NEVER restored from a saved profile.
+   - On page/profile load it starts at today's date/time.
+   - User can manually change it later for another date.
+   ========================================================= */
+function jpSetCalculationDateToToday(){
+  const el = document.getElementById('caldate');
+  if(!el) return;
+  const d = new Date();
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+  el.value = d.toISOString().slice(0,16);
+  // Clear cached current-planet data because the date changed.
+  try{
+    currentPlanetsForChart = null;
+    currentPlanetsCalcDate = '';
+    currentPlanetDegrees = {};
+  }catch(e){}
+}
+
 function jp_applyPayload(payload){
   if(!payload) return;
   const set = (id,v)=>{ const el=document.getElementById(id); if(el) el.value = (v ?? ''); };
 
   // existing manual fields
   set('dob',     payload?.inputs?.dob      || '');
-  set('caldate', payload?.inputs?.caldate  || '');
+  // IMPORTANT: never restore the saved calculation date.
+  // Always start with today's date/time when a profile is loaded.
+  jpSetCalculationDateToToday();
   const m = payload?.inputs?.moon  || {};
   const l = payload?.inputs?.lagna || {};
   set('moon_deg', m.deg);  set('moon_min', m.min);  set('moon_sec', m.sec);
@@ -8885,6 +8952,20 @@ document.getElementById('importFile')?.addEventListener('change', async (ev)=>{
   }
 });
 
+/* Initialize calculation date to TODAY on every fresh page load. */
+(function(){
+  function initTodayCalculationDate(){
+    if(typeof jpSetCalculationDateToToday === 'function'){
+      jpSetCalculationDateToToday();
+    }
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initTodayCalculationDate);
+  }else{
+    initTodayCalculationDate();
+  }
+})();
+
 /* Initialize list on load */
 jp_refreshProfileList();
 
@@ -8909,7 +8990,6 @@ const _buildPayload = (typeof jp_buildPayload === 'function')
         at: new Date().toISOString(),
         inputs:{
           dob: document.getElementById('dob')?.value || '',
-          caldate: document.getElementById('caldate')?.value || '',
           moon: read('moon_deg','moon_min','moon_sec'),
           lagna: read('lagna_deg','lagna_min','lagna_sec')
         },
@@ -11499,5 +11579,151 @@ document.getElementById('caldate')?.addEventListener('change',()=>{
   document.addEventListener('keydown',e=>{ if(e.key==='Escape' && modal?.style.display!=='none') closeProfileModal(); });
 })();
 </script>
+
+<script>
+/* =========================================================
+   JP ASTRO RESEARCH — TODAY'S PANCHANGAM
+   Loads automatically on every page load.
+   Uses the existing FreeAstrologyAPI planet calculation and
+   the same Lahiri / geocentric settings already used by this page.
+   Default location: Chennai when no selected/profile location exists.
+   ========================================================= */
+(function(){
+  const TA_VAR=['ஞாயிறு','திங்கள்','செவ்வாய்','புதன்','வியாழன்','வெள்ளி','சனி'];
+  const EN_VAR=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const TA_TITHI=(typeof TITHI_TA!=='undefined' && Array.isArray(TITHI_TA)) ? TITHI_TA : [
+    'பிரதமை','துவிதியை','திரிதியை','சதுர்த்தி','பஞ்சமி','ஷஷ்டி','சப்தமி','அஷ்டமி','நவமி','தசமி','ஏகாதசி','துவாதசி','திரயோதசி','சதுர்த்தசி','பௌர்ணமி',
+    'பிரதமை','துவிதியை','திரிதியை','சதுர்த்தி','பஞ்சமி','ஷஷ்டி','சப்தமி','அஷ்டமி','நவமி','தசமி','ஏகாதசி','துவாதசி','திரயோதசி','சதுர்த்தசி','அமாவாசை'
+  ];
+  const TA_YOGA=(typeof YOGA_TA!=='undefined' && YOGA_TA) ? YOGA_TA : {};
+
+
+  const $=id=>document.getElementById(id);
+  const set=(id,v)=>{const e=$(id);if(e)e.textContent=v==null?'—':String(v)};
+  const norm=x=>((Number(x)%360)+360)%360;
+
+  function locationForToday(){
+    if(typeof selectedLat==='number' && Number.isFinite(selectedLat) && typeof selectedLon==='number' && Number.isFinite(selectedLon)){
+      return {lat:selectedLat,lon:selectedLon,label:($('placeInput')?.value||'தேர்ந்தெடுத்த இடம்')};
+    }
+    try{
+      const raw=localStorage.getItem(typeof STORAGE_KEY!=='undefined'?STORAGE_KEY:'jpAstro:last');
+      const p=raw?JSON.parse(raw):null;
+      const lat=Number(p?.api?.lat),lon=Number(p?.api?.lon);
+      if(Number.isFinite(lat)&&Number.isFinite(lon)) return {lat,lon,label:p?.api?.place||'சேமித்த பிறப்பிடம்'};
+    }catch(e){}
+    return {lat:13.0827,lon:80.2707,label:'சென்னை'};
+  }
+
+  function tithiFromSunMoon(sunDeg,moonDeg){
+    const elong=norm(moonDeg-sunDeg);
+    const idx=Math.floor(elong/12);
+    const within=elong-idx*12;
+    return {number:idx+1,paksha:idx<15?'சுக்ல பக்ஷம்':'கிருஷ்ண பக்ஷம்',elapsed:(within/12)*100,left:((12-within)/12)*100};
+  }
+
+  function yogaFromSunMoon(sunDeg,moonDeg){
+    const sum=norm(sunDeg+moonDeg);
+    const idx=Math.floor(sum/(13+20/60));
+    const unit=13+20/60;
+    const within=sum-idx*unit;
+    const names=['Vishkambha','Priti','Ayushman','Saubhagya','Shobhana','Atiganda','Sukarma','Dhriti','Shula','Ganda','Vriddhi','Dhruva','Vyaghata','Harshana','Vajra','Siddhi','Vyatipata','Variyana','Parigha','Shiva','Siddha','Sadhya','Subha','Shukla','Brahma','Indra','Vaidhriti'];
+    return {number:idx+1,name:names[idx]||'—',left:((unit-within)/unit)*100};
+  }
+
+  function karanaFromTithi(t){
+    try{
+      if(typeof getBirthKaranaFromTithi==='function'){
+        const rule=getBirthKaranaFromTithi({
+          number:t.number,
+          paksha:t.number<=15?'shukla':'krishna',
+          elapsed_percentage:t.elapsed
+        });
+        if(rule) return t.elapsed<50 ? (normalizeKaranaName(rule.first)||rule.first) : (normalizeKaranaName(rule.second)||rule.second);
+      }
+    }catch(e){}
+    return '—';
+  }
+
+  function nakFromMoon(moonDeg){
+    const deg=norm(Number(moonDeg));
+    // Use the same Nakshatra/Pada function as the existing birth Panchang.
+    try{
+      if(typeof getNakPadaFromDegree==='function'){
+        const info=getNakPadaFromDegree(deg);
+        const name=(typeof nameNakById==='function' ? nameNakById(info.nakId) : null) || info.name || '—';
+        return {name, pada:Number(info.pada)||1};
+      }
+    }catch(e){ console.warn('Nakshatra helper failed:',e); }
+    const padaSize=(13+20/60)/4;
+    const global=Math.floor(deg/padaSize);
+    const nakIndex=Math.floor(global/4);
+    const pada=(global%4)+1;
+    let name='—';
+    try{name=(typeof nameNakById==='function'?nameNakById(nakIndex+1):null)||'—';}catch(e){}
+    return {name,pada};
+  }
+
+  function formatDate(d){
+    return d.toLocaleDateString('ta-IN',{day:'2-digit',month:'2-digit',year:'numeric'});
+  }
+
+  async function loadTodayPanchang(){
+    const card=$('todayPanchangCard');
+    if(!card) return;
+    const now=new Date();
+    set('todayPanchangDate',formatDate(now));
+    set('todayDateDetails',formatDate(now));
+    set('todayVaraName',TA_VAR[now.getDay()]);
+    const place=locationForToday();
+    const status=$('todayPanchangStatus');
+    if(status) status.textContent=`${place.label} • இன்றைய பஞ்சாங்கம் கணக்கிடப்படுகிறது...`;
+
+    const payload={
+      year:now.getFullYear(),month:now.getMonth()+1,date:now.getDate(),
+      hours:now.getHours(),minutes:now.getMinutes(),seconds:now.getSeconds(),
+      latitude:place.lat,longitude:place.lon,timezone:5.5,
+      settings:{observation_point:'geocentric',ayanamsha:'lahiri',language:'en'}
+    };
+
+    try{
+      const res=await fetch('https://json.freeastrologyapi.com/planets/extended',{
+        method:'POST',headers:{'Content-Type':'application/json','x-api-key':FREE_ASTRO_API_KEY},body:JSON.stringify(payload)
+      });
+      if(!res.ok) throw new Error(`API ${res.status}`);
+      const data=await res.json();
+      const sun=Number(data?.output?.Sun?.fullDegree),moon=Number(data?.output?.Moon?.fullDegree);
+      if(!Number.isFinite(sun)||!Number.isFinite(moon)) throw new Error('Sun/Moon degree missing');
+
+      const t=tithiFromSunMoon(sun,moon);
+      const y=yogaFromSunMoon(sun,moon);
+      const n=nakFromMoon(moon);
+      const k=karanaFromTithi(t);
+
+      set('todayNakshatraName',n.name);
+      set('todayNakshatraDetails',`பாதம் ${n.pada}`);
+      set('todayTithiName',TA_TITHI[t.number]||'—');
+      set('todayTithiDetails',`${t.paksha} • மீதம் ${t.left.toFixed(2)}%`);
+      set('todayYogaName',TA_YOGA[y.name]||y.name);
+      set('todayYogaDetails',`எண் ${y.number} • மீதம் ${y.left.toFixed(2)}%`);
+      set('todayKaranaName',k);
+      set('todayKaranaDetails',t.elapsed<50?'முதல் பாதி • முதல் கரணம்':'இரண்டாம் பாதி • இரண்டாம் கரணம்');
+      if(status) status.textContent=`${place.label} • ${now.toLocaleTimeString('ta-IN',{hour:'2-digit',minute:'2-digit'})} நிலவரப்படி`;
+    }catch(err){
+      console.warn('Today Panchang failed:',err);
+      if(status) status.textContent='இன்றைய பஞ்சாங்கத்தை பெற முடியவில்லை. இணைய இணைப்பை சரிபார்க்கவும்.';
+    }
+  }
+
+  window.jpLoadTodayPanchang=loadTodayPanchang;
+
+  function init(){
+    // Do not change the existing birth-panchang flow. This is an independent card.
+    loadTodayPanchang();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+
 </body>
 </html>
