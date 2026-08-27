@@ -95,6 +95,13 @@ body.dark{
     --pulse-on:  rgba(47,118,210,.35);
     --pulse-off: rgba(47,118,210,0);
   }
+  body:not(.dark){
+    --control-bg:#edf3ff;
+    --control-border:#2f76d2;
+    --control-fg:#08203a;
+    --table-head:#f3f6fb;
+    --hover-bg:#e9f0f9;
+  }
   body.dark{
     --bg:#0b0f14; --card:#0f141b; --ink:#e5eef9; --muted:#9fb0c4;
     --brand:#7ab8ff; --accent:#3ddc6a; --outline:#2f4b59; --shadow:0 1px 6px #0b2028; --ring:#3b82f6;
@@ -104,10 +111,16 @@ body.dark{
     --animB3-bg:#0f2036;  --animB3-outline:#3b82f6;
     --pulse-on:  rgba(6,212,10,.55);
     --pulse-off: rgba(6,212,10,0);
-
+    --control-bg:#102133;
+    --control-border:#274462;
+    --control-fg:#cfe5ff;
+    --table-head:#121b27;
+    --hover-bg:#182330;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,'Latha',Arial,sans-serif}
+  html{color-scheme:light}
+  body.dark{color-scheme:dark}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,'Latha',Arial,sans-serif;transition:background-color .18s ease,color .18s ease}
   .container{max-width:1280px;margin:0 auto;padding:16px}
   header h2{margin:6px 0 12px;text-align:center}
   header h2 span{color:var(--brand)}
@@ -133,11 +146,9 @@ body.dark{
 
 
   /* ===== ALWAYS VISIBLE CURRENT PLANETS MASTER SWITCH ===== */
-  body.dark
-  body.dark
   .toolbar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center;margin:8px 0 12px;width:100%;box-sizing:border-box}
-  .btn{padding:7px 12px;border:1px solid var(--ring);border-radius:10px;background:#edf3ff;color:#08203a;font-weight:600;cursor:pointer;box-sizing:border-box;white-space:nowrap;line-height:1.2;min-height:32px;height:auto;flex:0 0 auto}
-  body.dark .btn{background:#102133;color:#cfe5ff;border-color:#274462}
+  .btn{padding:7px 12px;border:1px solid var(--control-border);border-radius:10px;background:var(--control-bg);color:var(--control-fg);font-weight:600;cursor:pointer;box-sizing:border-box;white-space:nowrap;line-height:1.2;min-height:32px;height:auto;flex:0 0 auto}
+  body.dark .btn{background:var(--control-bg);color:var(--control-fg);border-color:var(--control-border)}
   .btn.secondary{background:#eef7ee;border-color:#2ea44f}
   /* Current Planets uses the same button format as Thithi / ALP. */
   #btnCurrentPlanets.active{
@@ -151,7 +162,7 @@ body.dark{
     border-color:#22c55e !important;
   }
   body.dark .btn.secondary{background:#0f2016;color:#d6ffe1;border-color:#1e7a3a}
-  select{padding:8px 10px;border:1px solid #d1d5db;border-radius:10px;background:#fff}
+  select{padding:8px 10px;border:1px solid var(--outline);border-radius:10px;background:var(--card);color:var(--ink)}
   body.dark select{background:#0f141b;color:var(--ink);border-color:#2b3642}
 
   #current{position:sticky;top:var(--sticky-top);z-index:5;background:var(--card);border:1px solid var(--outline);
@@ -163,7 +174,7 @@ body.dark{
   .field{display:flex;flex-direction:column;gap:6px}
   .field label{font-weight:600}
   .field input[type="text"],.field input[type="date"],.field input[type="time"],.field input[type="number"], .field input[type="datetime-local"]{
-    padding:8px 10px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:#111827}
+    padding:8px 10px;border:1px solid var(--outline);border-radius:10px;background:var(--card);color:var(--ink)}
   body.dark .field input{background:#0f141b;color:var(--ink);border-color:#2b3642}
 
   .pos-relative{position:relative}
@@ -1520,6 +1531,8 @@ const NAV_SUBDIVISION_DEG = NAV_PADA_SIZE_DEG / 9; // 22.222′
 .pdm-controls{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:8px 0;}
 .pdm-dasa-btn{padding:6px 10px;border:1px solid var(--outline);border-radius:10px;background:var(--card);cursor:pointer;font-weight:800;}
 .pdm-dasa-btn.active{background:var(--brand);color:#fff;border-color:var(--brand);}
+.pdm-dasa-btn.current{background:var(--green2)!important;color:#fff!important;border-color:var(--green1)!important;box-shadow:0 0 0 2px rgba(23,103,26,.18);}
+.pdm-dasa-btn.current.active{background:var(--green1)!important;border-color:var(--green1)!important;} 
 #puthiPlanetMeetings{margin:10px 0 18px;}
 .pdm-card{background:var(--card);border:1px solid var(--outline);border-radius:12px;box-shadow:var(--shadow);padding:12px;}
 .pdm-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
@@ -1711,6 +1724,23 @@ body.dark .jp-profile-close{background:#19331f;color:#b8f5c8}
 body.dark #todayPanchangCard .today-balance{color:#f6c66d}
 @media(max-width:700px){#todayPanchangCard .legend-head{align-items:flex-start;flex-direction:column;gap:2px}}
 
+
+/* ===== FINAL THEME POLISH ===== */
+html, body, .container, #current, .form, .card, .box, .list li,
+#manualFormWrap, #dasaPanel, #puthiPlanetMeetings, #dasaPlanetMeetings {
+  transition: background-color .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+body:not(.dark) .toolbar{background:rgba(255,255,255,.92);}
+body.dark .toolbar{background:rgba(15,20,27,.92);border-bottom-color:var(--outline);}
+body.dark button, body.dark select, body.dark input, body.dark textarea{
+  color:var(--ink);
+}
+body.dark .field input::placeholder, body.dark input::placeholder{color:#718096;}
+body.dark .line:hover{background:var(--hover-bg);}
+body.dark .list li:hover{background:#151e29;}
+body.dark .pada-row{border-bottom-color:#263442;}
+body.dark th, body.dark td{border-color:#2b3642;}
+body.dark thead th{background:var(--table-head);}
 </style>
 
 <style id="desktopOnlyFix">
@@ -2035,6 +2065,30 @@ body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
 }
 </style>
 
+
+<!-- FINAL DARK MODE FULL-PAGE BACKGROUND FIX -->
+<style id="finalDarkModeBackgroundFix">
+  /* Keep the entire document dark; prevents white strips at the bottom/edges. */
+  html, body {
+    background: var(--bg) !important;
+  }
+
+  body.dark,
+  body.dark #app,
+  body.dark .container {
+    background: #0b0f14 !important;
+  }
+
+  /* html remains visible around/after the body on some screen sizes. */
+  html:has(body.dark) {
+    background: #0b0f14 !important;
+  }
+
+  /* Keep the main content panels dark without changing their existing styling. */
+  body.dark .container {
+    color: var(--ink);
+  }
+</style>
 </head>
 <body>
 
@@ -2091,9 +2145,6 @@ body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
       <!-- ஜாதகர் பெயர் / சேமி / திறக்க / நீக்கு are placed near birth details below -->
       <select id="profileList" style="display:none"></select>
       <button id="btnLoadProfile" class="btn" style="display:none">Load Profile</button>
-      <button id="btnExportProfile" class="btn secondary">Export</button>
-<button id="btnImportProfile" class="btn">Import</button>
-<input id="importFile" type="file" accept="application/json" style="display:none" />
       
 
 
@@ -2110,13 +2161,6 @@ body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
       <button id="btnSavePdf" class="btn secondary">Save PDF</button>
         
 
-<label id="autoSaveWrap" style="display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--ring);border-radius:10px;background:#edf3ff">
-  <input type="checkbox" id="autoSaveToggle" checked />
-  <span id="autoSaveLabel">Auto-Save</span>
-</label>
-<span id="autoSaveStamp" class="calc-chip" title="Last auto-save" style="display:none"></span>
-<button id="btnSaveLocal" class="btn secondary">Save to Browser</button>
-<button id="btnLoadLocal" class="btn">Load</button>    
 
 
 
@@ -3389,7 +3433,20 @@ reapplyVathai();
 
 
 langToggle.addEventListener('click',()=>{ LANG=(LANG==='ta'?'en':'ta'); applyLang(); ensurePlanetButtons(); });
-themeToggle.addEventListener('click',()=>{ document.body.classList.toggle('dark'); });
+function updateThemeButton(){
+  const dark=document.body.classList.contains('dark');
+  if(themeToggle){
+    themeToggle.textContent = dark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    themeToggle.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    themeToggle.title = dark ? 'Light mode' : 'Dark mode';
+  }
+}
+
+updateThemeButton();
+themeToggle.addEventListener('click',()=>{
+  document.body.classList.toggle('dark');
+  updateThemeButton();
+});
 
 /* ===== Place suggestions (same) ===== */
 const LOCATIONIQ_TOKEN='pk.c1e392aaa38cf30cc350555c040477b5';
@@ -3839,7 +3896,6 @@ async function setCurrentPlanetsEnabled(enabled){
     clearCurrentPlanetsFromChart();
     renderCurrentPlanetsCard();
     updateCurrentPlanetsToggleUI();
-    try{if(typeof _autoSaveDebounced==='function')_autoSaveDebounced();}catch(e){}
     return;
   }
 
@@ -3865,7 +3921,7 @@ async function setCurrentPlanetsEnabled(enabled){
       alert(LANG==='ta'?'தற்போதைய கிரகத் தகவலை பெற முடியவில்லை.':'Unable to fetch current planet positions.');
     }else{
       placeCurrentPlanetsOnChart(currentPlanetsForChart);
-      drawNavamsaChart(); renderCurrentPlanetsCard(); try{if(typeof _autoSaveDebounced==='function')_autoSaveDebounced();}catch(e){}
+      drawNavamsaChart(); renderCurrentPlanetsCard();
     }
   }finally{
     if(btn) btn.disabled=false;
@@ -3950,11 +4006,6 @@ document.getElementById('caldate')?.addEventListener('change', async ()=>{
       renderCurrentPlanetsCard();
       updateCurrentPlanetsToggleUI();
 
-      try{
-        if(typeof _autoSaveDebounced === 'function'){
-          _autoSaveDebounced();
-        }
-      }catch(e){}
     }else{
       clearCurrentPlanetsFromChart();
       renderCurrentPlanetsCard();
@@ -3973,7 +4024,7 @@ document.getElementById('caldate')?.addEventListener('change', async ()=>{
 // Start in OFF state.
 updateCurrentPlanetsToggleUI();
 
-async function jp_autoSaveApiJathagar(){
+async function jp_saveApiJathagar(){
   const name=(document.getElementById('profileName')?.value||'').trim();
   if(!name){
     throw new Error(LANG==='ta' ? 'ஜாதகர் பெயரை முதலில் உள்ளிடவும்.' : 'Please enter Jathagar name first.');
@@ -3991,7 +4042,6 @@ async function jp_autoSaveApiJathagar(){
     try{ jp_refreshProfileList(); }catch(e){}
   }
 
-  try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(payload)); }catch(e){}
   const sel=document.getElementById('profileList');
   if(sel) sel.value=name;
 }
@@ -4052,7 +4102,7 @@ btnApi.addEventListener('click', async ()=>{
     // Wait one tick so run() finishes updating all calculated fields first.
     try{
       await new Promise(resolve=>setTimeout(resolve,0));
-      await jp_autoSaveApiJathagar();
+      await jp_saveApiJathagar();
       apiResult.textContent=(LANG==='ta'
         ? `ஜாதகம் கணக்கிடப்பட்டு “${jathagarName}” என்ற பெயரில் சேமிக்கப்பட்டது.`
         : `Horoscope calculated and saved as “${jathagarName}”.`);
@@ -8614,7 +8664,6 @@ window.addEventListener('resize', ()=>{
    Multiple Profiles + Export/Import (no Firebase)
    ============================ */
 const PROFILES_KEY = 'jpAstro:profiles';   // { [name]: payload }
-const STORAGE_KEY  = 'jpAstro:last';       // from earlier (single quick save)
 
 /* Build one payload from current inputs */
 function jp_buildPayload(){
@@ -8824,134 +8873,6 @@ async function jp_refreshProfileListCloud(){
   }catch(e){ console.error(e); }
 }
 
-/* Export helpers */
-function jp_saveAsFile(obj, filename){
-  const blob = new Blob([JSON.stringify(obj,null,2)], {type:'application/json'});
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href = url; a.download = filename; a.click();
-  URL.revokeObjectURL(url);
-}
-
-/* Buttons */
-document.getElementById('btnSaveProfile')?.addEventListener('click', async ()=>{
-  const name = (document.getElementById('profileName')?.value || '').trim();
-  if(!name){ return alert(LANG==='ta' ? 'ஜாதகர் பெயரை தரவும்.' : 'Please enter a profile name.'); }
-  const payload = jp_buildPayload();
-  try{
-    if (window.__jpAuth?.currentUser){
-      await jp_cloudSaveProfile(name, payload);
-      await jp_refreshProfileListCloud();
-      // Mirror the saved profile to local cache as well
-      try {
-        const map = jp_loadProfiles();
-        map[name] = payload;
-        jp_saveProfiles(map);
-      } catch(e) { console.warn('Local mirror save failed', e); }
-      document.getElementById('profileList').value = name;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload)); // local cache for "last"
-      alert(LANG==='ta' ? 'முகில் சேமிப்பு முடிந்தது.' : 'Saved to cloud.');}else{
-      const map = jp_loadProfiles();
-      map[name] = payload;
-      jp_saveProfiles(map);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-      jp_refreshProfileList();
-      document.getElementById('profileList').value = name;
-      alert(LANG==='ta' ? 'உள்ளூர் சேமிக்கப்பட்டது.' : 'Saved to browser.');
-    }
-  }catch(e){
-    console.error(e); alert('Save failed: ' + (e?.message || e));
-  }
-});
-
-document.getElementById('btnLoadProfile')?.addEventListener('click', async ()=>{
-  const sel = document.getElementById('profileList');
-  const name = sel?.value;
-  if(!name) return alert(LANG==='ta' ? 'ப்ரொஃபைல் ஒன்றை தெரிவுசெய்க.' : 'Select a profile first.');
-  try{
-    let payload = null;
-    if (window.__jpAuth?.currentUser){
-      payload = await jp_cloudLoadProfile(name);
-    } else {
-      const map = jp_loadProfiles();
-      payload = map[name];
-    }
-    if(!payload) return alert(LANG==='ta' ? 'தகவல் இல்லை.' : 'Profile not found.');
-    jp_applyPayload(payload);
-  }catch(e){ console.error(e); alert('Load failed: ' + (e?.message || e)); }
-});
-
-document.getElementById('btnDeleteProfile')?.addEventListener('click', async ()=>{
-  const sel = document.getElementById('profileList');
-  const name = sel?.value;
-  if(!name) return alert(LANG==='ta' ? 'ப்ரொஃபைல் ஒன்றை தெரிவுசெய்க.' : 'Select a profile first.');
-  if(!confirm(LANG==='ta' ? `அழிக்கவா: ${name}?` : `Delete profile: ${name}?`)) return;
-  try{
-    if (window.__jpAuth?.currentUser){
-      await jp_cloudDeleteProfile(name);
-      await jp_refreshProfileListCloud();
-      try { const map = jp_loadProfiles(); delete map[name]; jp_saveProfiles(map); } catch(e) { console.warn('Local mirror delete failed', e); }
-    } else {
-      const map = jp_loadProfiles();
-      delete map[name];
-      jp_saveProfiles(map);
-      jp_refreshProfileList();
-    }
-    alert(LANG==='ta' ? 'அழிக்கப்பட்டது.' : 'Deleted.');
-  }catch(e){ console.error(e); alert('Delete failed: ' + (e?.message || e)); }
-});
-
-document.getElementById('btnExportProfile')?.addEventListener('click', ()=>{
-  const sel  = document.getElementById('profileList');
-  const name = sel?.value;
-  const map  = jp_loadProfiles();
-  if(name && map[name]){
-    // Export selected profile
-    jp_saveAsFile({ name, payload: map[name] }, `astro-${name}.json`);
-  }else{
-    // Or export all
-    jp_saveAsFile({ profiles: map }, `astro-all-${new Date().toISOString().slice(0,10)}.json`);
-  }
-});
-
-document.getElementById('btnImportProfile')?.addEventListener('click', ()=>{
-  document.getElementById('importFile')?.click();
-});
-
-document.getElementById('importFile')?.addEventListener('change', async (ev)=>{
-  const file = ev.target.files?.[0];
-  if(!file) return;
-  try{
-    const text = await file.text();
-    const j = JSON.parse(text);
-
-    const map = jp_loadProfiles();
-    if (j && j.version && j.inputs){
-      // single payload file
-      const base = (document.getElementById('profileName')?.value || 'Imported');
-      let name = base, i=1;
-      while(map[name]) name = `${base}-${i++}`;       // avoid overwrite
-      map[name] = j;
-    } else if (j && j.payload && j.name){
-      // { name, payload }
-      map[j.name] = j.payload;
-    } else if (j && j.profiles && typeof j.profiles === 'object'){
-      // { profiles: { name: payload } }
-      Object.entries(j.profiles).forEach(([k,v])=> map[k] = v);
-    } else {
-      return alert(LANG==='ta' ? 'தவறான JSON.' : 'Unrecognized JSON format.');
-    }
-
-    jp_saveProfiles(map);
-    jp_refreshProfileList();
-    alert(LANG==='ta' ? 'இறக்குமதி முடிந்தது.' : 'Import complete.');
-  }catch(e){
-    alert('Import failed: ' + e.message);
-  }finally{
-    ev.target.value = ''; // reset file input
-  }
-});
-
 /* Initialize calculation date to TODAY on every fresh page load. */
 (function(){
   function initTodayCalculationDate(){
@@ -8969,154 +8890,6 @@ document.getElementById('importFile')?.addEventListener('change', async (ev)=>{
 /* Initialize list on load */
 jp_refreshProfileList();
 
-
-/* ===== Auto-Save (debounced) ===== */
-
-const AUTO_SAVE_KEY = 'jpAstro:autoSave';
-
-function _debounce(fn, wait){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), wait); }; }
-
-// Use your existing builder if present; else minimal fallback
-const _buildPayload = (typeof jp_buildPayload === 'function')
-  ? jp_buildPayload
-  : function(){
-      const read = (d,m,s)=>({
-        deg: parseInt(document.getElementById(d)?.value || '0',10),
-        min: parseInt(document.getElementById(m)?.value || '0',10),
-        sec: parseInt(document.getElementById(s)?.value || '0',10),
-      });
-      return {
-        version: 1,
-        at: new Date().toISOString(),
-        inputs:{
-          dob: document.getElementById('dob')?.value || '',
-          moon: read('moon_deg','moon_min','moon_sec'),
-          lagna: read('lagna_deg','lagna_min','lagna_sec')
-        },
-        planetDegrees: (typeof planetDegrees!=='undefined' ? planetDegrees : {}),
-        birthPlanetRetrograde: (typeof birthPlanetRetrograde!=='undefined' ? birthPlanetRetrograde : {}),
-        birthPanchangData: (typeof birthPanchangData!=='undefined' ? birthPanchangData : {tithi:null,yoga:null}),
-        birthKarana: (typeof getBirthKaranaFromTithi === 'function' ? (getBirthKaranaFromTithi(birthPanchangData?.tithi) || null) : null),
-        currentPlanetsForChart: (typeof currentPlanetsForChart!=='undefined' ? currentPlanetsForChart : null),
-        currentPlanetDegrees: (typeof currentPlanetDegrees!=='undefined' ? currentPlanetDegrees : {}),
-        currentPlanetsCalcDate: document.getElementById('caldate')?.value || ''
-      };
-    };
-
-function _autoSaveEnabled(){
-  const ui = document.getElementById('autoSaveToggle');
-  if (ui) return ui.checked;
-  // persist setting even if checkbox not yet mounted
-  return localStorage.getItem(AUTO_SAVE_KEY) !== 'off';
-}
-
-function _setAutoSaveEnabled(on){
-  localStorage.setItem(AUTO_SAVE_KEY, on ? 'on' : 'off');
-  const ui = document.getElementById('autoSaveToggle');
-  if (ui) ui.checked = on;
-}
-
-function _showSavedStamp(){
-  const el = document.getElementById('autoSaveStamp');
-  if (!el) return;
-  el.style.display = 'inline-block';
-  el.textContent = new Date().toLocaleTimeString();
-}
-
-const _autoSaveNow = ()=>{
-  if(!_autoSaveEnabled()) return;
-  try{
-    const payload = _buildPayload();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-    _showSavedStamp();
-  }catch(e){
-    console.warn('Auto-save failed:', e);
-  }
-};
-const _autoSaveDebounced = _debounce(_autoSaveNow, 400);
-
-
-
-// Restore saved ON/OFF state on load
-(function initAutoSaveToggle(){
-  const was = localStorage.getItem(AUTO_SAVE_KEY);
-  const on = (was !== 'off'); // default ON
-  _setAutoSaveEnabled(on);
-  document.getElementById('autoSaveToggle')?.addEventListener('change', (e)=>{
-    _setAutoSaveEnabled(!!e.target.checked);
-    if (e.target.checked) _autoSaveDebounced();
-  });
-})();
-
-// Wrap your existing run() once and debounce-save after it finishes
-if (!window.__autoSaveWrapped && typeof run === 'function'){
-  window.__autoSaveWrapped = true;
-  const __run = run;
-  run = function(...args){
-    const out = __run.apply(this, args);
-    _autoSaveDebounced();
-    return out;
-  };
-}
-
-// Also save on key input changes (in case user edits but hasn’t pressed Compute yet)
-['dob_api','tob_api','placeInput','dob','caldate','moon_deg','moon_min','moon_sec','lagna_deg','lagna_min','lagna_sec'].forEach(id=>{
-  const el = document.getElementById(id);
-  el?.addEventListener('change', _autoSaveDebounced);
-  el?.addEventListener('input',  _autoSaveDebounced);
-});
-
-// Save after API completes (your btnApi handler already calls run(); this is just extra safety)
-document.getElementById('btnApi')?.addEventListener('click', ()=> setTimeout(_autoSaveDebounced, 0));
-
-/* ==== Local Save/Load (no Firebase) ==== */
-
-
-/** read Degree-Minute-Second triplet from three inputs */
-function readDMS(idDeg, idMin, idSec){
-  const d = parseInt(document.getElementById(idDeg)?.value ?? '0', 10);
-  const m = parseInt(document.getElementById(idMin)?.value ?? '0', 10);
-  const s = parseInt(document.getElementById(idSec)?.value ?? '0', 10);
-  return { deg: d, min: m, sec: s };
-}
-
-/** build a minimal planets object from a { Ascendant:deg, Sun:deg, ... } map */
-function fromDegreesToPlanets(degMap){
-  const out = {};
-  Object.entries(degMap || {}).forEach(([apiKey, deg])=>{
-    out[apiKey] = { fullDegree: Number(deg) };
-  });
-  return out;
-}
-
-function saveLocal(){
-  try{
-    const payload = jp_buildPayload();        // now includes api{}
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-    alert(LANG==='ta' ? 'உங்கள் தரவு இந்த உலாவியில் சேமிக்கப்பட்டது.' : 'Saved to this browser.');
-  }catch(e){
-    alert('Save failed: ' + e.message);
-  }
-}
-
-function loadLocal(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(!raw) return alert(LANG==='ta' ? 'சேமித்தது இல்லை.' : 'Nothing saved yet.');
-    const payload = JSON.parse(raw);
-
-    // apply everything (manual + api + planets) in one place
-    jp_applyPayload(payload);
-
-    alert(LANG==='ta' ? 'சேமித்த தரவு ஏற்றப்பட்டது.' : 'Loaded.');
-  }catch(e){
-    alert('Load failed: ' + e.message);
-  }
-}
-
-// buttons
-document.getElementById('btnSaveLocal')?.addEventListener('click', saveLocal);
-document.getElementById('btnLoadLocal')?.addEventListener('click', loadLocal);
 
 /* ===== Bhavam chooser (rotate Lagna houses only) ===== */
 let BHAVA_SELECTED = 1;
@@ -10410,14 +10183,30 @@ document.addEventListener('click', ()=>{
     else if(typeof savedPlanetsForChart?.Moon?.fullDegree==='number') moon=savedPlanetsForChart.Moon.fullDegree;
     else moon=(Number(document.getElementById('moon_deg')?.value||0)+Number(document.getElementById('moon_min')?.value||0)/60+Number(document.getElementById('moon_sec')?.value||0)/3600);
     if(!dob||isNaN(dob.getTime())||!Number.isFinite(moon)) return [];
-    return dasaTree(moon,dob,new Date());
+    const calc=document.getElementById('caldate')?.value;
+    const now=calc ? new Date(calc) : new Date();
+    return dasaTree(moon,dob,now);
   }
+
+  function getCurrentDasaIndex(dasas){
+    if(!Array.isArray(dasas)||!dasas.length) return -1;
+    const calc=document.getElementById('caldate')?.value;
+    const now=calc ? new Date(calc) : new Date();
+    for(let i=0;i<dasas.length;i++){
+      if(now>=dasas[i].start && now<dasas[i].end) return i;
+    }
+    return -1;
+  }
+
   function renderChooser(dasas){
     const el=document.getElementById('pdmDasaChooser'); if(!el)return;
     const lang=(typeof LANG!=='undefined'?LANG:'ta');
+    const currentIndex=getCurrentDasaIndex(dasas);
     el.innerHTML=dasas.map((md,i)=>{
-      const name=(PLANET_NAME?.[lang]?.[KEY[md.lordKey]]||md.lordKey);
-      return `<button type="button" class="pdm-dasa-btn ${i===selectedDasaIndex?'active':''}" data-pdm-dasa="${i}">${i+1}. ${name}</button>`;
+      const name=(PLANET_NAME?.ta?.[KEY[md.lordKey]]||md.lordKey);
+      const classes=['pdm-dasa-btn',i===selectedDasaIndex?'active':'',i===currentIndex?'current':''].filter(Boolean).join(' ');
+      const currentLabel=i===currentIndex ? ' — தற்போதைய தசை' : '';
+      return `<button type="button" class="${classes}" data-pdm-dasa="${i}" title="${i===currentIndex?'கணிப்புக்கான தேதியில் நடைபெறும் தசை':''}">${i+1}. ${name}${currentLabel}</button>`;
     }).join('');
     el.querySelectorAll('[data-pdm-dasa]').forEach(btn=>btn.addEventListener('click',()=>{
       selectedDasaIndex=Number(btn.dataset.pdmDasa); renderPuthi();
@@ -10430,18 +10219,19 @@ document.addEventListener('click', ()=>{
     if(selectedDasaIndex>=dasas.length)selectedDasaIndex=0;
     renderChooser(dasas);
     const md=dasas[selectedDasaIndex], lang=(typeof LANG!=='undefined'?LANG:'ta');
-    const lordName=PLANET_NAME?.[lang]?.[KEY[md.lordKey]]||md.lordKey;
+    // Puthi Sandhippu always displays planet names in Tamil.
+    const lordName=PLANET_NAME?.ta?.[KEY[md.lordKey]]||md.lordKey;
     const label=document.getElementById('pdmSelectedLabel'); if(label)label.textContent=`${lordName} ${lang==='ta'?'தசை':'Dasa'} • ${fmt(new Date(md.start))} → ${fmt(new Date(md.end))}`;
     let html=`<div class="pdm-head"><strong>${lordName} ${lang==='ta'?'தசை — புக்தி Degree Meetings':'Dasa — Puthi Degree Meetings'}</strong><span class="pdm-note">${lang==='ta'?'ஒவ்வொரு புக்தியிலும் 0°00′–13°20′; அதிபதியின் 3 நட்சத்திரங்களிலும் அதே degree':'Each Puthi uses 0°00′–13°20′ and matches the same degree in its lord’s 3 Nakshatras.'}</span></div>`;
     html+=`<table class="pdm-table"><thead><tr><th>${lang==='ta'?'புக்தி':'Puthi'}</th><th>${lang==='ta'?'நட்சத்திரம்':'Nakshatra'}</th><th>${lang==='ta'?'கிரகம்':'Planet'}</th><th>${lang==='ta'?'பிறப்பு Degree':'Birth Degree'}</th><th>${lang==='ta'?'Puthi Degree':'Puthi Degree'}</th><th>${lang==='ta'?'சந்திப்பு தேதி':'Meeting Date'}</th></tr></thead><tbody>`;
     for(const pt of (md.puthis||[])){
-      const pName=PLANET_NAME?.[lang]?.[KEY[pt.lordKey]]||pt.lordKey;
+      const pName=PLANET_NAME?.ta?.[KEY[pt.lordKey]]||pt.lordKey;
       const rows=placements(pt.lordKey,getDegrees());
       const any=rows.some(r=>r.planets.length);
       {
         rows.forEach(r=>r.planets.forEach(p=>{
           const meet=meeting(pt,p.relative);
-          html+=`<tr><td data-label="Puthi" class="pdm-planet">${pName}</td><td data-label="Nakshatra">${r.name} ${lang==='ta'?'பாதம்':'Pada'} ${p.nak.pada}</td><td data-label="Planet" class="pdm-planet">${pname(p.key)}</td><td data-label="Birth Degree">${dms(p.deg)}</td><td data-label="Puthi Degree" class="pdm-meet">${dms(p.relative)}</td><td data-label="Meeting Date" class="pdm-meet">${fmt(meet)}</td></tr>`;
+          html+=`<tr><td data-label="${lang==='ta'?'புக்தி':'Puthi'}" class="pdm-planet">${pName}</td><td data-label="${lang==='ta'?'நட்சத்திரம்':'Nakshatra'}">${r.name} ${lang==='ta'?'பாதம்':'Pada'} ${p.nak.pada}</td><td data-label="${lang==='ta'?'கிரகம்':'Planet'}" class="pdm-planet">${PLANET_NAME?.ta?.[KEY[p.key]]||p.key}</td><td data-label="${lang==='ta'?'பிறப்பு Degree':'Birth Degree'}">${dms(p.deg)}</td><td data-label="${lang==='ta'?'Puthi Degree':'Puthi Degree'}" class="pdm-meet">${dms(p.relative)}</td><td data-label="${lang==='ta'?'சந்திப்பு தேதி':'Meeting Date'}" class="pdm-meet">${fmt(meet)}</td></tr>`;
         }));
       }
     }
@@ -10481,7 +10271,9 @@ document.addEventListener('click', ()=>{
     db?.classList.remove('active');
 
     if(opening){
-      selectedDasaIndex=0;
+      const dasas=getDasaList();
+      const currentIndex=getCurrentDasaIndex(dasas);
+      selectedDasaIndex=currentIndex>=0 ? currentIndex : 0;
       renderPuthi();
       if(typeof window.renderDasaPlanetMeetings==='function'){
         window.renderDasaPlanetMeetings();
@@ -11606,12 +11398,6 @@ document.getElementById('caldate')?.addEventListener('change',()=>{
     if(typeof selectedLat==='number' && Number.isFinite(selectedLat) && typeof selectedLon==='number' && Number.isFinite(selectedLon)){
       return {lat:selectedLat,lon:selectedLon,label:($('placeInput')?.value||'தேர்ந்தெடுத்த இடம்')};
     }
-    try{
-      const raw=localStorage.getItem(typeof STORAGE_KEY!=='undefined'?STORAGE_KEY:'jpAstro:last');
-      const p=raw?JSON.parse(raw):null;
-      const lat=Number(p?.api?.lat),lon=Number(p?.api?.lon);
-      if(Number.isFinite(lat)&&Number.isFinite(lon)) return {lat,lon,label:p?.api?.place||'சேமித்த பிறப்பிடம்'};
-    }catch(e){}
     return {lat:13.0827,lon:80.2707,label:'சென்னை'};
   }
 
