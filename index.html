@@ -161,6 +161,17 @@ body.dark{
     color:#fff !important;
     border-color:#22c55e !important;
   }
+  /* ===== KOTCHARAM: Panchangam + Current Planets + Current Planet Relations ===== */
+  #btnKotcharam.active{
+    background:#7c3aed !important;
+    color:#fff !important;
+    border-color:#6d28d9 !important;
+  }
+  body.dark #btnKotcharam.active{
+    background:#6d28d9 !important;
+    color:#fff !important;
+    border-color:#a78bfa !important;
+  }
   body.dark .btn.secondary{background:#0f2016;color:#d6ffe1;border-color:#1e7a3a}
   select{padding:8px 10px;border:1px solid var(--outline);border-radius:10px;background:var(--card);color:var(--ink)}
   body.dark select{background:#0f141b;color:var(--ink);border-color:#2b3642}
@@ -686,6 +697,74 @@ body.dark #bhavaChooser .bitem{ background:#0b1220; }
 #dasaTablesCard{
   display:none;
 }
+
+/* ===== Current DBA — highlight the active Dasa / Puthi / Anthra planets ===== */
+#tblCurrentDBA tr.dba-now-dasa td:first-child{
+  background:#e8f0ff !important;
+  color:#174ea6 !important;
+  font-weight:900 !important;
+  border-left:5px solid #3b82f6 !important;
+}
+#tblCurrentDBA tr.dba-now-puthi td:first-child{
+  background:#e9fff0 !important;
+  color:#087f3f !important;
+  font-weight:900 !important;
+  border-left:5px solid #10b981 !important;
+}
+#tblCurrentDBA tr.dba-now-anthra td:first-child{
+  background:#fff3e6 !important;
+  color:#b45309 !important;
+  font-weight:900 !important;
+  border-left:5px solid #f59e0b !important;
+}
+
+/* If the same planet is active at more than one DBA level, show all levels */
+#tblCurrentDBA tr.dba-now-dasa.dba-now-puthi td:first-child{
+  background:linear-gradient(90deg,#e8f0ff 0 50%,#e9fff0 50% 100%) !important;
+}
+#tblCurrentDBA tr.dba-now-puthi.dba-now-anthra td:first-child{
+  background:linear-gradient(90deg,#e9fff0 0 50%,#fff3e6 50% 100%) !important;
+}
+#tblCurrentDBA tr.dba-now-dasa.dba-now-anthra td:first-child{
+  background:linear-gradient(90deg,#e8f0ff 0 50%,#fff3e6 50% 100%) !important;
+}
+#tblCurrentDBA tr.dba-now-dasa.dba-now-puthi.dba-now-anthra td:first-child{
+  background:linear-gradient(90deg,#e8f0ff 0 33.33%,#e9fff0 33.33% 66.66%,#fff3e6 66.66% 100%) !important;
+}
+#tblCurrentDBA tr.dba-now-dasa td:first-child::after{
+  content:"  • தசை";
+  font-size:.82em;
+}
+#tblCurrentDBA tr.dba-now-puthi td:first-child::after{
+  content:"  • புக்தி";
+  font-size:.82em;
+}
+#tblCurrentDBA tr.dba-now-anthra td:first-child::after{
+  content:"  • அந்தரம்";
+  font-size:.82em;
+}
+body.dark #tblCurrentDBA tr.dba-now-dasa td:first-child{
+  background:#102133 !important; color:#7ab8ff !important; border-left-color:#3b82f6 !important;
+}
+body.dark #tblCurrentDBA tr.dba-now-puthi td:first-child{
+  background:#10281b !important; color:#5ee38a !important; border-left-color:#10b981 !important;
+}
+body.dark #tblCurrentDBA tr.dba-now-anthra td:first-child{
+  background:#30200d !important; color:#fbbf72 !important; border-left-color:#f59e0b !important;
+}
+body.dark #tblCurrentDBA tr.dba-now-dasa.dba-now-puthi td:first-child{
+  background:linear-gradient(90deg,#102133 0 50%,#10281b 50% 100%) !important;
+}
+body.dark #tblCurrentDBA tr.dba-now-puthi.dba-now-anthra td:first-child{
+  background:linear-gradient(90deg,#10281b 0 50%,#30200d 50% 100%) !important;
+}
+body.dark #tblCurrentDBA tr.dba-now-dasa.dba-now-anthra td:first-child{
+  background:linear-gradient(90deg,#102133 0 50%,#30200d 50% 100%) !important;
+}
+body.dark #tblCurrentDBA tr.dba-now-dasa.dba-now-puthi.dba-now-anthra td:first-child{
+  background:linear-gradient(90deg,#102133 0 33.33%,#10281b 33.33% 66.66%,#30200d 66.66% 100%) !important;
+}
+
 .dba-toggle-btn.active{
   background:#175397 !important;
   color:#fff !important;
@@ -1715,7 +1794,7 @@ body.dark .jp-profile-close{background:#19331f;color:#b8f5c8}
   }
 }
 
-/* ===== TODAY PANCHANGAM ===== */
+/* ===== PANCHANGAM (shown only through கொச்சாரம்) ===== */
 #todayPanchangCard{border:2px solid var(--accent);}
 #todayPanchangCard .legend-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
 #todayPanchangCard .legend-head b{font-size:1.05rem;color:var(--brand)}
@@ -2327,9 +2406,9 @@ body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
 
     <pre id="apiResult" class="muted" style="white-space:pre-wrap"></pre>
 
-<section class="card" id="todayPanchangCard" style="display:block;margin-top:10px">
+<section class="card" id="todayPanchangCard" style="display:none;margin-top:10px">
   <div class="legend-head">
-    <b>இன்றைய பஞ்சாங்கம்</b>
+    <b>பஞ்சாங்கம்</b>
     <span id="todayPanchangDate" class="muted">—</span>
   </div>
   <div class="birth-panchang-grid birth-panchang-five">
@@ -2467,7 +2546,7 @@ body.dark #currentPlanetBhavaTable tr.cpbh-anthra td{
   <button id="btnBlinkPuthi" class="btn">புக்தி மின்மினிப்பு</button>
   <button id="btnBlinkAnth"  class="btn">அந்தரம் மின்மினிப்பு</button>
 <button id="btnRasiNameSeq" class="btn">ராசி — தசை→புக்தி→அந்தரம்</button>
-  <button id="btnMudakku" class="btn" type="button" title="சூரியன் பிறப்பு நிலையை வைத்து முடக்கு ராசி காட்டும்">முடக்கு</button> <button type="button" class="btn" id="btnThithiSunya">திதி சூன்யம்</button> <button type="button" class="btn" id="btnCurrentPlanets" aria-pressed="false" title="கணிப்புக்கான தேதியின் தற்போதைய கிரகங்களை காட்ட / மறைக்க">தற்போதைய கிரகங்கள்</button> <button type="button" class="btn cpbh-toggle-btn" id="btnBirthPlanetBhava" aria-pressed="false" title="பிறப்பு கிரக பாவக தொடர்புகளை காட்ட / மறைக்க">பிறப்பு கிரக பாவக தொடர்புகள்</button> <button type="button" class="btn cpbh-toggle-btn" id="btnCurrentPlanetBhava" aria-pressed="false" title="தற்போதைய கிரக பாவக தொடர்புகளை காட்ட / மறைக்க">தற்போதைய கிரக பாவக தொடர்புகள்</button> <button type="button" class="btn" id="btnALP" title="120 ஆண்டுகள் / 108 நட்சத்திர பாதங்கள் அடிப்படையில் ALP">ALP</button> <button type="button" class="btn" id="btnDasaMeeting" title="Dasa Degree → Planet Meetings">தசை சந்திப்பு</button> <button type="button" class="btn" id="btnPuthiMeeting" title="Puthi Degree → Planet Meetings">புக்தி சந்திப்பு</button> <button type="button" class="btn" id="btnYogiAvayogi" title="பிறப்பு யோகத்தின் யோகி மற்றும் அவயோகி நட்சத்திர பாதங்கள்">யோகி — அவயோகி</button> <button type="button" class="btn" id="btnKarana" title="பிறப்பு கரணம் மற்றும் பரிகார ஸ்தலம்">கரணம்</button> <button type="button" class="btn" id="btnVainasigam" title="பிறப்பு சந்திர நட்சத்திரத்தின் 22-வது வைநாசிக நட்சத்திரம் மற்றும் பரிகார ஸ்தலம்">வைநாசிகம்</button> <button type="button" class="btn dba-toggle-btn" id="btnDBABirth" aria-pressed="false" title="பிறப்பில் தசை / புக்தி / அந்தரம் அட்டவணையை காட்ட / மறைக்க">DBA — பிறப்பில்</button> <button type="button" class="btn dba-toggle-btn" id="btnDBACurrent" aria-pressed="false" title="தற்போது தசை / புக்தி / அந்தரம் அட்டவணையை காட்ட / மறைக்க">DBA — இப்போது</button>
+  <button id="btnMudakku" class="btn" type="button" title="சூரியன் பிறப்பு நிலையை வைத்து முடக்கு ராசி காட்டும்">முடக்கு</button> <button type="button" class="btn" id="btnThithiSunya">திதி சூன்யம்</button> <button type="button" class="btn kotcharam-toggle-btn" id="btnKotcharam" aria-pressed="false" title="பஞ்சாங்கம் + கொச்சார கிரகங்கள் + கொச்சார கிரக தொடர்புகள்">கொச்சாரம்</button> <button type="button" class="btn cpbh-toggle-btn" id="btnBirthPlanetBhava" aria-pressed="false" title="பிறப்பு கிரக பாவக தொடர்புகளை காட்ட / மறைக்க">பிறப்பு கிரக பாவக தொடர்புகள்</button> <button type="button" class="btn" id="btnALP" title="120 ஆண்டுகள் / 108 நட்சத்திர பாதங்கள் அடிப்படையில் ALP">ALP</button> <button type="button" class="btn" id="btnDasaMeeting" title="Dasa Degree → Planet Meetings">தசை சந்திப்பு</button> <button type="button" class="btn" id="btnPuthiMeeting" title="Puthi Degree → Planet Meetings">புக்தி சந்திப்பு</button> <button type="button" class="btn" id="btnYogiAvayogi" title="பிறப்பு யோகத்தின் யோகி மற்றும் அவயோகி நட்சத்திர பாதங்கள்">யோகி — அவயோகி</button> <button type="button" class="btn" id="btnKarana" title="பிறப்பு கரணம் மற்றும் பரிகார ஸ்தலம்">கரணம்</button> <button type="button" class="btn" id="btnVainasigam" title="பிறப்பு சந்திர நட்சத்திரத்தின் 22-வது வைநாசிக நட்சத்திரம் மற்றும் பரிகார ஸ்தலம்">வைநாசிகம்</button> <button type="button" class="btn dba-toggle-btn" id="btnDBABirth" aria-pressed="false" title="பிறப்பில் தசை / புக்தி / அந்தரம் அட்டவணையை காட்ட / மறைக்க">DBA — பிறப்பில்</button> <button type="button" class="btn dba-toggle-btn" id="btnDBACurrent" aria-pressed="false" title="தற்போது தசை / புக்தி / அந்தரம் அட்டவணையை காட்ட / மறைக்க">DBA — இப்போது</button>
 
 </div>
 
@@ -3510,11 +3589,21 @@ const CURRENT_PLANET_KEYS = [
 ];
 
 function updateCurrentPlanetsToggleUI(){
-  const btn=document.getElementById('btnCurrentPlanets');
-  if(!btn) return;
-  btn.classList.toggle('active', !!currentPlanetsEnabled);
-  btn.setAttribute('aria-pressed', currentPlanetsEnabled ? 'true' : 'false');
-  btn.disabled=false;
+  const oldBtn=document.getElementById('btnCurrentPlanets');
+  if(oldBtn){
+    oldBtn.classList.toggle('active', !!currentPlanetsEnabled);
+    oldBtn.setAttribute('aria-pressed', currentPlanetsEnabled ? 'true' : 'false');
+    oldBtn.disabled=false;
+  }
+  const kot=document.getElementById('btnKotcharam');
+  if(kot){
+    kot.classList.toggle('active', !!currentPlanetsEnabled && CPBH_MODE==='current' &&
+      document.getElementById('todayPanchangCard')?.style.display !== 'none');
+    kot.setAttribute('aria-pressed',
+      (!!currentPlanetsEnabled && CPBH_MODE==='current' &&
+       document.getElementById('todayPanchangCard')?.style.display !== 'none') ? 'true' : 'false');
+    kot.disabled=false;
+  }
 }
 function clearCurrentPlanetsFromChart(){
   // Remove current planets from BOTH Rasi and Navamsa charts.
@@ -3738,7 +3827,7 @@ async function fetchCurrentPlanetsForCalculationDate(){
 
 /* =========================================================
    CURRENT PLANETS — OWN HOUSE / UCHAM / NEECHAM
-   ONLY for the "தற்போதைய கிரகங்கள்" table.
+   ONLY for the "கொச்சார கிரகங்கள்" table.
 
    (ஆ)  = ஆட்சி
    (உ)  = உச்சம்
@@ -3867,14 +3956,14 @@ function renderCurrentPlanetsCard(){
   }).filter(Boolean).join('');
 
   box.innerHTML=`
-    <div class="cp-title">தற்போதைய கிரகங்கள்</div>
+    <div class="cp-title">கொச்சார கிரகங்கள்</div>
     <div class="cp-status-legend">
       <span class="cp-legend-own">(ஆ) ஆட்சி</span>
       <span class="cp-legend-ucham">(உ) உச்சம்</span>
       <span class="cp-legend-neecham">(நீ) நீச்சம்</span>
     </div>
     <div class="cp-grid">
-      ${cards || '<div class="cp-item" style="grid-column:1/-1">தற்போதைய கிரகத் தகவல் இல்லை.</div>'}
+      ${cards || '<div class="cp-item" style="grid-column:1/-1">கொச்சார கிரகத் தகவல் இல்லை.</div>'}
     </div>`;
 
   box.style.display='block';
@@ -3929,28 +4018,99 @@ async function setCurrentPlanetsEnabled(enabled){
   }
 }
 
-document.getElementById('btnCurrentPlanets')?.addEventListener('click',async ()=>{
-  if(currentPlanetsEnabled){
-    // OFF: remove chart markings AND information box.
+document.getElementById('btnKotcharam')?.addEventListener('click',async ()=>{
+  const btn=document.getElementById('btnKotcharam');
+  const panchang=document.getElementById('todayPanchangCard');
+  const currentBox=ensureCurrentPlanetsInfoBox();
+  const bhavaBox=ensureCurrentPlanetBhavaTableBox();
+
+  // OFF = hide all three; no API request.
+  if(btn?.getAttribute('aria-pressed')==='true'){
     currentPlanetsEnabled=false;
     currentPlanetsForChart=null;
     currentPlanetDegrees={};
     currentPlanetsCalcDate='';
     clearCurrentPlanetsFromChart();
-    const box=document.getElementById('currentPlanetsInfoBox');
-    if(box) box.style.display='none';
+
+    if(panchang) panchang.style.display='none';
+    if(currentBox) currentBox.style.display='none';
+    if(bhavaBox){
+      bhavaBox.style.display='none';
+      bhavaBox.innerHTML='';
+    }
+    CPBH_MODE='';
+    btn.classList.remove('active');
+    btn.setAttribute('aria-pressed','false');
     updateCurrentPlanetsToggleUI();
+    updateCPBHToggleButtons();
     return;
   }
 
-  // ON: only this information box is shown.
-  if(typeof window.jpHideOtherFeatureInfo==='function'){
-    window.jpHideOtherFeatureInfo('currentPlanetsInfoBox');
+  const cal=document.getElementById('caldate');
+  if(!cal) return;
+
+  // If the calculation date is blank, use the current local date/time.
+  // This keeps Kotcharam fully user-triggered without requiring another API call.
+  if(!cal.value){
+    const now=new Date();
+    now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
+    cal.value=now.toISOString().slice(0,16);
   }
 
-  await setCurrentPlanetsEnabled(true);
-  if(currentPlanetsEnabled){
+  btn.disabled=true;
+  try{
+    /*
+      SINGLE API REQUEST:
+      The extended-planet response contains Sun + Moon + all 9 planets.
+      Panchangam is calculated locally from Sun/Moon in this SAME response.
+    */
+    const result=await fetchCurrentPlanetsForCalculationDate();
+
+    if(!result){
+      currentPlanetsEnabled=false;
+      clearCurrentPlanetsFromChart();
+      if(panchang) panchang.style.display='none';
+      if(currentBox) currentBox.style.display='none';
+      if(bhavaBox){
+        bhavaBox.style.display='none';
+        bhavaBox.innerHTML='';
+      }
+      alert(LANG==='ta' ? 'கொச்சார கிரகத் தகவலை பெற முடியவில்லை.' :
+        'Unable to fetch Kotcharam planet positions.');
+      return;
+    }
+
+    currentPlanetsEnabled=true;
+
+    // Current planets — SAME API response.
+    placeCurrentPlanetsOnChart(currentPlanetsForChart);
+    drawNavamsaChart();
     renderCurrentPlanetsCard();
+
+    // Panchangam — calculated locally from the SAME API response.
+    // No Panchangam API request is made here.
+    if(typeof window.jpFillPanchangFromPlanetResponse==='function'){
+      window.jpFillPanchangFromPlanetResponse(currentPlanetsForChart, cal.value);
+    }else{
+      throw new Error('Panchangam helper is not ready');
+    }
+
+    // Current Kiraga Thodarbugal — SAME API response, no fetch.
+    CPBH_MODE='current';
+    updateCPBHToggleButtons();
+    ensureCurrentPlanetBhavaTableBox();
+    renderCurrentPlanetBhavaTable();
+
+    btn.classList.add('active');
+    btn.setAttribute('aria-pressed','true');
+
+  }finally{
+    btn.disabled=false;
+    updateCurrentPlanetsToggleUI();
+    if(currentPlanetsEnabled){
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
+    }
   }
 });
 
@@ -3966,154 +4126,34 @@ document.getElementById('btnCurrentPlanets')?.addEventListener('click',async ()=
 */
 let currentPlanetsDateRequestId = 0;
 
-document.getElementById('caldate')?.addEventListener('change', async ()=>{
+document.getElementById('caldate')?.addEventListener('change', ()=>{
+  // Do not make an API request merely because the calculation date changed.
+  // The user must click கொச்சாரம் again; that click makes one request.
   if(!currentPlanetsEnabled) return;
 
-  const requestId = ++currentPlanetsDateRequestId;
-  const newValue = document.getElementById('caldate')?.value || '';
-
-  if(!newValue){
-    currentPlanetsForChart = null;
-    currentPlanetDegrees = {};
-    currentPlanetsCalcDate = '';
-    clearCurrentPlanetsFromChart();
-    renderCurrentPlanetsCard();
-    return;
-  }
-
-  // Remove the old green positions immediately.
+  currentPlanetsEnabled=false;
+  currentPlanetsForChart=null;
+  currentPlanetDegrees={};
+  currentPlanetsCalcDate='';
   clearCurrentPlanetsFromChart();
 
-  const box = ensureCurrentPlanetsInfoBox();
-  if(box){
-    box.style.display = 'block';
-    box.innerHTML =
-      '<div class="cp-title">தற்போதைய கிரகங்கள்</div>' +
-      '<div style="text-align:center;padding:10px;">' +
-      'புதிய கணிப்புக்கான கிரக நிலைகள் கணக்கிடப்படுகிறது...' +
-      '</div>';
+  const p=document.getElementById('todayPanchangCard');
+  const c=document.getElementById('currentPlanetsInfoBox');
+  const b=document.getElementById('currentPlanetBhavaTableBox');
+  if(p) p.style.display='none';
+  if(c) c.style.display='none';
+  if(b){ b.style.display='none'; b.innerHTML=''; }
+
+  CPBH_MODE='';
+  const btn=document.getElementById('btnKotcharam');
+  if(btn){
+    btn.classList.remove('active');
+    btn.setAttribute('aria-pressed','false');
   }
-
-  try{
-    const result = await fetchCurrentPlanetsForCalculationDate();
-
-    // Ignore an older API response if the user changed the date again.
-    if(requestId !== currentPlanetsDateRequestId) return;
-
-    if(result){
-      currentPlanetsEnabled = true;
-      placeCurrentPlanetsOnChart(result);
-      renderCurrentPlanetsCard();
-      updateCurrentPlanetsToggleUI();
-
-    }else{
-      clearCurrentPlanetsFromChart();
-      renderCurrentPlanetsCard();
-      updateCurrentPlanetsToggleUI();
-    }
-  }catch(e){
-    console.warn('Current planet date-change update failed:', e);
-    if(requestId === currentPlanetsDateRequestId){
-      clearCurrentPlanetsFromChart();
-      renderCurrentPlanetsCard();
-      updateCurrentPlanetsToggleUI();
-    }
-  }
+  updateCurrentPlanetsToggleUI();
+  updateCPBHToggleButtons();
 });
 
-// Start in OFF state.
-updateCurrentPlanetsToggleUI();
-
-async function jp_saveApiJathagar(){
-  const name=(document.getElementById('profileName')?.value||'').trim();
-  if(!name){
-    throw new Error(LANG==='ta' ? 'ஜாதகர் பெயரை முதலில் உள்ளிடவும்.' : 'Please enter Jathagar name first.');
-  }
-
-  const payload=jp_buildPayload();
-
-  if(window.__jpAuth?.currentUser && typeof jp_cloudSaveProfile==='function'){
-    await jp_cloudSaveProfile(name,payload);
-    try{ await jp_refreshProfileListCloud(); }catch(e){}
-  }else{
-    const map=jp_loadProfiles();
-    map[name]=payload;
-    jp_saveProfiles(map);
-    try{ jp_refreshProfileList(); }catch(e){}
-  }
-
-  const sel=document.getElementById('profileList');
-  if(sel) sel.value=name;
-}
-
-btnApi.addEventListener('click', async ()=>{
-  const jathagarName=(document.getElementById('profileName')?.value||'').trim();
-  if(!jathagarName){
-    alert(LANG==='ta'?'முதலில் ஜாதகர் பெயரை உள்ளிடவும்.':'Please enter the Jathagar name first.');
-    document.getElementById('profileName')?.focus();
-    return;
-  }
-  if(!selectedLat||!selectedLon){ alert(LANG==='ta'?'தயவுசெய்து இடம் தெரிவுசெய்யவும்!':'Please select a place!'); return; }
-  const dob=dob_api.value, tob=tob_api.value;
-  if(!dob||!tob){ alert(LANG==='ta'?'தேதி/நேரம் பூர்த்தி செய்யவும்!':'Please fill date/time!'); return; }
-  const [year,month,day]=dob.split('-').map(Number); const [hours,minutes]=tob.split(':').map(Number);
-  const payload={year,month,date:day,hours,minutes,seconds:0,latitude:selectedLat,longitude:selectedLon,timezone:5.5,settings:{observation_point:"geocentric",ayanamsha:"lahiri",language:"en"}};
-  try{
-    const res=await fetch('https://json.freeastrologyapi.com/planets/extended',{method:'POST',headers:{"Content-Type":"application/json","x-api-key":FREE_ASTRO_API_KEY},body:JSON.stringify(payload)});
-    if(!res.ok) throw new Error(`API error ${res.status}`);
-    const data=await res.json();
-    if(!data.output){ apiResult.textContent="API response missing planet data."; return; }
-    const planets=data.output; savedPlanetsForChart=planets;
-
-    // Preserve birth-chart retrograde status separately.
-    birthPlanetRetrograde = {};
-    Object.entries(planets).forEach(([k,obj])=>{
-      if(obj && typeof obj.fullDegree === 'number'){
-        birthPlanetRetrograde[k] = isPlanetRetrograde(obj);
-      }
-    });
-
-    // Fill Moon & Lagna (manual form)
-    const m=decToDMS(planets.Moon.fullDegree); moon_deg.value=m.deg; moon_min.value=m.min; moon_sec.value=m.sec;
-    const a=decToDMS(planets.Ascendant.fullDegree); lagna_deg.value=a.deg; lagna_min.value=a.min; lagna_sec.value=a.sec;
-    dob_.value = dob;
-
-    // Keep only allowed planets (store degrees; names show per-language)
-    const allow = ['Ascendant','Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Rahu','Ketu'];
-    planetDegrees={};
-    Object.keys(planets).forEach(k=>{ if(allow.includes(k) && typeof planets[k].fullDegree==='number') planetDegrees[k]=planets[k].fullDegree; });
-
-    ensurePlanetButtons();
-    drawChartGrid();
-    placePlanetsOnChart(savedPlanetsForChart);
-    applyMudakkuHighlight();
-    buildPlanetsTable(planets); // also reveals the card
-
-    // Birth Thithi + Yoga for the same birth date/time/place.
-    fetchBirthTithiAndYoga({year,month,date:day,hours,minutes,seconds:0,latitude:selectedLat,longitude:selectedLon})
-      .catch(e=>console.warn('Birth Thithi/Yoga failed:',e));
-
-    apiResult.textContent=(LANG==='ta'?'API planet data பெறப்பட்டது! சந்திரன்/லக்னம் auto-filled.':'API planet data fetched! Moon/Lagna auto-filled.');
-    apiDataFetched=true;
-
-    run();
-
-    // IMPORTANT: API result is automatically saved under the Jathagar name.
-    // Wait one tick so run() finishes updating all calculated fields first.
-    try{
-      await new Promise(resolve=>setTimeout(resolve,0));
-      await jp_saveApiJathagar();
-      apiResult.textContent=(LANG==='ta'
-        ? `ஜாதகம் கணக்கிடப்பட்டு “${jathagarName}” என்ற பெயரில் சேமிக்கப்பட்டது.`
-        : `Horoscope calculated and saved as “${jathagarName}”.`);
-    }catch(saveErr){
-      console.error('Automatic Jathagar save failed:',saveErr);
-      apiResult.textContent=(LANG==='ta'
-        ? 'கணக்கீடு முடிந்தது; ஆனால் ஜாதகர் பெயரில் சேமிக்க முடியவில்லை: '+saveErr.message
-        : 'Calculation completed, but automatic save failed: '+saveErr.message);
-    }
-  }catch(e){ apiResult.textContent='Error: '+e.message; }
-});
 /* ===== Pada animation (1..108) ===== */
 const anim = {
   running:false,
@@ -4161,6 +4201,7 @@ function stopPadaAnimation(){
   btnAnimate.classList.remove('active');
   btnAnimate.textContent = LABELS[LANG].animStart;
 }
+
 
 /* Button wiring */
 btnAnimate?.addEventListener('click', ()=>{
@@ -6478,7 +6519,7 @@ function placePlanetsOnNavamsaChart(){
     });
 
   // Current planets are shown in Navamsa ONLY while the
-  // 'தற்போதைய கிரகங்கள்' button is ON.
+  // 'கொச்சார கிரகங்கள்' button is ON.
   if(typeof currentPlanetsEnabled==='undefined' || currentPlanetsEnabled){
     Object.entries(current).forEach(([key,obj])=>{
       if(typeof CURRENT_PLANET_KEYS!=='undefined'&&CURRENT_PLANET_KEYS.includes(key)){
@@ -9430,6 +9471,50 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
     }
   }
 
+  // --- Current DBA highlight helpers ---
+  // Uses the same active Dasa/Puthi/Anthra path as the main Dasa tree.
+  function getCurrentDBAHighlightKeys(){
+    const out = {dasa:null, puthi:null, anthra:null};
+    try{
+      if(typeof vimData !== 'undefined' && Array.isArray(vimData) && vimData.length){
+        let path = (typeof vimCurrentPath !== 'undefined' && vimCurrentPath) ? vimCurrentPath : null;
+
+        if(!path && typeof window.findCurrentPath === 'function'){
+          path = window.findCurrentPath(vimData);
+        }
+
+        if(path){
+          const di = Number(path.dasa);
+          const pi = Number(path.puthi);
+          const ai = Number(path.anth);
+
+          const md = (di >= 0) ? vimData[di] : null;
+          const pt = (md && pi >= 0) ? md.puthis?.[pi] : null;
+          const at = (pt && ai >= 0) ? pt.antharas?.[ai] : null;
+
+          out.dasa   = md?.lordKey ? normalizePlanetKey(md.lordKey) : null;
+          out.puthi  = pt?.lordKey ? normalizePlanetKey(pt.lordKey) : null;
+          out.anthra = at?.lordKey ? normalizePlanetKey(at.lordKey) : null;
+        }
+      }
+    }catch(e){
+      console.warn('Current DBA highlight read error:', e);
+    }
+    return out;
+  }
+
+  function currentDBAHighlightClasses(apiKey){
+    const dba = getCurrentDBAHighlightKeys();
+    const key = normalizePlanetKey(apiKey);
+    const classes = [];
+
+    if(key && key === dba.dasa)   classes.push('dba-now-dasa');
+    if(key && key === dba.puthi)  classes.push('dba-now-puthi');
+    if(key && key === dba.anthra) classes.push('dba-now-anthra');
+
+    return classes.join(' ');
+  }
+
   // --- Render ---
   function render(planets, dob, now){
     const card = ensureSection();
@@ -9476,8 +9561,10 @@ document.getElementById('bhavaChooser')?.addEventListener('click', (ev)=>{
       const cur = toDMS(curDeg);
       const N = computeDBA(baseDeg, dob, now);
 
+      const dbaHighlight = currentDBAHighlightClasses(key);
+
       nT.insertAdjacentHTML('beforeend',
-        `<tr>
+        `<tr class="${dbaHighlight}">
           <td data-label="${hdrMap.th3Planet}">${planetLabelByLang(key)}</td>
           <td data-label="${hdrMap.th3DegNow}">${cur.d}° ${cur.m}′ ${cur.s}″</td>
           <td data-label="${hdrMap.th3Dasa}">${N.dasa.txt}</td>
@@ -10817,10 +10904,10 @@ document.addEventListener('click', ()=>{
 */
 (function(){
   const ids=[
-    'currentPlanetsInfoBox','alpInfoBox','mudakkuPariharaInfoBox',
+    'currentPlanetsInfoBox','currentPlanetBhavaTableBox','alpInfoBox','mudakkuPariharaInfoBox',
     'karanaInfoBox','vainasigamInfoBox','yogiAvayogiInfoBox',
     'dasaPlanetMeetings','puthiPlanetMeetings','dasaTablesCard',
-    'thithiSunyaCustomerBox'
+    'thithiSunyaCustomerBox','todayPanchangCard'
   ];
   function hideOthers(except){
     ids.forEach(id=>{
@@ -10857,7 +10944,7 @@ document.addEventListener('click', ()=>{
    JP ASTRO RESEARCH — BIRTH / CURRENT 9 PLANETS BHAVA THODARPUGAL
    Two buttons:
      1) பிறப்பு கிரக பாவக தொடர்புகள்
-     2) தற்போதைய கிரக பாவக தொடர்புகள்
+     2) கொச்சார கிரக தொடர்புகள்
 
    Rules:
    - Birth button uses savedPlanetsForChart.
@@ -11113,7 +11200,7 @@ function renderCurrentPlanetBhavaTable(){
     </tr>`;
   });
 
-  const modeTitle=CPBH_MODE==='birth'?'பிறப்பு கிரக பாவக தொடர்புகள்':'தற்போதைய கிரக பாவக தொடர்புகள்';
+  const modeTitle=CPBH_MODE==='birth'?'பிறப்பு கிரக பாவக தொடர்புகள்':'கொச்சார கிரக தொடர்புகள்';
   box.innerHTML=`<div class="cpbh-title">${modeTitle}</div>
     <div class="cpbh-subtitle">${cpbhModeText()}</div>
     <table id="currentPlanetBhavaTable"><thead><tr>
@@ -11375,7 +11462,8 @@ document.getElementById('caldate')?.addEventListener('change',()=>{
 <script>
 /* =========================================================
    JP ASTRO RESEARCH — TODAY'S PANCHANGAM
-   Loads automatically on every page load.
+   NOTE: This legacy loader is retained for compatibility only. It is NOT called on page load.
+   கொச்சாரம் uses the already-fetched extended-planet response instead.
    Uses the existing FreeAstrologyAPI planet calculation and
    the same Lahiri / geocentric settings already used by this page.
    Default location: Chennai when no selected/profile location exists.
@@ -11454,6 +11542,49 @@ document.getElementById('caldate')?.addEventListener('change',()=>{
     return d.toLocaleDateString('ta-IN',{day:'2-digit',month:'2-digit',year:'numeric'});
   }
 
+  // Fill Panchangam entirely from the Sun/Moon already returned by the
+  // Kotcharam extended-planet API. This function NEVER calls fetch().
+  function fillPanchangFromPlanetResponse(output, calculationValue){
+    const card=$('todayPanchangCard');
+    if(!card) return false;
+
+    const sun=Number(output?.Sun?.fullDegree);
+    const moon=Number(output?.Moon?.fullDegree);
+    if(!Number.isFinite(sun) || !Number.isFinite(moon)) return false;
+
+    let d=new Date();
+    if(calculationValue){
+      const parsed=new Date(calculationValue);
+      if(!Number.isNaN(parsed.getTime())) d=parsed;
+    }
+
+    const t=tithiFromSunMoon(sun,moon);
+    const y=yogaFromSunMoon(sun,moon);
+    const n=nakFromMoon(moon);
+    const k=karanaFromTithi(t);
+    const setText=(id,value)=>set(id,value);
+    const fmt=x=>x.toLocaleDateString('ta-IN',{day:'2-digit',month:'2-digit',year:'numeric'});
+
+    setText('todayPanchangDate',fmt(d));
+    setText('todayDateDetails',fmt(d));
+    setText('todayVaraName',TA_VAR[d.getDay()]||'—');
+    setText('todayNakshatraName',n.name||'—');
+    setText('todayNakshatraDetails',`பாதம் ${n.pada}`);
+    setText('todayTithiName',TA_TITHI[t.number]||'—');
+    setText('todayTithiDetails',`${t.paksha} • மீதம் ${t.left.toFixed(2)}%`);
+    setText('todayYogaName',TA_YOGA[y.name]||y.name||'—');
+    setText('todayYogaDetails',`எண் ${y.number} • மீதம் ${y.left.toFixed(2)}%`);
+    setText('todayKaranaName',k||'—');
+    setText('todayKaranaDetails',t.elapsed<50?'முதல் பாதி • முதல் கரணம்':'இரண்டாம் பாதி • இரண்டாம் கரணம்');
+
+    const status=$('todayPanchangStatus');
+    if(status) status.textContent='';
+    card.style.display='block';
+    return true;
+  }
+
+  window.jpFillPanchangFromPlanetResponse=fillPanchangFromPlanetResponse;
+
   async function loadTodayPanchang(){
     const card=$('todayPanchangCard');
     if(!card) return;
@@ -11504,8 +11635,9 @@ document.getElementById('caldate')?.addEventListener('change',()=>{
   window.jpLoadTodayPanchang=loadTodayPanchang;
 
   function init(){
-    // Do not change the existing birth-panchang flow. This is an independent card.
-    loadTodayPanchang();
+    // Panchangam is loaded only from the single Kotcharam API response.
+    const card=$('todayPanchangCard');
+    if(card) card.style.display='none';
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
